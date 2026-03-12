@@ -1425,13 +1425,13 @@ static const u8 sSecretKeyDesc[] = _(
     "GYM's entrance.");
 
 static const u8 sBikeVoucherDesc[] = _(
-    "A voucher for\n"
-    "obtaining a bicycle\n"
-    "from the BIKE SHOP.");
+    "A voucher for getting\n"
+    "a bicycle from the\n"
+    "CERULEAN BIKE SHOP.");
 
 static const u8 sGoldTeethDesc[] = _(
     "Gold dentures lost\n"
-    "by the SAFARI\n"
+    "by the KANTO SAFARI\n"
     "ZONE's WARDEN.");
 
 static const u8 sOldAmberDesc[] = _(
@@ -1485,7 +1485,7 @@ static const u8 sFameCheckerDesc[] = _(
     "for instant recall.");
 
 static const u8 sTMCaseDesc[] = _(
-    "A convenient case \n"
+    "A convenient case\n"
     "that holds TMs and\n"
     "HMs.");
 
@@ -1500,14 +1500,14 @@ static const u8 sTeachyTVDesc[] = _(
     "for TRAINERS.");
 
 static const u8 sTriPassDesc[] = _(
-    "A pass for ferries\n"
-    "between ONE, TWO,\n"
-    "and THREE ISLAND.");
+    "A pass required\n"
+    "to board the ferry\n"
+    "to ISLANDS 1-3.");
 
 static const u8 sRainbowPassDesc[] = _(
-    "For ferries serving\n"
-    "VERMILION and the\n"
-    "SEVII ISLANDS.");
+    "A pass required\n"
+    "to board the ferry\n"
+    "to ISLANDS 4-7.");
 
 static const u8 sTeaDesc[] = _(
     "A thirst-quenching\n"
@@ -1549,3 +1549,15 @@ static const u8 sOldSeaMapDesc[] = _(
     "A faded sea chart\n"
     "that shows the way\n"
     "to a certain island.");
+
+// Randomizer-specific key items
+
+static const u8 sEmeraldPassDesc[] = _(
+    "A pass required\n"
+    "to board the ship\n"
+    "to the HOENN region.");
+
+static const u8 sKantoPassDesc[] = _(
+    "A pass required\n"
+    "to board the ship\n"
+    "to the KANTO region.");

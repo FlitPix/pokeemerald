@@ -401,6 +401,9 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     // Emerald-only key items
     [ITEM_MAGMA_EMBLEM] = {gItemIcon_MagmaEmblem, gItemIconPalette_MagmaEmblem},
     [ITEM_OLD_SEA_MAP] = {gItemIcon_OldSeaMap, gItemIconPalette_OldSeaMap},
+    // Randomizer key items (temporarily question marks)
+    [ITEM_EMERALD_PASS] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_KANTO_PASS] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     // Return to field arrow
     [ITEMS_COUNT] = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };
