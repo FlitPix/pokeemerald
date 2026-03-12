@@ -4545,7 +4545,7 @@ const struct Item gItems[] =
 
     [ITEM_KANTO_PASS] =
     {
-        .name = _("KANTO PASS")
+        .name = _("KANTO PASS"),
         .itemId = ITEM_KANTO_PASS,
         .price = 0,
         .description = sKantoPassDesc,
