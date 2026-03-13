@@ -37,6 +37,8 @@
 #include "title_screen.h"
 #include "window.h"
 #include "mystery_gift_menu.h"
+#include "new_game.h"
+#include "starter_choose.h"
 
 /*
  * Main menu state machine
@@ -143,8 +145,15 @@
  * Task_NewGameBirchSpeech_SoItsPlayerName
  * Task_NewGameBirchSpeech_CreateNameYesNo
  * Task_NewGameBirchSpeech_ProcessNameYesNoMenu
- *  - If confirmed, advance to Task_NewGameBirchSpeech_SlidePlatformAway2.
+ *  - If confirmed, advance to Task_NewGameBirchSpeech_WhatTimeIsIt.
  *  - Otherwise, return to Task_NewGameBirchSpeech_BoyOrGirl.
+ *
+ * Task_NewGameBirchSpeech_WhatTimeIsIt
+ * Task_NewGameBirchSpeech_WaitForWhatTimeIsItToPrint
+ * Task_NewGameBirchSpeech_WaitPressBeforeStartWallClock
+ * Task_NewGameBirchSpeech_StartWallClock
+ *
+ * Task_NewGameBirchSpeech_ChooseStarter
  *
  * Task_NewGameBirchSpeech_SlidePlatformAway2
  * Task_NewGameBirchSpeech_ReshowBirchLotad
@@ -228,6 +237,10 @@ static void NewGameBirchSpeech_SetDefaultPlayerName(u8);
 static void Task_NewGameBirchSpeech_CreateNameYesNo(u8);
 static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8);
 void CreateYesNoMenuParameterized(u8, u8, u16, u16, u8, u8);
+static void Task_NewGameBirchSpeech_WhatTimeIsIt(u8);
+static void Task_NewGameBirchSpeech_WaitForWhatTimeIsItToPrint(u8);
+static void Task_NewGameBirchSpeech_WaitPressBeforeStartWallClock(u8);
+static void Task_NewGameBirchSpeech_StartWallClock(u8);
 static void Task_NewGameBirchSpeech_SlidePlatformAway2(u8);
 static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8);
 static void Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter(u8);
@@ -1629,6 +1642,7 @@ static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8 taskId)
     {
         case 0:
             PlaySE(SE_SELECT);
+            NewGameInitData();
             gSprites[gTasks[taskId].tPlayerSpriteId].oam.objMode = ST_OAM_OBJ_BLEND;
             NewGameBirchSpeech_StartFadeOutTarget1InTarget2(taskId, 2);
             NewGameBirchSpeech_StartFadePlatformIn(taskId, 1);
