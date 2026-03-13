@@ -211,7 +211,7 @@ void ItemUseOutOfBattle_Bike(u8 taskId)
     }
     else
     {
-        if (Overworld_IsBikingAllowed() == TRUE && IsBikingDisallowedByPlayer() == 0)
+        if (IsBikingDisallowedByPlayer() == 0)
         {
             sItemUseOnFieldCB = ItemUseOnFieldCB_Bike;
             SetUpItemUseOnFieldCallback(taskId);
