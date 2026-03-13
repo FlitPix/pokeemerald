@@ -4543,10 +4543,22 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_KANTO_PASS] =
+    [ITEM_FIRE_PASS] =
     {
-        .name = _("KANTO PASS"),
-        .itemId = ITEM_KANTO_PASS,
+        .name = _("FIRE PASS"),
+        .itemId = ITEM_FIRE_PASS,
+        .price = 0,
+        .description = sKantoPassDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_LEAF_PASS] =
+    {
+        .name = _("LEAF PASS"),
+        .itemId = ITEM_LEAF_PASS,
         .price = 0,
         .description = sKantoPassDesc,
         .importance = 1,
