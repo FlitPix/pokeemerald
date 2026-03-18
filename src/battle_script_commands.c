@@ -10070,9 +10070,7 @@ static void Cmd_givecaughtmon(void)
             gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SOMEONES_BOX_FULL;
         }
 
-        // Change to B_MSG_SENT_LANETTES_PC or B_MSG_LANETTES_BOX_FULL
-        if (FlagGet(FLAG_SYS_PC_LANETTE))
-            gBattleCommunication[MULTISTRING_CHOOSER]++;
+        gBattleCommunication[MULTISTRING_CHOOSER]++;
     }
 
     gBattleResults.caughtMonSpecies = GetMonData(&gEnemyParty[gBattlerPartyIndexes[BATTLE_OPPOSITE(gBattlerAttacker)]], MON_DATA_SPECIES, NULL);

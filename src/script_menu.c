@@ -363,12 +363,7 @@ static void CreatePCMultichoice(void)
         AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_LogOff, x, 33, TEXT_SKIP_DRAW, NULL);
     }
 
-    // Change PC name if player has met Lanette
-    if (FlagGet(FLAG_SYS_PC_LANETTE))
-        AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_LanettesPC, x, 1, TEXT_SKIP_DRAW, NULL);
-    else
-        AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_SomeonesPC, x, 1, TEXT_SKIP_DRAW, NULL);
-
+    AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_LanettesPC, x, 1, TEXT_SKIP_DRAW, NULL);
     StringExpandPlaceholders(gStringVar4, gText_PlayersPC);
     PrintPlayerNameOnWindow(windowId, gStringVar4, x, 17);
     InitMenuInUpperLeftCornerNormal(windowId, numChoices, 0);

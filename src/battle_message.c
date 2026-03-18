@@ -2629,10 +2629,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 HANDLE_NICKNAME_STRING_CASE(gBattleScripting.battler, *(&gBattleStruct->scriptPartyIdx))
                 break;
             case B_TXT_PC_CREATOR_NAME: // lanette pc
-                if (FlagGet(FLAG_SYS_PC_LANETTE))
-                    toCpy = sText_Lanettes;
-                else
-                    toCpy = sText_Someones;
+                toCpy = sText_Lanettes;
                 break;
             case B_TXT_ATK_PREFIX2:
                 if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)

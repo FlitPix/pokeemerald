@@ -16,8 +16,7 @@ Common_EventScript_NameReceivedBoxMon::
 Common_EventScript_TransferredToPC::
 	bufferboxname STR_VAR_1, VAR_PC_BOX_TO_SEND_MON
 	bufferspeciesname STR_VAR_2, VAR_TEMP_TRANSFERRED_SPECIES
-	call_if_unset FLAG_SYS_PC_LANETTE, EventScript_TransferredSomeonesPC
-	call_if_set FLAG_SYS_PC_LANETTE, EventScript_TransferredLanettesPC
+	call EventScript_TransferredLanettesPC
 	return
 
 EventScript_TransferredSomeonesPC::

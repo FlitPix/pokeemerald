@@ -724,8 +724,7 @@ static void DisplaySentToPCMessage(void)
         stringToDisplay = 2;
     }
 
-    if (FlagGet(FLAG_SYS_PC_LANETTE))
-        stringToDisplay++;
+    stringToDisplay++;
 
     StringExpandPlaceholders(gStringVar4, sTransferredToPCMessages[stringToDisplay]);
     DrawDialogueFrame(0, FALSE);
