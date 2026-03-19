@@ -380,8 +380,12 @@
 #define STRINGID_TRAINER2WINTEXT            380
 #define STRINGID_PLAYERLOSTTOENEMYTRAINER   381
 #define STRINGID_PLAYERPAIDPRIZEMONEY       382
+#define STRINGID_PLAYERRUNCONFIRM           383
+#define STRINGID_PLAYERRUNDEATHLINKCONFIRM  384
+#define STRINGID_PLAYEROUTOFUSABLEPOKEMON   385
+#define STRINGID_PLAYERFORFEITEDAGAINSTTRAINER 386
 
-#define BATTLESTRINGS_COUNT                 383
+#define BATTLESTRINGS_COUNT                 387
 
 // This is the string id that gBattleStringsTable starts with.
 // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,

@@ -411,6 +411,15 @@ bool8 TryRunFromBattle(u8 battler)
     u8 pyramidMultiplier;
     u8 speedVar;
 
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
+         && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK)))
+    {
+        gCurrentTurnActionNumber = gBattlersCount;
+        gBattleOutcome = B_OUTCOME_LOST;
+        effect = TRUE;
+        return effect;
+    }
+
     if (gBattleMons[battler].item == ITEM_ENIGMA_BERRY)
         holdEffect = gEnigmaBerries[battler].holdEffect;
     else

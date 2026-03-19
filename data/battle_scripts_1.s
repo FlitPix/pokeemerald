@@ -2957,6 +2957,16 @@ BattleScript_LocalBattleLostPrintWhiteOut::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 BattleScript_LocalBattleLostEnd::
+	printstring STRINGID_PLAYEROUTOFUSABLEPOKEMON
+	printstring STRINGID_PLAYERLOSTTOENEMYTRAINER
+	waitmessage B_WAIT_TIME_LONG
+	getmoneyreward
+	printstring STRINGID_PLAYERPAIDPRIZEMONEY
+	waitmessage B_WAIT_TIME_LONG
+	end2
+BattleScript_LocalBattleLostForfeit::
+	setbyte gBattleOutcome, B_OUTCOME_LOST
+	printstring STRINGID_PLAYERFORFEITEDAGAINSTTRAINER
 	printstring STRINGID_PLAYERLOSTTOENEMYTRAINER
 	waitmessage B_WAIT_TIME_LONG
 	getmoneyreward
@@ -3074,6 +3084,13 @@ BattleScript_GotAwaySafely::
 BattleScript_WildMonFled::
 	printstring STRINGID_WILDPKMNFLED
 	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_ConfirmRunFromTrainer::
+	printstring STRINGID_PLAYERRUNCONFIRM
+	setbyte gBattleCommunication, 0
+	yesnobox
+	jumpifbyte CMP_EQUAL, gBattleCommunication + 1, 0, BattleScript_LocalBattleLostForfeit
 	end2
 
 BattleScript_PrintCantRunFromTrainer::

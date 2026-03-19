@@ -328,6 +328,8 @@ static const u8 sText_PlayerBattledToDrawVsTwo[] = _("Player battled to a draw a
 static const u8 sText_WildFled[] = _("{PLAY_SE SE_FLEE}{B_LINK_OPPONENT1_NAME} fled!");
 static const u8 sText_TwoWildFled[] = _("{PLAY_SE SE_FLEE}{B_LINK_OPPONENT1_NAME} and\n{B_LINK_OPPONENT2_NAME} fled!");
 static const u8 sText_NoRunningFromTrainers[] = _("No! There's no running\nfrom a TRAINER battle!\p");
+static const u8 sText_PlayerRunConfirm[] = _("Are you sure you want to run?\nRunning from a TRAINER battle\lcounts as a loss.");
+static const u8 sText_PlayerRunDeathLinkConfirm[] = _("WARNING: DEATH LINK is enabled.\pAre you absolutely sure\nyou want to run?");
 static const u8 sText_CantEscape[] = _("Can't escape!\p");
 static const u8 sText_DontLeaveBirch[] = _("PROF. BIRCH: Don't leave me like this!\p");
 static const u8 sText_ButNothingHappened[] = _("But nothing happened!");
@@ -497,7 +499,9 @@ static const u8 sText_ItemAllowsOnlyYMove[] = _("{B_LAST_ITEM} allows the\nuse o
 static const u8 sText_PkmnHungOnWithX[] = _("{B_DEF_NAME_WITH_PREFIX} hung on\nusing its {B_LAST_ITEM}!");
 const u8 gText_EmptyString3[] = _("");
 static const u8 sText_YouThrowABallNowRight[] = _("You throw a BALL now, right?\nI… I'll do my best!");
-static const u8 sText_PlayerLostToEnemyTrainer[] = _("{B_PLAYER_NAME} is out of usable POKéMON!\p{B_PLAYER_NAME} lost against\n{B_TRAINER1_CLASS} {B_TRAINER1_NAME}!{PAUSE_UNTIL_PRESS}");
+static const u8 sText_PlayerOutOfUsablePokemon[] = _("{B_PLAYER_NAME} is out of usable POKéMON!\p");
+static const u8 sText_PlayerForfeitedAgainstTrainer[] = _("{B_PLAYER_NAME} forfeited the match!\p");
+static const u8 sText_PlayerLostToEnemyTrainer[] = _("{B_PLAYER_NAME} lost against\n{B_TRAINER1_CLASS} {B_TRAINER1_NAME}!{PAUSE_UNTIL_PRESS}");
 static const u8 sText_PlayerPaidPrizeMoney[] = _("{B_PLAYER_NAME} paid ¥{B_BUFF1} as the prize money…\p… … … …\p{B_PLAYER_NAME} whited out!{PAUSE_UNTIL_PRESS}");
 
 // early declaration of strings
@@ -732,6 +736,8 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_GOTAWAYSAFELY - BATTLESTRINGS_TABLE_START] = sText_GotAwaySafely,
     [STRINGID_WILDPKMNFLED - BATTLESTRINGS_TABLE_START] = sText_WildPkmnFled,
     [STRINGID_NORUNNINGFROMTRAINERS - BATTLESTRINGS_TABLE_START] = sText_NoRunningFromTrainers,
+    [STRINGID_PLAYERRUNCONFIRM - BATTLESTRINGS_TABLE_START] = sText_PlayerRunConfirm,
+    [STRINGID_PLAYERRUNDEATHLINKCONFIRM - BATTLESTRINGS_TABLE_START] = sText_PlayerRunDeathLinkConfirm,
     [STRINGID_CANTESCAPE - BATTLESTRINGS_TABLE_START] = sText_CantEscape,
     [STRINGID_DONTLEAVEBIRCH - BATTLESTRINGS_TABLE_START] = sText_DontLeaveBirch,
     [STRINGID_BUTNOTHINGHAPPENED - BATTLESTRINGS_TABLE_START] = sText_ButNothingHappened,
@@ -840,6 +846,8 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PKMNSXINTENSIFIEDSUN - BATTLESTRINGS_TABLE_START] = sText_PkmnsXIntensifiedSun,
     [STRINGID_PKMNMAKESGROUNDMISS - BATTLESTRINGS_TABLE_START] = sText_PkmnMakesGroundMiss,
     [STRINGID_YOUTHROWABALLNOWRIGHT - BATTLESTRINGS_TABLE_START] = sText_YouThrowABallNowRight,
+    [STRINGID_PLAYEROUTOFUSABLEPOKEMON - BATTLESTRINGS_TABLE_START] = sText_PlayerOutOfUsablePokemon,
+    [STRINGID_PLAYERFORFEITEDAGAINSTTRAINER - BATTLESTRINGS_TABLE_START] = sText_PlayerForfeitedAgainstTrainer,
     [STRINGID_PLAYERLOSTTOENEMYTRAINER - BATTLESTRINGS_TABLE_START] = sText_PlayerLostToEnemyTrainer,
     [STRINGID_PLAYERPAIDPRIZEMONEY - BATTLESTRINGS_TABLE_START] = sText_PlayerPaidPrizeMoney,
     [STRINGID_PKMNSXTOOKATTACK - BATTLESTRINGS_TABLE_START] = sText_PkmnsXTookAttack,
