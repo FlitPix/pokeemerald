@@ -3088,10 +3088,8 @@ BattleScript_WildMonFled::
 
 BattleScript_ConfirmRunFromTrainer::
 	printstring STRINGID_PLAYERRUNCONFIRM
-	setbyte gBattleCommunication, 0
-	yesnobox
-	jumpifbyte CMP_EQUAL, gBattleCommunication + 1, 0, BattleScript_LocalBattleLostForfeit
-	end2
+	forfeityesnobox BS_ATTACKER
+	endselectionscript
 
 BattleScript_PrintCantRunFromTrainer::
 	printstring STRINGID_NORUNNINGFROMTRAINERS
