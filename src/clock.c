@@ -11,6 +11,7 @@
 #include "time_events.h"
 #include "tv.h"
 #include "wallclock.h"
+#include "main_menu.h"
 
 static void UpdatePerDay(struct Time *localTime);
 static void UpdatePerMinute(struct Time *localTime);
@@ -76,7 +77,7 @@ static void UpdatePerMinute(struct Time *localTime)
 static void ReturnFromStartWallClock(void)
 {
     InitTimeBasedEvents();
-    SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+    SetMainCallback2(CB2_NewGameBirchSpeech_ReturnFromWallClock);
 }
 
 void StartWallClock(void)

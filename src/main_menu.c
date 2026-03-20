@@ -39,6 +39,7 @@
 #include "mystery_gift_menu.h"
 #include "new_game.h"
 #include "starter_choose.h"
+#include "clock.h"
 
 /*
  * Main menu state machine
@@ -145,18 +146,27 @@
  * Task_NewGameBirchSpeech_SoItsPlayerName
  * Task_NewGameBirchSpeech_CreateNameYesNo
  * Task_NewGameBirchSpeech_ProcessNameYesNoMenu
- *  - If confirmed, advance to Task_NewGameBirchSpeech_WhatTimeIsIt.
+ *  - If confirmed, advance to Task_NewGameBirchSpeech_SlidePlatformAway2.
  *  - Otherwise, return to Task_NewGameBirchSpeech_BoyOrGirl.
+ * Task_NewGameBirchSpeech_SlidePlatformAway2
+ * Task_NewGameBirchSpeech_ReshowBirchLotad
  *
  * Task_NewGameBirchSpeech_WhatTimeIsIt
  * Task_NewGameBirchSpeech_WaitForWhatTimeIsItToPrint
- * Task_NewGameBirchSpeech_WaitPressBeforeStartWallClock
+ * Task_NewGameBirchSpeech_WaitPressBeforeWallClock
  * Task_NewGameBirchSpeech_StartWallClock
+ *  - Returns to CB2_NewGameBirchSpeech_ReturnFromWallClock when done
+ * CB2_NewGameBirchSpeech_ReturnFromWallClock
+ * Task_NewGameBirchSpeech_ReturnFromWallClockShowTextbox
  *
+ * Task_NewGameBirchSpeech_ChooseYourPartner
+ * Task_NewGameBirchSpeech_WaitForChooseYourPartnerToPrint
+ * Task_NewGameBirchSpeech_WaitPressBeforeChooseStarter
  * Task_NewGameBirchSpeech_ChooseStarter
+ *  - Returns to CB2_NewGameBirchSpeech_ReturnFromStarters when done
+ * CB2_NewGameBirchSpeech_ReturnFromStarters
+ * Task_NewGameBirchSpeech_ReturnFromStarterShowTextbox
  *
- * Task_NewGameBirchSpeech_SlidePlatformAway2
- * Task_NewGameBirchSpeech_ReshowBirchLotad
  * Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter
  * Task_NewGameBirchSpeech_AreYouReady
  * Task_NewGameBirchSpeech_ShrinkPlayer
@@ -233,14 +243,19 @@ static void Task_NewGameBirchSpeech_WaitForWhatsYourNameToPrint(u8);
 static void Task_NewGameBirchSpeech_WaitPressBeforeNameChoice(u8);
 static void Task_NewGameBirchSpeech_StartNamingScreen(u8);
 static void CB2_NewGameBirchSpeech_ReturnFromNamingScreen(void);
+static void CB2_NewGameBirchSpeech_ReturnFromWallClock(void);
+static void CB2_NewGameBirchSpeech_ReturnFromStarters(void);
 static void NewGameBirchSpeech_SetDefaultPlayerName(u8);
 static void Task_NewGameBirchSpeech_CreateNameYesNo(u8);
 static void Task_NewGameBirchSpeech_ProcessNameYesNoMenu(u8);
 void CreateYesNoMenuParameterized(u8, u8, u16, u16, u8, u8);
 static void Task_NewGameBirchSpeech_WhatTimeIsIt(u8);
 static void Task_NewGameBirchSpeech_WaitForWhatTimeIsItToPrint(u8);
-static void Task_NewGameBirchSpeech_WaitPressBeforeStartWallClock(u8);
+static void Task_NewGameBirchSpeech_WaitPressBeforeWallClock(u8);
 static void Task_NewGameBirchSpeech_StartWallClock(u8);
+static void Task_NewGameBirchSpeech_ChooseYourPartner(u8);
+static void Task_NewGameBirchSpeech_WaitForChooseYourPartnerToPrint(u8);
+static void Task_NewGameBirchSpeech_WaitPressBeforeChooseStarter(u8);
 static void Task_NewGameBirchSpeech_SlidePlatformAway2(u8);
 static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8);
 static void Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter(u8);
@@ -252,6 +267,8 @@ static void Task_NewGameBirchSpeech_FadePlayerToWhite(u8);
 static void Task_NewGameBirchSpeech_Cleanup(u8);
 static void SpriteCB_Null(struct Sprite *);
 static void Task_NewGameBirchSpeech_ReturnFromNamingScreenShowTextbox(u8);
+static void Task_NewGameBirchSpeech_ReturnFromWallClockShowTextbox(u8);
+static void Task_NewGameBirchSpeech_ReturnFromStarterShowTextbox(u8);
 static void MainMenu_FormatSavegamePlayer(void);
 static void MainMenu_FormatSavegamePokedex(void);
 static void MainMenu_FormatSavegameTime(void);
@@ -1348,7 +1365,7 @@ static void Task_NewGameBirchSpeech_WaitForSpriteFadeInWelcome(u8 taskId)
             PutWindowTilemap(0);
             CopyWindowToVram(0, COPYWIN_GFX);
             NewGameBirchSpeech_ClearWindow(0);
-            StringExpandPlaceholders(gStringVar4, gText_Birch_Welcome);
+            StringExpandPlaceholders(gStringVar4, gText_Birch_Welcome_Emerald);
             AddTextPrinterForMessage(TRUE);
             gTasks[taskId].func = Task_NewGameBirchSpeech_ThisIsAPokemon;
         }
@@ -1691,7 +1708,71 @@ static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8 taskId)
         NewGameBirchSpeech_ClearWindow(0);
         StringExpandPlaceholders(gStringVar4, gText_Birch_YourePlayer);
         AddTextPrinterForMessage(TRUE);
-        gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter;
+        gTasks[taskId].func = Task_NewGameBirchSpeech_WhatTimeIsIt;
+    }
+}
+
+static void Task_NewGameBirchSpeech_WhatTimeIsIt(u8 taskId)
+{
+    if (gTasks[taskId].tIsDoneFadingSprites)
+    {
+        gSprites[gTasks[taskId].tBirchSpriteId].oam.objMode = ST_OAM_OBJ_NORMAL;
+        gSprites[gTasks[taskId].tLotadSpriteId].oam.objMode = ST_OAM_OBJ_NORMAL;
+        if (!RunTextPrintersAndIsPrinter0Active())
+        {
+            StringExpandPlaceholders(gStringVar4, gText_Birch_WhatTimeIsIt);
+            AddTextPrinterForMessage(TRUE);
+            gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForWhatTimeIsItToPrint;
+        }
+    }
+}
+
+static void Task_NewGameBirchSpeech_WaitForWhatTimeIsItToPrint(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+        gTasks[taskId].func = Task_NewGameBirchSpeech_WaitPressBeforeWallClock;
+}
+
+static void Task_NewGameBirchSpeech_WaitPressBeforeWallClock(u8 taskId)
+{
+    if ((JOY_NEW(A_BUTTON)) || (JOY_NEW(B_BUTTON)))
+    {
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_StartWallClock;
+    }
+}
+
+static void Task_NewGameBirchSpeech_StartWallClock(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        FreeAllWindowBuffers();
+        FreeAndDestroyMonPicSprite(gTasks[taskId].tLotadSpriteId);
+        DestroyTask(taskId);
+        StartWallClock();
+    }
+}
+
+static void Task_NewGameBirchSpeech_ChooseYourPartner(u8 taskId)
+{
+    NewGameBirchSpeech_ClearWindow(0);
+    StringExpandPlaceholders(gStringVar4, gText_Birch_ChooseYourPartner);
+    AddTextPrinterForMessage(TRUE);
+    gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForChooseYourPartnerToPrint;
+}
+
+static void Task_NewGameBirchSpeech_WaitForChooseYourPartnerToPrint(u8 taskId)
+{
+    if (!RunTextPrintersAndIsPrinter0Active())
+        gTasks[taskId].func = Task_NewGameBirchSpeech_WaitPressBeforeChooseStarter;
+}
+
+static void Task_NewGameBirchSpeech_WaitPressBeforeChooseStarter(u8 taskId)
+{
+    if ((JOY_NEW(A_BUTTON)) || (JOY_NEW(B_BUTTON)))
+    {
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_AreYouReady; // TODO: Task_NewGameBirchSpeech_ChooseStarter
     }
 }
 
@@ -1830,6 +1911,158 @@ static void CB2_NewGameBirchSpeech_ReturnFromNamingScreen(void)
     LoadPalette(&sBirchSpeechBgGradientPal[1], BG_PLTT_ID(0) + 1, PLTT_SIZEOF(8));
     ResetTasks();
     taskId = CreateTask(Task_NewGameBirchSpeech_ReturnFromNamingScreenShowTextbox, 0);
+    gTasks[taskId].tTimer = 5;
+    gTasks[taskId].tBG1HOFS = -60;
+    ScanlineEffect_Stop();
+    ResetSpriteData();
+    FreeAllSpritePalettes();
+    ResetAllPicSprites();
+    AddBirchSpeechObjects(taskId);
+    if (gSaveBlock2Ptr->playerGender != MALE)
+    {
+        gTasks[taskId].tPlayerGender = FEMALE;
+        spriteId = gTasks[taskId].tMaySpriteId;
+    }
+    else
+    {
+        gTasks[taskId].tPlayerGender = MALE;
+        spriteId = gTasks[taskId].tBrendanSpriteId;
+    }
+    gSprites[spriteId].x = 180;
+    gSprites[spriteId].y = 60;
+    gSprites[spriteId].invisible = FALSE;
+    gTasks[taskId].tPlayerSpriteId = spriteId;
+    SetGpuReg(REG_OFFSET_BG1HOFS, -60);
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
+    SetGpuReg(REG_OFFSET_WIN0H, 0);
+    SetGpuReg(REG_OFFSET_WIN0V, 0);
+    SetGpuReg(REG_OFFSET_WININ, 0);
+    SetGpuReg(REG_OFFSET_WINOUT, 0);
+    SetGpuReg(REG_OFFSET_BLDCNT, 0);
+    SetGpuReg(REG_OFFSET_BLDALPHA, 0);
+    SetGpuReg(REG_OFFSET_BLDY, 0);
+    ShowBg(0);
+    ShowBg(1);
+    savedIme = REG_IME;
+    REG_IME = 0;
+    REG_IE |= 1;
+    REG_IME = savedIme;
+    SetVBlankCallback(VBlankCB_MainMenu);
+    SetMainCallback2(CB2_MainMenu);
+    InitWindows(sNewGameBirchSpeechTextWindows);
+    LoadMainMenuWindowFrameTiles(0, 0xF3);
+    LoadMessageBoxGfx(0, BIRCH_DLG_BASE_TILE_NUM, BG_PLTT_ID(15));
+    PutWindowTilemap(0);
+    CopyWindowToVram(0, COPYWIN_FULL);
+}
+
+static void CB2_NewGameBirchSpeech_ReturnFromWallClock(void)
+{
+    u8 taskId;
+    u8 spriteId;
+    u16 savedIme;
+
+    ResetBgsAndClearDma3BusyFlags(0);
+    SetGpuReg(REG_OFFSET_DISPCNT, 0);
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
+    InitBgsFromTemplates(0, sMainMenuBgTemplates, ARRAY_COUNT(sMainMenuBgTemplates));
+    InitBgFromTemplate(&sBirchBgTemplate);
+    SetVBlankCallback(NULL);
+    SetGpuReg(REG_OFFSET_BG2CNT, 0);
+    SetGpuReg(REG_OFFSET_BG1CNT, 0);
+    SetGpuReg(REG_OFFSET_BG0CNT, 0);
+    SetGpuReg(REG_OFFSET_BG2HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG2VOFS, 0);
+    SetGpuReg(REG_OFFSET_BG1HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG1VOFS, 0);
+    SetGpuReg(REG_OFFSET_BG0HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG0VOFS, 0);
+    DmaFill16(3, 0, VRAM, VRAM_SIZE);
+    DmaFill32(3, 0, OAM, OAM_SIZE);
+    DmaFill16(3, 0, PLTT, PLTT_SIZE);
+    ResetPaletteFade();
+    LZ77UnCompVram(sBirchSpeechShadowGfx, (u8 *)VRAM);
+    LZ77UnCompVram(sBirchSpeechBgMap, (u8 *)(BG_SCREEN_ADDR(7)));
+    LoadPalette(sBirchSpeechBgPals, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
+    LoadPalette(&sBirchSpeechBgGradientPal[1], BG_PLTT_ID(0) + 1, PLTT_SIZEOF(8));
+    ResetTasks();
+    taskId = CreateTask(Task_NewGameBirchSpeech_ReturnFromWallClockShowTextbox, 0);
+    gTasks[taskId].tTimer = 5;
+    gTasks[taskId].tBG1HOFS = -60;
+    ScanlineEffect_Stop();
+    ResetSpriteData();
+    FreeAllSpritePalettes();
+    ResetAllPicSprites();
+    AddBirchSpeechObjects(taskId);
+    if (gSaveBlock2Ptr->playerGender != MALE)
+    {
+        gTasks[taskId].tPlayerGender = FEMALE;
+        spriteId = gTasks[taskId].tMaySpriteId;
+    }
+    else
+    {
+        gTasks[taskId].tPlayerGender = MALE;
+        spriteId = gTasks[taskId].tBrendanSpriteId;
+    }
+    gSprites[spriteId].x = 180;
+    gSprites[spriteId].y = 60;
+    gSprites[spriteId].invisible = FALSE;
+    gTasks[taskId].tPlayerSpriteId = spriteId;
+    SetGpuReg(REG_OFFSET_BG1HOFS, -60);
+    BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
+    SetGpuReg(REG_OFFSET_WIN0H, 0);
+    SetGpuReg(REG_OFFSET_WIN0V, 0);
+    SetGpuReg(REG_OFFSET_WININ, 0);
+    SetGpuReg(REG_OFFSET_WINOUT, 0);
+    SetGpuReg(REG_OFFSET_BLDCNT, 0);
+    SetGpuReg(REG_OFFSET_BLDALPHA, 0);
+    SetGpuReg(REG_OFFSET_BLDY, 0);
+    ShowBg(0);
+    ShowBg(1);
+    savedIme = REG_IME;
+    REG_IME = 0;
+    REG_IE |= 1;
+    REG_IME = savedIme;
+    SetVBlankCallback(VBlankCB_MainMenu);
+    SetMainCallback2(CB2_MainMenu);
+    InitWindows(sNewGameBirchSpeechTextWindows);
+    LoadMainMenuWindowFrameTiles(0, 0xF3);
+    LoadMessageBoxGfx(0, BIRCH_DLG_BASE_TILE_NUM, BG_PLTT_ID(15));
+    PutWindowTilemap(0);
+    CopyWindowToVram(0, COPYWIN_FULL);
+}
+
+static void CB2_NewGameBirchSpeech_ReturnFromStarters(void)
+{
+    u8 taskId;
+    u8 spriteId;
+    u16 savedIme;
+
+    ResetBgsAndClearDma3BusyFlags(0);
+    SetGpuReg(REG_OFFSET_DISPCNT, 0);
+    SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
+    InitBgsFromTemplates(0, sMainMenuBgTemplates, ARRAY_COUNT(sMainMenuBgTemplates));
+    InitBgFromTemplate(&sBirchBgTemplate);
+    SetVBlankCallback(NULL);
+    SetGpuReg(REG_OFFSET_BG2CNT, 0);
+    SetGpuReg(REG_OFFSET_BG1CNT, 0);
+    SetGpuReg(REG_OFFSET_BG0CNT, 0);
+    SetGpuReg(REG_OFFSET_BG2HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG2VOFS, 0);
+    SetGpuReg(REG_OFFSET_BG1HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG1VOFS, 0);
+    SetGpuReg(REG_OFFSET_BG0HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG0VOFS, 0);
+    DmaFill16(3, 0, VRAM, VRAM_SIZE);
+    DmaFill32(3, 0, OAM, OAM_SIZE);
+    DmaFill16(3, 0, PLTT, PLTT_SIZE);
+    ResetPaletteFade();
+    LZ77UnCompVram(sBirchSpeechShadowGfx, (u8 *)VRAM);
+    LZ77UnCompVram(sBirchSpeechBgMap, (u8 *)(BG_SCREEN_ADDR(7)));
+    LoadPalette(sBirchSpeechBgPals, BG_PLTT_ID(0), 2 * PLTT_SIZE_4BPP);
+    LoadPalette(&sBirchSpeechBgGradientPal[1], BG_PLTT_ID(0) + 1, PLTT_SIZEOF(8));
+    ResetTasks();
+    taskId = CreateTask(Task_NewGameBirchSpeech_ReturnFromStarterShowTextbox, 0);
     gTasks[taskId].tTimer = 5;
     gTasks[taskId].tBG1HOFS = -60;
     ScanlineEffect_Stop();
@@ -2314,6 +2547,24 @@ static void Task_NewGameBirchSpeech_ReturnFromNamingScreenShowTextbox(u8 taskId)
     {
         NewGameBirchSpeech_ShowDialogueWindow(0, 1);
         gTasks[taskId].func = Task_NewGameBirchSpeech_SoItsPlayerName;
+    }
+}
+
+static void Task_NewGameBirchSpeech_ReturnFromWallClockShowTextbox(u8 taskId)
+{
+    if (gTasks[taskId].tTimer-- <= 0)
+    {
+        NewGameBirchSpeech_ShowDialogueWindow(0, 1);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_ChooseYourPartner;
+    }
+}
+
+static void Task_NewGameBirchSpeech_ReturnFromStarterShowTextbox(u8 taskId)
+{
+    if (gTasks[taskId].tTimer-- <= 0)
+    {
+        NewGameBirchSpeech_ShowDialogueWindow(0, 1);
+        gTasks[taskId].func = Task_NewGameBirchSpeech_AreYouReady;
     }
 }
 

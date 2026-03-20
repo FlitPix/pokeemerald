@@ -1,7 +1,16 @@
-gText_Birch_Welcome::
+gText_Birch_Welcome_Emerald::
 	.string "Hi! Sorry to keep you waiting!\p"
-	.string "Welcome to the POKéMON GBA COMBO\n"
-	.string "RANDOMIZER!\p"
+	.string "Welcome to the POKéMON EMERALD\n"
+	.string "VERSION ARCHIPELAGO!\p"
+	.string "My name is BIRCH.\p"
+	.string "But everyone calls me the POKéMON\n"
+	.string "PROFESSOR.\p"
+	.string "$"
+
+gText_Birch_Welcome_Combo::
+	.string "Hi! Sorry to keep you waiting!\p"
+	.string "Welcome to the POKéMON GBA\n"
+	.string "COMBO RANDOMIZER!\p"
 	.string "My name is BIRCH.\p"
 	.string "But everyone calls me the POKéMON\n"
 	.string "PROFESSOR.\p"
@@ -44,6 +53,16 @@ gText_Birch_YourePlayer::
 	.string "hometown of LITTLEROOT.\l"
 	.string "I get it now!\p"
 	.string "$"
+
+gText_Birch_WhatTimeIsIt::
+	.string "Oh! I almost forgot!\n"
+	.string "Just a few more things to take care of.\p"
+	.string "Could you go ahead and\n"
+	.string "set the time?$"
+
+gText_Birch_ChooseYourPartner::
+	.string "And finally, go ahead and\n"
+	.string "choose your partner POKéMON!$"
 
 gText_Birch_AreYouReady::
 	.string "All right, are you ready?\p"
