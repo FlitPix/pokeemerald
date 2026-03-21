@@ -47,6 +47,7 @@
 #include "constants/trainers.h"
 #include "constants/trainer_hill.h"
 #include "constants/weather.h"
+#include "main_menu.h"
 
 enum {
     TRANSITION_TYPE_NORMAL,
@@ -921,10 +922,7 @@ static void CB2_GiveStarter(void)
     *GetVarPointer(VAR_STARTER_MON) = gSpecialVar_Result;
     starterMon = GetStarterPokemon(gSpecialVar_Result);
     ScriptGiveMon(starterMon, 5, ITEM_NONE, 0, 0, 0);
-    ResetTasks();
-    PlayBattleBGM();
-    SetMainCallback2(CB2_StartFirstBattle);
-    BattleTransition_Start(B_TRANSITION_BLUR);
+    SetMainCallback2(CB2_NewGameBirchSpeech_ReturnFromStarters);
 }
 
 static void CB2_StartFirstBattle(void)

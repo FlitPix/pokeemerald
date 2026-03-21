@@ -40,6 +40,7 @@ static void Task_HandleStarterChooseInput(u8 taskId);
 static void Task_WaitForStarterSprite(u8 taskId);
 static void Task_AskConfirmStarter(u8 taskId);
 static void Task_HandleConfirmStarterInput(u8 taskId);
+static void Task_ConfirmStarter_Exit(u8 taskId);
 static void Task_DeclineStarter(u8 taskId);
 static void Task_MoveStarterChooseCursor(u8 taskId);
 static void Task_CreateStarterLabel(u8 taskId);
@@ -542,10 +543,10 @@ static void Task_HandleConfirmStarterInput(u8 taskId)
     switch (Menu_ProcessInputNoWrapClearOnChoose())
     {
     case 0:  // YES
-        // Return the starter choice and exit.
+        // Return the starter choice, and run exit task.
         gSpecialVar_Result = gTasks[taskId].tStarterSelection;
-        ResetAllPicSprites();
-        SetMainCallback2(gMain.savedCallback);
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        gTasks[taskId].func = Task_ConfirmStarter_Exit;
         break;
     case 1:  // NO
     case MENU_B_PRESSED:
@@ -559,6 +560,15 @@ static void Task_HandleConfirmStarterInput(u8 taskId)
         DestroySprite(&gSprites[spriteId]);
         gTasks[taskId].func = Task_DeclineStarter;
         break;
+    }
+}
+
+static void Task_ConfirmStarter_Exit(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        FreeAllWindowBuffers();
+        SetMainCallback2(gMain.savedCallback);
     }
 }
 
