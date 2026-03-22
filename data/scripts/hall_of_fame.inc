@@ -43,9 +43,10 @@ EverGrandeCity_HallOfFame_EventScript_ShowStevensHouseBeldum::
 EverGrandeCity_HallOfFame_EventScript_ReadyReceiveSSTicketEvent::
 	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 3
 	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 3
+	goto PlayersHouse_1F_EventScript_AirLatiBroadcast
 	clearflag FLAG_HIDE_PLAYERS_HOUSE_DAD
 	return
 
 EverGrandeCity_HallOfFame_EventScript_ReadyDexUpgradeEvent::
-	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1
+	setvar VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3
 	return
