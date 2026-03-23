@@ -4531,6 +4531,78 @@ const struct Item gItems[] =
 
 // Randomizer-specific key items
 
+    [ITEM_BAG] =
+    {
+        .name = _("BAG"),
+        .itemId = ITEM_BAG,
+        .price = 0,
+        .description = sDummyDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_RUNNING_SHOES] =
+    {
+        .name = _("RUNNING SHOES"),
+        .itemId = ITEM_RUNNING_SHOES,
+        .price = 0,
+        .description = sRunningShoesDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_POKEDEX] =
+    {
+        .name = _("POKéDEX"),
+        .itemId = ITEM_POKEDEX,
+        .price = 0,
+        .description = sRunningShoesDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_NATIONAL_POKEDEX] =
+    {
+        .name = _("NAT. POKéDEX"),
+        .itemId = ITEM_NATIONAL_POKEDEX,
+        .price = 0,
+        .description = sPokedexDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_PROGRESSIVE_POKEDEX] =
+    {
+        .name = _("PROG. POKéDEX"),
+        .itemId = ITEM_PROGRESSIVE_POKEDEX,
+        .price = 0,
+        .description = sPokedexDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_POKENAV] =
+    {
+        .name = _("POKéNAV"),
+        .itemId = ITEM_POKENAV,
+        .price = 0,
+        .description = sPokenavDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+    
     [ITEM_EMERALD_PASS] =
     {
         .name = _("EMERALD PASS"),

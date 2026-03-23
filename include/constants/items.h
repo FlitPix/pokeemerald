@@ -418,11 +418,17 @@
 #define ITEM_OLD_SEA_MAP 376
 
 // Randomizer
-#define ITEM_EMERALD_PASS 377
-#define ITEM_FIRE_PASS 378
-#define ITEM_LEAF_PASS 379
+#define ITEM_BAG 377
+#define ITEM_RUNNING_SHOES 378
+#define ITEM_POKEDEX 379
+#define ITEM_NATIONAL_POKEDEX 380
+#define ITEM_PROGRESSIVE_POKEDEX 381
+#define ITEM_POKENAV 382
+#define ITEM_EMERALD_PASS 383
+#define ITEM_FIRE_PASS 384
+#define ITEM_LEAF_PASS 385
 
-#define ITEMS_COUNT 380
+#define ITEMS_COUNT 386
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow

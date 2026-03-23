@@ -402,6 +402,12 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_MAGMA_EMBLEM] = {gItemIcon_MagmaEmblem, gItemIconPalette_MagmaEmblem},
     [ITEM_OLD_SEA_MAP] = {gItemIcon_OldSeaMap, gItemIconPalette_OldSeaMap},
     // Randomizer key items (temporarily question marks)
+    [ITEM_BAG] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_RUNNING_SHOES] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_POKEDEX] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_NATIONAL_POKEDEX] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_PROGRESSIVE_POKEDEX] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
+    [ITEM_POKENAV] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_EMERALD_PASS] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_FIRE_PASS] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},
     [ITEM_LEAF_PASS] = {gItemIcon_QuestionMark, gItemIconPalette_QuestionMark},

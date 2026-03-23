@@ -1552,6 +1552,21 @@ static const u8 sOldSeaMapDesc[] = _(
 
 // Randomizer-specific key items
 
+static const u8 sRunningShoesDesc[] = _(
+    "A pair of shoes by\n"
+    "DEVON. Propels user\n"
+    "with compressed air.");
+
+static const u8 sPokedexDesc[] = _(
+    "A device used to\n"
+    "gather info on\n"
+    "various POKéMON.");
+
+static const u8 sPokenavDesc[] = _(
+    "A useful multipurpose\n"
+    "device invented by\n"
+    "DEVON CORP.");
+
 static const u8 sEmeraldPassDesc[] = _(
     "A pass required\n"
     "to board the ship\n"

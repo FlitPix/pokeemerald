@@ -798,7 +798,7 @@
 #define FLAG_HIDE_SAFARI_ZONE_SOUTH_EAST_EXPANSION                  0x2EB
 #define FLAG_HIDE_LILYCOVE_HARBOR_EVENT_TICKET_TAKER                0x2EC
 #define FLAG_HIDE_SLATEPORT_CITY_SCOTT                              0x2ED
-#define FLAG_HIDE_ROUTE_101_ZIGZAGOON                               0x2EE
+#define FLAG_UNUSED_0x2EE                                           0x2EE // Unused, formerly FLAG_HIDE_ROUTE_101_ZIGZAGOON
 #define FLAG_HIDE_VICTORY_ROAD_EXIT_WALLY                           0x2EF
 #define FLAG_HIDE_LITTLEROOT_TOWN_MOM_OUTSIDE                       0x2F0
 #define FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_1F_STEVEN              0x2F1
@@ -1027,7 +1027,7 @@
 #define FLAG_HIDE_NEW_MAUVILLE_VOLTORB_3                            0x3D0
 #define FLAG_HIDE_AQUA_HIDEOUT_B1F_ELECTRODE_1                      0x3D1
 #define FLAG_HIDE_AQUA_HIDEOUT_B1F_ELECTRODE_2                      0x3D2
-#define FLAG_HIDE_OLDALE_TOWN_RIVAL                                 0x3D3
+#define FLAG_UNUSED_0x3D3                                           0x3D3 // Unused, formerly FLAG_HIDE_OLDALE_TOWN_RIVAL
 #define FLAG_HIDE_UNDERWATER_SEA_FLOOR_CAVERN_STOLEN_SUBMARINE      0x3D4
 #define FLAG_HIDE_ROUTE_120_KECLEON_BRIDGE_SHADOW                   0x3D5
 #define FLAG_HIDE_ROUTE_120_KECLEON_1                               0x3D6
@@ -1347,7 +1347,7 @@
 
 #define SYSTEM_FLAGS                                   (TRAINER_FLAGS_END + 1) // 0x860
 
-#define FLAG_UNUSED_0x860                            (SYSTEM_FLAGS + 0x0) // Unused, formerly FLAG_SYS_POKEMON_GET
+#define FLAG_SYS_BAG_GET                             (SYSTEM_FLAGS + 0x0) // Formerly FLAG_SYS_POKEMON_GET
 #define FLAG_SYS_POKEDEX_GET                         (SYSTEM_FLAGS + 0x1)
 #define FLAG_SYS_POKENAV_GET                         (SYSTEM_FLAGS + 0x2)
 #define FLAG_UNUSED_0x863                            (SYSTEM_FLAGS + 0x3) // Unused Flag
@@ -1504,7 +1504,7 @@
 
 #define FLAG_UNUSED_0x8E3                           (SYSTEM_FLAGS + 0x83) // Unused Flag
 
-#define FLAG_RECEIVED_POKEDEX_FROM_BIRCH            (SYSTEM_FLAGS + 0x84)
+#define FLAG_UNUSED_0x8E4                           (SYSTEM_FLAGS + 0x84) // Unused, formerly FLAG_RECEIVED_POKEDEX_FROM_BIRCH
 
 #define FLAG_UNUSED_0x8E5                           (SYSTEM_FLAGS + 0x85) // Unused Flag
 #define FLAG_UNUSED_0x8E6                           (SYSTEM_FLAGS + 0x86) // Unused Flag
