@@ -99,7 +99,7 @@ __attribute__((section(".text.consts")))
 static const struct GFRomHeader sGFRomHeader = {
     .version = GAME_VERSION,
     .language = GAME_LANGUAGE,
-    .gameName = "pokemon emerald version",
+    .gameName = "pokemon emerald / flit ap v1",
     .monFrontPics = gMonFrontPicTable,
     .monBackPics = gMonBackPicTable,
     .monNormalPalettes = gMonPaletteTable,

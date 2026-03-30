@@ -4531,6 +4531,115 @@ const struct Item gItems[] =
 
 // Randomizer-specific key items
 
+    [ITEM_ARCHIPELAGO] =
+    {
+        .name = _("AP ITEM"),
+        .itemId = ITEM_ARCHIPELAGO,
+        .price = 0,
+        .description = sArchipelagoItemDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_BADGE_1] =
+    {
+        .name = _("STONE BADGE"),
+        .itemId = ITEM_BADGE_1,
+        .price = 0,
+        .description = sDummyDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_BADGE_2] =
+    {
+        .name = _("KNUCKLE BADGE"),
+        .itemId = ITEM_BADGE_2,
+        .price = 0,
+        .description = sDummyDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_BADGE_3] =
+    {
+        .name = _("DYNAMO BADGE"),
+        .itemId = ITEM_BADGE_3,
+        .price = 0,
+        .description = sDummyDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_BADGE_4] =
+    {
+        .name = _("HEAT BADGE"),
+        .itemId = ITEM_BADGE_4,
+        .price = 0,
+        .description = sDummyDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_BADGE_5] =
+    {
+        .name = _("BALANCE BADGE"),
+        .itemId = ITEM_BADGE_5,
+        .price = 0,
+        .description = sDummyDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_BADGE_6] =
+    {
+        .name = _("FEATHER BADGE"),
+        .itemId = ITEM_BADGE_6,
+        .price = 0,
+        .description = sDummyDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_BADGE_7] =
+    {
+        .name = _("MIND BADGE"),
+        .itemId = ITEM_BADGE_7,
+        .price = 0,
+        .description = sDummyDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    [ITEM_BADGE_8] =
+    {
+        .name = _("RAIN BADGE"),
+        .itemId = ITEM_BADGE_8,
+        .price = 0,
+        .description = sDummyDesc,
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+    },
+
+    
+
     [ITEM_BAG] =
     {
         .name = _("BAG"),

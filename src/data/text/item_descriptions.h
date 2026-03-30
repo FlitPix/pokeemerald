@@ -1552,6 +1552,10 @@ static const u8 sOldSeaMapDesc[] = _(
 
 // Randomizer-specific key items
 
+static const u8 sArchipelagoItemDesc[] = _(
+    "An item from\n"
+    "another world.");
+
 static const u8 sRunningShoesDesc[] = _(
     "A pair of shoes by\n"
     "DEVON. Propels user\n"
