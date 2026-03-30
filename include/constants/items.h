@@ -418,17 +418,26 @@
 #define ITEM_OLD_SEA_MAP 376
 
 // Randomizer
-#define ITEM_BAG 377
-#define ITEM_RUNNING_SHOES 378
-#define ITEM_POKEDEX 379
-#define ITEM_NATIONAL_POKEDEX 380
-#define ITEM_PROGRESSIVE_POKEDEX 381
-#define ITEM_POKENAV 382
-#define ITEM_EMERALD_PASS 383
-#define ITEM_FIRE_PASS 384
-#define ITEM_LEAF_PASS 385
+#define ITEM_ARCHIPELAGO 377
+#define ITEM_BADGE_1 378
+#define ITEM_BADGE_2 379
+#define ITEM_BADGE_3 380
+#define ITEM_BADGE_4 381
+#define ITEM_BADGE_5 382
+#define ITEM_BADGE_6 383
+#define ITEM_BADGE_7 384
+#define ITEM_BADGE_8 385
+#define ITEM_BAG 386
+#define ITEM_RUNNING_SHOES 387
+#define ITEM_POKEDEX 388
+#define ITEM_NATIONAL_POKEDEX 389
+#define ITEM_PROGRESSIVE_POKEDEX 390
+#define ITEM_POKENAV 391
+#define ITEM_EMERALD_PASS 392
+#define ITEM_FIRE_PASS 393
+#define ITEM_LEAF_PASS 394
 
-#define ITEMS_COUNT 386
+#define ITEMS_COUNT 395
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow
@@ -459,11 +468,11 @@
 #define NUM_TECHNICAL_MACHINES 50
 #define NUM_HIDDEN_MACHINES     8
 
-#define MAX_BAG_ITEM_CAPACITY  99
+#define MAX_BAG_ITEM_CAPACITY  999
 #define MAX_PC_ITEM_CAPACITY   999
 #define MAX_BERRY_CAPACITY     999
 
-#define BAG_ITEM_CAPACITY_DIGITS 2
+#define BAG_ITEM_CAPACITY_DIGITS 3
 #define BERRY_CAPACITY_DIGITS 3
 #define MAX_ITEM_DIGITS BERRY_CAPACITY_DIGITS
 
