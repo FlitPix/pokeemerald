@@ -3524,6 +3524,9 @@ bool8 AbnormalWeatherHasExpired(void)
     u16 steps = VarGet(VAR_ABNORMAL_WEATHER_STEP_COUNTER);
     u16 abnormalWeather = VarGet(VAR_ABNORMAL_WEATHER_LOCATION);
 
+    // don't expire abnormal weather events
+    return FALSE;
+
     if (abnormalWeather == ABNORMAL_WEATHER_NONE)
         return FALSE;
 
