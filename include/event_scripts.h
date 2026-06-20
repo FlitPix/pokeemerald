@@ -543,6 +543,7 @@ extern const u8 EventScript_UseDive[];
 extern const u8 EventScript_UseDiveUnderwater[];
 extern const u8 EventScript_FallDownHole[];
 extern const u8 EventScript_FieldPoison[];
+extern const u8 EventScript_FieldWhiteOut[];
 extern const u8 EventScript_EggHatch[];
 extern const u8 AbnormalWeather_EventScript_EndEventAndCleanup_1[];
 extern const u8 IslandCave_EventScript_OpenRegiEntrance[];
@@ -611,5 +612,10 @@ extern const u8 EventScript_TradeCenter_Chair1[];
 extern const u8 EventScript_TradeCenter_Chair0[];
 extern const u8 EventScript_ConfirmLeaveCableClubRoom[];
 extern const u8 EventScript_TerminateLink[];
+
+extern const u8 ArchipelagoScript_ReceiveReward[];
+extern const u8 ArchipelagoScript_ReceiveRemoteItem[];
+extern const u8 ArchipelagoScript_ReceiveRemoteItemSilent[];
+extern const u8 ArchipelagoScript_GoHome[];
 
 #endif // GUARD_EVENT_SCRIPTS_H

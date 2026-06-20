@@ -125,8 +125,8 @@
 #define ITEM_STAR_PIECE 109
 #define ITEM_NUGGET 110
 #define ITEM_HEART_SCALE 111
-#define ITEM_070 112
-#define ITEM_071 113
+#define ITEM_ARCHIPELAGO 112
+#define ITEM_LINK_CABLE 113
 #define ITEM_072 114
 #define ITEM_073 115
 #define ITEM_074 116
@@ -253,23 +253,24 @@
 #define ITEM_METAL_POWDER 223
 #define ITEM_THICK_CLUB 224
 #define ITEM_STICK 225
-#define ITEM_0E2 226
-#define ITEM_0E3 227
-#define ITEM_0E4 228
-#define ITEM_0E5 229
-#define ITEM_0E6 230
-#define ITEM_0E7 231
-#define ITEM_0E8 232
-#define ITEM_0E9 233
-#define ITEM_0EA 234
-#define ITEM_0EB 235
-#define ITEM_0EC 236
-#define ITEM_0ED 237
-#define ITEM_0EE 238
-#define ITEM_0EF 239
-#define ITEM_0F0 240
-#define ITEM_0F1 241
-#define ITEM_0F2 242
+// Randomizer
+#define ITEM_BADGE_1 226
+#define ITEM_BADGE_2 227
+#define ITEM_BADGE_3 228
+#define ITEM_BADGE_4 229
+#define ITEM_BADGE_5 230
+#define ITEM_BADGE_6 231
+#define ITEM_BADGE_7 232
+#define ITEM_BADGE_8 233
+#define ITEM_BAG 234
+#define ITEM_RUNNING_SHOES 235
+#define ITEM_POKEDEX 236
+#define ITEM_NATIONAL_POKEDEX 237
+#define ITEM_PROGRESSIVE_POKEDEX 238
+#define ITEM_POKENAV 239
+#define ITEM_EMERALD_PASS 240
+#define ITEM_FIRE_PASS 241
+#define ITEM_LEAF_PASS 242
 #define ITEM_0F3 243
 #define ITEM_0F4 244
 #define ITEM_0F5 245
@@ -417,27 +418,7 @@
 #define ITEM_MAGMA_EMBLEM 375
 #define ITEM_OLD_SEA_MAP 376
 
-// Randomizer
-#define ITEM_ARCHIPELAGO 377
-#define ITEM_BADGE_1 378
-#define ITEM_BADGE_2 379
-#define ITEM_BADGE_3 380
-#define ITEM_BADGE_4 381
-#define ITEM_BADGE_5 382
-#define ITEM_BADGE_6 383
-#define ITEM_BADGE_7 384
-#define ITEM_BADGE_8 385
-#define ITEM_BAG 386
-#define ITEM_RUNNING_SHOES 387
-#define ITEM_POKEDEX 388
-#define ITEM_NATIONAL_POKEDEX 389
-#define ITEM_PROGRESSIVE_POKEDEX 390
-#define ITEM_POKENAV 391
-#define ITEM_EMERALD_PASS 392
-#define ITEM_FIRE_PASS 393
-#define ITEM_LEAF_PASS 394
-
-#define ITEMS_COUNT 395
+#define ITEMS_COUNT 377
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow
@@ -497,6 +478,7 @@
 #define ITEM_B_USE_OTHER    2
 
 // Check if the item is one that can be used on a Pokémon.
-#define ITEM_HAS_EFFECT(item) ((item) >= ITEM_POTION && (item) <= MAX_BERRY_INDEX)
+#define ITEM_IS_CONVERTED_TRADE_ITEM(item) ((item) == ITEM_KINGS_ROCK || (item) == ITEM_DEEP_SEA_TOOTH || (item) == ITEM_DEEP_SEA_SCALE || (item) == ITEM_METAL_COAT || (item) == ITEM_DRAGON_SCALE || (item) == ITEM_UP_GRADE)
+#define ITEM_HAS_EFFECT(item) (((item) >= ITEM_POTION && (item) <= MAX_BERRY_INDEX) || ITEM_IS_CONVERTED_TRADE_ITEM(item))
 
 #endif  // GUARD_CONSTANTS_ITEMS_H

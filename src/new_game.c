@@ -1,4 +1,5 @@
 #include "global.h"
+#include "archipelago.h"
 #include "new_game.h"
 #include "random.h"
 #include "pokemon.h"
@@ -88,14 +89,38 @@ static void InitPlayerTrainerId(void)
     SetTrainerId(trainerId, gSaveBlock2Ptr->playerTrainerId);
 }
 
-// L=A isnt set here for some reason.
 static void SetDefaultOptions(void)
 {
-    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
-    gSaveBlock2Ptr->optionsWindowFrameType = 0;
-    gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
-    gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SHIFT;
-    gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
+    gSaveBlock2Ptr->optionsButtonMode = gArchipelagoOptions.optionsButtonMode;
+    gSaveBlock2Ptr->optionsTextSpeed = gArchipelagoOptions.optionsTextSpeed;
+    gSaveBlock2Ptr->optionsWindowFrameType = gArchipelagoOptions.optionsWindowFrameType;
+    gSaveBlock2Ptr->optionsSound = gArchipelagoOptions.optionsSound;
+    gSaveBlock2Ptr->optionsBattleSceneOff = !gArchipelagoOptions.optionsBattleScene;
+    gSaveBlock2Ptr->optionsTurboButton = gArchipelagoOptions.optionsTurboButton;
+    gSaveBlock2Ptr->optionsSkipFanfares = gArchipelagoOptions.optionsSkipFanfares;
+    gSaveBlock2Ptr->optionsBikeMusic = gArchipelagoOptions.optionsBikeMusic;
+    gSaveBlock2Ptr->optionsSurfMusic = gArchipelagoOptions.optionsSurfMusic;
+    gSaveBlock2Ptr->optionsLowHpBeep = gArchipelagoOptions.optionsLowHpBeep;
+    gSaveBlock2Ptr->optionsSkipNicknames = gArchipelagoOptions.optionsSkipNicknames;
+    gSaveBlock2Ptr->optionsReceivedItemMessageFilter = gArchipelagoOptions.optionsReceivedItemMessageFilter;
+    gSaveBlock2Ptr->optionsDeathLink = gArchipelagoOptions.optionsDeathLink;
+    gSaveBlock2Ptr->optionsAutoRun = gArchipelagoOptions.optionsAutoRun;
+    if (gArchipelagoOptions.isChallengeMode)
+    {
+        gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
+        gSaveBlock2Ptr->optionsBlindTrainers = FALSE;
+        gSaveBlock2Ptr->optionsGuaranteedRun = FALSE;
+        gSaveBlock2Ptr->optionsGuaranteedReelFish = FALSE;
+        gSaveBlock2Ptr->optionsGuaranteedCatch = FALSE;
+    }
+    else
+    {
+        gSaveBlock2Ptr->optionsBattleStyle = gArchipelagoOptions.optionsBattleStyle;
+        gSaveBlock2Ptr->optionsBlindTrainers = gArchipelagoOptions.optionsBlindTrainers;
+        gSaveBlock2Ptr->optionsGuaranteedRun = gArchipelagoOptions.optionsGuaranteedRun;
+        gSaveBlock2Ptr->optionsGuaranteedReelFish = gArchipelagoOptions.optionsGuaranteedReelFish;
+        gSaveBlock2Ptr->optionsGuaranteedCatch = gArchipelagoOptions.optionsGuaranteedCatch;
+    }
     gSaveBlock2Ptr->regionMapZoom = FALSE;
 }
 
@@ -173,7 +198,7 @@ void NewGameInitData(void)
     ResetGabbyAndTy();
     ClearSecretBases();
     ClearBerryTrees();
-    SetMoney(&gSaveBlock1Ptr->money, 3000);
+    SetMoney(&gSaveBlock1Ptr->money, gArchipelagoOptions.startingMoney);
     SetCoins(0);
     ResetLinkContestBoolean();
     ResetGameStats();
@@ -213,11 +238,11 @@ void NewGameInitData(void)
 
 static void SetNewGameFlagsVars(void)
 {
-    FlagSet(FLAG_SYS_BAG_GET);
-    FlagSet(FLAG_SYS_POKEDEX_GET);
-    EnableNationalPokedex();
-    FlagSet(FLAG_SYS_POKENAV_GET);
-    FlagSet(FLAG_SYS_B_DASH);
+    if (!gArchipelagoOptions.shuffleBag) FlagSet(FLAG_SYS_BAG_GET);
+    if (gArchipelagoOptions.shufflePokedex == 0) FlagSet(FLAG_SYS_POKEDEX_GET);
+    if (gArchipelagoOptions.shufflePokedex == 0) EnableNationalPokedex();
+    if (!gArchipelagoOptions.shufflePokenav) FlagSet(FLAG_SYS_POKENAV_GET);
+    if (!gArchipelagoOptions.shuffleRunningShoes) FlagSet(FLAG_SYS_B_DASH);
     // TODO: instead remove events and flags
     VarSet(VAR_LITTLEROOT_TOWN_STATE, 4);
     VarSet(VAR_LITTLEROOT_INTRO_STATE, 7);
@@ -231,6 +256,8 @@ static void SetNewGameFlagsVars(void)
     FlagSet(FLAG_ADVENTURE_STARTED);
     FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH);
     FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_UNKNOWN_0x380);
+    VarSet(VAR_PETALBURG_CITY_STATE, 3);
+    VarSet(VAR_PETALBURG_GYM_STATE, 2);
     FlagSet(FLAG_HAS_MATCH_CALL);
     FlagSet(FLAG_ADDED_MATCH_CALL_TO_POKENAV);
     FlagSet(FLAG_ENABLE_MOM_MATCH_CALL);

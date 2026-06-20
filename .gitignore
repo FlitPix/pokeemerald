@@ -3,6 +3,7 @@
 *.i
 *.elf
 *.gba
+*.bsdiff4
 !data/*.gba
 *.sgm
 *.sa1
@@ -37,6 +38,7 @@ prefabs.json
 *.sna
 *.diff
 *.sym
-*.js
+extracted_data.json
+constants.json
 /pokeemerald-*.png
 /pokeemerald_modern-*.png

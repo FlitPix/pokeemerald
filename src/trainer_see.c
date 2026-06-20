@@ -1,4 +1,5 @@
 #include "global.h"
+#include "archipelago.h"
 #include "battle_setup.h"
 #include "event_data.h"
 #include "event_object_movement.h"
@@ -194,6 +195,9 @@ bool8 CheckForTrainersWantingBattle(void)
 
     gNoOfApproachingTrainers = 0;
     gApproachingTrainerId = 0;
+
+    if (!gArchipelagoOptions.isChallengeMode && gSaveBlock2Ptr->optionsBlindTrainers)
+        return FALSE;
 
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
     {

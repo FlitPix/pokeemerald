@@ -1,6 +1,7 @@
 #include "global.h"
 #include "malloc.h"
 #include "apprentice.h"
+#include "archipelago.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_controllers.h"
@@ -3411,6 +3412,8 @@ static bool8 ShouldGetStatBadgeBoost(u16 badgeFlag, u8 battler)
     else if (GetBattlerSide(battler) != B_SIDE_PLAYER)
         return FALSE;
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
+        return FALSE;
+    else if (gArchipelagoOptions.isChallengeMode)
         return FALSE;
     else if (FlagGet(badgeFlag))
         return TRUE;

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "archipelago.h"
 #include "battle.h"
 #include "battle_controllers.h"
 #include "battle_pyramid_bag.h"
@@ -1249,7 +1250,8 @@ static void BagAction_Give(u8 taskId)
     {
         DisplayItemMessageInBattlePyramid(taskId, gText_CantWriteMail, Task_WaitCloseErrorMessage);
     }
-    else if (!GetItemImportance(gSpecialVar_ItemId))
+    else if (!GetItemImportance(gSpecialVar_ItemId) ||
+             (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM && !gArchipelagoOptions.reusableTms))
     {
         gPyramidBagMenu->newScreenCallback = CB2_ChooseMonToGiveItem;
         CloseBattlePyramidBag(taskId);

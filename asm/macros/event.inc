@@ -1921,9 +1921,10 @@
 	@ If the player doesn't have space for all the items then as many are added as possible, the
 	@ message indicates there is no room, and VAR_RESULT is set to FALSE.
 	@ Otherwise VAR_RESULT is set to TRUE, and the message indicates they have received the item(s).
-	.macro giveitem item:req, amount=1
+	.macro giveitem item:req, amount=1, flag=0
 	setorcopyvar VAR_0x8000, \item
 	setorcopyvar VAR_0x8001, \amount
+	setorcopyvar VAR_0x8003, \flag
 	callstd STD_OBTAIN_ITEM
 	.endm
 
@@ -1970,4 +1971,20 @@
 	setvar VAR_0x8005, \level
 	setvar VAR_0x8006, \item
 	special CreateEnemyEventMon
+	.endm
+
+	@ Writes item names to the string buffer, either from the AP name table if remote,
+	@ or normally if local. Copies 0 to VAR_RESULT if item is unknown, or 1 to VAR_RESULT if item is remote.
+	@ If VAR_RESULT is 2, something has gone wrong, as this is only called when an item is remote.
+	.macro bufferapitemstrings stringVarIdA:req, stringVarIdB:req, flag:req
+	.byte 0xe3
+	stringvar \stringVarIdA
+	stringvar \stringVarIdB
+	.2byte \flag
+	.endm
+
+	@ Sets flag stored in a var to TRUE.
+	.macro setflagvar var:req
+	.byte 0xe4
+	.2byte \var
 	.endm

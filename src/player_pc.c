@@ -1,5 +1,7 @@
 #include "global.h"
 #include "constants/songs.h"
+#include "archipelago.h"
+#include "event_data.h"
 #include "bg.h"
 #include "decoration.h"
 #include "event_scripts.h"
@@ -72,6 +74,7 @@ enum {
     MSG_OKAY_TO_THROW_AWAY,
     MSG_TOO_IMPORTANT,
     MSG_NO_MORE_ROOM,
+    MSG_NO_BAG,
     MSG_THREW_AWAY_ITEM,
     MSG_HOW_MANY_TO_TOSS,
     MSG_WITHDREW_ITEM,
@@ -225,6 +228,24 @@ static const struct MenuAction sItemStorage_MenuActions[] =
 static const u16 sNewGamePCItems[][2] =
 {
     { ITEM_POTION, 1 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
+    { ITEM_NONE, 0 },
     { ITEM_NONE, 0 }
 };
 
@@ -1185,6 +1206,9 @@ static const u8 *ItemStorage_GetMessage(u16 itemId)
     case MSG_NO_MORE_ROOM:
         string = gText_NoRoomInBag;
         break;
+    case MSG_NO_BAG:
+        string = gText_NoBag;
+        break;
     case MSG_TOO_IMPORTANT:
         string = gText_TooImportantToToss;
         break;
@@ -1425,7 +1449,14 @@ static void ItemStorage_DoItemWithdraw(u8 taskId)
     s16 *data = gTasks[taskId].data;
     u16 pos = gPlayerPCItemPageInfo.cursorPos + gPlayerPCItemPageInfo.itemsAbove;
 
-    if (AddBagItem(gSaveBlock1Ptr->pcItems[pos].itemId, tQuantity) == TRUE)
+    if (!FlagGet(FLAG_SYS_BAG_GET))
+    {
+        // Bag not acquired yet
+        tQuantity = 0;
+        ItemStorage_PrintMessage(ItemStorage_GetMessage(MSG_NO_BAG));
+        gTasks[taskId].func = ItemStorage_HandleErrorMessageInput;
+    }
+    else if (AddBagItem(gSaveBlock1Ptr->pcItems[pos].itemId, tQuantity) == TRUE)
     {
         // Item withdrawn
         CopyItemName(gSaveBlock1Ptr->pcItems[pos].itemId, gStringVar1);
@@ -1447,7 +1478,8 @@ static void ItemStorage_DoItemToss(u8 taskId)
     s16 *data = gTasks[taskId].data;
     u16 pos = gPlayerPCItemPageInfo.cursorPos + gPlayerPCItemPageInfo.itemsAbove;
 
-    if (!GetItemImportance(gSaveBlock1Ptr->pcItems[pos].itemId))
+    if (!GetItemImportance(gSaveBlock1Ptr->pcItems[pos].itemId) &&
+        (gArchipelagoOptions.reusableTms && GetPocketByItemId(gSaveBlock1Ptr->pcItems[pos].itemId) != POCKET_TM_HM))
     {
         // Show toss confirmation prompt
         CopyItemName(gSaveBlock1Ptr->pcItems[pos].itemId, gStringVar1);

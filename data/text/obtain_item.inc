@@ -1,5 +1,9 @@
 gText_ObtainedTheItem::
-	.string "Obtained the {STR_VAR_2}!$"
+	.string "{PLAYER} received one {STR_VAR_1}!$"
+
+gText_ObtainedTheTmHm::
+	.string "{PLAYER} received one {STR_VAR_1}\n"
+	.string "{STR_VAR_2}!$"
 
 gText_TheBagIsFull::
 	.string "The BAG is full…$"

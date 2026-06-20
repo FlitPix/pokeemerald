@@ -516,14 +516,27 @@ struct SaveBlock2
     /*0x11*/ u8 playTimeSeconds;
     /*0x12*/ u8 playTimeVBlanks;
     /*0x13*/ u8 optionsButtonMode:2;  // OPTIONS_BUTTON_MODE_[NORMAL/LR/L_EQUALS_A]
-    /*0x14*/ u16 optionsTextSpeed:2; // OPTIONS_TEXT_SPEED_[MID/FAST/INSTANT]
-             u16 optionsWindowFrameType:5; // Specifies one of the 20 decorative borders for text boxes
-             u16 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
-             u16 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
-             u16 optionsBattleSceneOff:1; // whether battle animations are disabled
-             u16 regionMapZoom:1; // whether the map is zoomed in
-             //u16 padding1:4;
-             //u16 padding2;
+             u8 optionsTextSpeed:2; // OPTIONS_TEXT_SPEED_[MID/FAST/INSTANT]
+             u8 optionsSound:1; // OPTIONS_SOUND_[MONO/STEREO]
+             u8 optionsBattleStyle:1; // OPTIONS_BATTLE_STYLE_[SHIFT/SET]
+             u8 optionsBattleSceneOff:1; // whether battle animations are disabled
+             u8 optionsSkipFanfares:1;
+    /*0x14*/ u8 optionsWindowFrameType:5; // Specifies one of the 20 (Emerald) / 28 (combo) decorative borders for text boxes
+             u8 optionsTurboButton:2; // 0=off, 1=A, 2=B, 3=A/B
+             u8 optionsBikeMusic:1;
+    /*0x15*/ u8 optionsSurfMusic:1;
+             u8 optionsLowHpBeep:1;
+             u8 optionsSkipNicknames:1;
+             u8 optionsReceivedItemMessageFilter:2;
+             u8 optionsDeathLink:1;
+             u8 optionsBlindTrainers:1;
+             u8 optionsAutoRun:1;
+    /*0x16*/ u8 optionsGuaranteedReelFish:1;
+             u8 optionsGuaranteedCatch:1;
+             u8 optionsGuaranteedRun:1;
+             u8 regionMapZoom:1; // whether the map is zoomed in
+             //u8 padding1:4;
+             //u8 padding2;
     /*0x18*/ struct Pokedex pokedex;
     /*0x90*/ u8 filler_90[0x8];
     /*0x98*/ struct Time localTimeOffset;
@@ -1005,7 +1018,7 @@ struct SaveBlock1
     /*0x498*/ struct ItemSlot pcItems[PC_ITEMS_COUNT];
     /*0x560*/ struct ItemSlot bagPocket_Items[BAG_ITEMS_COUNT];
     /*0x650*/ struct ItemSlot bagPocket_KeyItems[BAG_KEYITEMS_COUNT];
-    /*0x740*/ struct ItemSlot bagPocket_PokeBalls[BAG_POKEBALLS_COUNT]; // AP TODO: recalculate offsets from here onward
+    /*0x740*/ struct ItemSlot bagPocket_PokeBalls[BAG_POKEBALLS_COUNT];
     /*0x690*/ struct ItemSlot bagPocket_TMHM[BAG_TMHM_COUNT];
     /*0x790*/ struct ItemSlot bagPocket_Berries[BAG_BERRIES_COUNT];
     /*0x848*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
@@ -1064,6 +1077,7 @@ struct SaveBlock1
     /*0x31DC*/ struct Roamer roamer;
     /*0x31F8*/ struct EnigmaBerry enigmaBerry;
     /*0x322C*/ struct MysteryGiftSave mysteryGift;
+    /*0x3718*/ u16 archipelagoLastReceivedItemIndex;
     // u8 unused_3598[0x180];
     /*0x3718*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
     /*0x3728*/ struct RamScript ramScript;
@@ -1076,6 +1090,7 @@ struct SaveBlock1
     /*0x3D64*/ struct TrainerHillSave trainerHill;
     /*0x3D70*/ struct WaldaPhrase waldaPhrase;
     // sizeof: 0x3CE2 (vanilla is 0x3D88)
+    // AP TODO: recalculate all offsets and sizeof
 };
 
 extern struct SaveBlock1 *gSaveBlock1Ptr;

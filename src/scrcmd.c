@@ -1,5 +1,6 @@
 #include "global.h"
 #include "frontier_util.h"
+#include "archipelago.h"
 #include "battle_setup.h"
 #include "berry.h"
 #include "clock.h"
@@ -795,7 +796,6 @@ bool8 ScrCmd_warphole(struct ScriptContext *ctx)
     return TRUE;
 }
 
-// RS mossdeep gym warp, unused in Emerald
 bool8 ScrCmd_warpteleport(struct ScriptContext *ctx)
 {
     u8 mapGroup = ScriptReadByte(ctx);
@@ -1324,6 +1324,12 @@ static bool8 WaitForAorBPress(void)
     if (JOY_NEW(A_BUTTON))
         return TRUE;
     if (JOY_NEW(B_BUTTON))
+        return TRUE;
+    if (gSaveBlock2Ptr->optionsTurboButton == OPTIONS_TURBO_BUTTON_A && JOY_HELD_RAW(A_BUTTON))
+        return TRUE;
+    if (gSaveBlock2Ptr->optionsTurboButton == OPTIONS_TURBO_BUTTON_B && JOY_HELD_RAW(B_BUTTON))
+        return TRUE;
+    if (gSaveBlock2Ptr->optionsTurboButton == OPTIONS_TURBO_BUTTON_A_OR_B && (JOY_HELD_RAW(A_BUTTON) || JOY_HELD_RAW(B_BUTTON)))
         return TRUE;
     return FALSE;
 }
@@ -2304,4 +2310,44 @@ bool8 ScrCmd_warpwhitefade(struct ScriptContext *ctx)
     DoWhiteFadeWarp();
     ResetInitialPlayerAvatarState();
     return TRUE;
+}
+
+u8 ScrCmd_bufferapitemstrings(struct ScriptContext *ctx)
+{
+    u16 i, itemNameOffset;
+    u8 playerNameId;
+
+    u8 stringVarIndexA = ScriptReadByte(ctx);
+    u8 stringVarIndexB = ScriptReadByte(ctx);
+    u16 locationId = VarGet(ScriptReadHalfword(ctx));
+
+    for (i = 0; i < NAME_TABLE_BUFFER_SIZE / 5; ++i)
+    {
+        if ((gArchipelagoNameTable[(i * 5) + 0] | (gArchipelagoNameTable[(i * 5) + 1] << 8)) == locationId)
+        {
+            playerNameId = gArchipelagoNameTable[(i * 5) + 4];
+            if (playerNameId == 0)
+            {
+                gSpecialVar_Result = 2; // local item
+                return FALSE;
+            }
+
+            itemNameOffset = gArchipelagoNameTable[(i * 5) + 2] | (gArchipelagoNameTable[(i * 5) + 3] << 8);
+            StringCopy(sScriptStringVars[stringVarIndexA], gArchipelagoPlayerNames + (playerNameId * 17));
+            StringCopy(sScriptStringVars[stringVarIndexB], gArchipelagoItemNames + itemNameOffset);
+            gSpecialVar_Result = 1; // remote item
+            return FALSE;
+        }
+        else if ((gArchipelagoNameTable[(i * 5) + 0] | (gArchipelagoNameTable[(i * 5) + 1] << 8)) > locationId)
+            break;
+    }
+
+    gSpecialVar_Result = 0; // unknown, display "ARCHIPELAGO ITEM"
+    return FALSE;
+}
+
+bool8 ScrCmd_setflagvar(struct ScriptContext *ctx)
+{
+    FlagSet(VarGet(ScriptReadHalfword(ctx)));
+    return FALSE;
 }

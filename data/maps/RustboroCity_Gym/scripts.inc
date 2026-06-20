@@ -29,7 +29,14 @@ RustboroCity_Gym_EventScript_GiveRockTomb::
 	giveitem ITEM_TM_ROCK_TOMB
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	setflag FLAG_RECEIVED_TM_ROCK_TOMB
+	specialvar VAR_RESULT, ArchipelagoSpecial_CheckReusableTms
+	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_ExplainRockTombReusableTms
 	msgbox RustboroCity_Gym_Text_ExplainRockTomb, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_Gym_EventScript_ExplainRockTombReusableTms::
+	msgbox RustboroCity_Gym_Text_ExplainRockTombReusableTms, MSGBOX_DEFAULT
 	release
 	end
 
@@ -197,8 +204,7 @@ RustboroCity_Gym_Text_RoxanneDefeat:
 	.string "LEAGUE STONE BADGE.$"
 
 RustboroCity_Gym_Text_ReceivedStoneBadge:
-	.string "{PLAYER} received the STONE BADGE\n"
-	.string "from ROXANNE.$"
+	.string "{PLAYER} received the STONE BADGE!$"
 
 RustboroCity_Gym_Text_StoneBadgeInfoTakeThis:
 	.string "The STONE BADGE heightens the ATTACK\n"
@@ -216,6 +222,16 @@ RustboroCity_Gym_Text_ExplainRockTomb:
 	.string "the move to a POKéMON.\p"
 	.string "Remember, a TM can be used only once,\n"
 	.string "so think before you use it.$"
+
+RustboroCity_Gym_Text_ExplainRockTombReusableTms:
+	.string "That TECHNICAL MACHINE, TM39,\n"
+	.string "contains ROCK TOMB.\p"
+	.string "It not only inflicts damage by dropping\n"
+	.string "rocks, it also lowers SPEED.\p"
+	.string "If you use a TM, it instantly teaches\n"
+	.string "the move to a POKéMON.\p"
+	.string "A TM can be used as many times as you'd\n"
+	.string "like, so please enjoy it.$"
 
 RustboroCity_Gym_Text_RoxannePostBattle:
 	.string "Since you are so strong, you should\n"

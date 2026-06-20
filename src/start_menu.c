@@ -46,6 +46,7 @@
 #include "constants/battle_frontier.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/weather.h"
 
 // Menu actions
 enum
@@ -62,7 +63,8 @@ enum
     MENU_ACTION_PLAYER_LINK,
     MENU_ACTION_REST_FRONTIER,
     MENU_ACTION_RETIRE_FRONTIER,
-    MENU_ACTION_PYRAMID_BAG
+    MENU_ACTION_PYRAMID_BAG,
+    MENU_ACTION_GO_HOME
 };
 
 // Save status
@@ -98,6 +100,7 @@ static bool8 StartMenuPokeNavCallback(void);
 static bool8 StartMenuPlayerNameCallback(void);
 static bool8 StartMenuSaveCallback(void);
 static bool8 StartMenuOptionCallback(void);
+static bool8 StartMenuGoHomeCallback(void);
 static bool8 StartMenuExitCallback(void);
 static bool8 StartMenuSafariZoneRetireCallback(void);
 static bool8 StartMenuLinkModePlayerNameCallback(void);
@@ -193,7 +196,8 @@ static const struct MenuAction sStartMenuItems[] =
     [MENU_ACTION_PLAYER_LINK]     = {gText_MenuPlayer,  {.u8_void = StartMenuLinkModePlayerNameCallback}},
     [MENU_ACTION_REST_FRONTIER]   = {gText_MenuRest,    {.u8_void = StartMenuSaveCallback}},
     [MENU_ACTION_RETIRE_FRONTIER] = {gText_MenuRetire,  {.u8_void = StartMenuBattlePyramidRetireCallback}},
-    [MENU_ACTION_PYRAMID_BAG]     = {gText_MenuBag,     {.u8_void = StartMenuBattlePyramidBagCallback}}
+    [MENU_ACTION_PYRAMID_BAG]     = {gText_MenuBag,     {.u8_void = StartMenuBattlePyramidBagCallback}},
+    [MENU_ACTION_GO_HOME]         = {gText_MenuGoHome,  {.u8_void = StartMenuGoHomeCallback}}
 };
 
 static const struct BgTemplate sBgTemplates_LinkBattleSave[] =
@@ -334,7 +338,7 @@ static void BuildNormalStartMenu(void)
     AddStartMenuAction(MENU_ACTION_PLAYER);
     AddStartMenuAction(MENU_ACTION_SAVE);
     AddStartMenuAction(MENU_ACTION_OPTION);
-    AddStartMenuAction(MENU_ACTION_EXIT);
+    AddStartMenuAction(MENU_ACTION_GO_HOME);
 }
 
 static void BuildSafariZoneStartMenu(void)
@@ -626,6 +630,7 @@ static bool8 HandleStartMenuInput(void)
         gMenuCallback = sStartMenuItems[sCurrentStartMenuActions[sStartMenuCursorPos]].func.u8_void;
 
         if (gMenuCallback != StartMenuSaveCallback
+            && gMenuCallback != StartMenuGoHomeCallback
             && gMenuCallback != StartMenuExitCallback
             && gMenuCallback != StartMenuSafariZoneRetireCallback
             && gMenuCallback != StartMenuBattlePyramidRetireCallback)
@@ -752,6 +757,38 @@ static bool8 StartMenuOptionCallback(void)
     }
 
     return FALSE;
+}
+
+static bool8 StartMenuGoHomeCallback(void)
+{
+    RemoveExtraStartMenuWindows();
+    HideStartMenu();
+
+    RunScriptImmediately(ArchipelagoScript_GoHome);
+
+    // reset elite four state
+    FlagClear(FLAG_DEFEATED_ELITE_4_SIDNEY);
+    FlagClear(FLAG_DEFEATED_ELITE_4_PHOEBE);
+    FlagClear(FLAG_DEFEATED_ELITE_4_GLACIA);
+    FlagClear(FLAG_DEFEATED_ELITE_4_DRAKE);
+    VarSet(VAR_ELITE_4_STATE, 0);
+
+    // reset player state
+    ResetInitialPlayerAvatarState();
+    FlagClear(FLAG_SYS_CYCLING_ROAD);
+    FlagClear(FLAG_SYS_CRUISE_MODE);
+    FlagClear(FLAG_SYS_SAFARI_MODE);
+    FlagClear(FLAG_SYS_USE_STRENGTH);
+    FlagClear(FLAG_SYS_USE_FLASH);
+
+    // end abnormal weather
+    if (VarGet(VAR_SHOULD_END_ABNORMAL_WEATHER) == 1)
+    {
+        VarSet(VAR_SHOULD_END_ABNORMAL_WEATHER, 0);
+        VarSet(VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE);
+    }
+
+    return TRUE;
 }
 
 static bool8 StartMenuExitCallback(void)
@@ -951,7 +988,7 @@ static void HideSaveInfoWindow(void)
 
 static void SaveStartTimer(void)
 {
-    sSaveDialogTimer = 60;
+    sSaveDialogTimer = 20;
 }
 
 static bool8 SaveSuccesTimer(void)

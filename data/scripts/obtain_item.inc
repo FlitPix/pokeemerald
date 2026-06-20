@@ -1,16 +1,31 @@
 .set ITEMID, VAR_0x8000
+.set ITEMID2, VAR_AP_ITEM
 .set AMOUNT, VAR_0x8001
+.set LOCATION_ID, VAR_0x8003
 
 Std_ObtainItem::
+	call_if_ne LOCATION_ID, 0, EventScript_TrySetGiveItemFlag
+	copyvar ITEMID2, ITEMID
+	specialvar VAR_RESULT, ArchipelagoSpecial_ShouldHandle
+	goto_if_eq VAR_RESULT, TRUE, ArchipelagoScript_ObtainItem
 	additem ITEMID, AMOUNT
 	copyvar VAR_0x8007, VAR_RESULT
 	call EventScript_ObtainItemMessage
 	return
 
+EventScript_TrySetGiveItemFlag::
+	call_if_lt LOCATION_ID, 10000, EventScript_SetGiveItemFlag
+	return
+
+EventScript_SetGiveItemFlag::
+	setflagvar LOCATION_ID
+	return
+
 EventScript_ObtainItemMessage::
-	bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
+	bufferitemnameplural STR_VAR_1, ITEMID, AMOUNT
 	checkitemtype ITEMID
 	call EventScript_BufferPocketNameAndTryFanfare
+	copyvar ITEMID, ITEMID2  @ to get around the switch in EventScript_BufferPocketNameAndTryFanfare overwriting VAR_0x8000
 	call_if_eq VAR_0x8007, TRUE, EventScript_ObtainedItem
 	call_if_eq VAR_0x8007, FALSE, EventScript_NoRoomForItem
 	return
@@ -50,9 +65,17 @@ EventScript_BufferBerriesPocket::
 	return
 
 EventScript_ObtainedItem::
-	message gText_ObtainedTheItem
+	copyvar VAR_0x8004, ITEMID
+	specialvar VAR_RESULT, BufferTMHMMoveName
+	goto_if_eq VAR_RESULT, TRUE, EventScript_ObtainedTmHm
+	msgbox gText_ObtainedTheItem, MSGBOX_DEFAULT
 	waitfanfare
-	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
+	setvar VAR_RESULT, TRUE
+	return
+
+EventScript_ObtainedTmHm::
+	msgbox gText_ObtainedTheTmHm, MSGBOX_DEFAULT
+	waitfanfare
 	setvar VAR_RESULT, TRUE
 	return
 
@@ -97,7 +120,11 @@ Std_FindItem::
 	faceplayer
 	waitse
 	copyvar VAR_0x8004, ITEMID
+	copyvar ITEMID2, ITEMID
 	copyvar VAR_0x8005, AMOUNT
+	specialvar LOCATION_ID, ArchipelagoSpecial_GetObjectScriptFlag
+	specialvar VAR_RESULT, ArchipelagoSpecial_ShouldHandle
+	goto_if_eq VAR_RESULT, TRUE, ArchipelagoScript_FindItem
 	checkitemspace ITEMID, AMOUNT
 	copyvar VAR_0x8007, VAR_RESULT
 	bufferitemnameplural STR_VAR_2, ITEMID, AMOUNT
@@ -120,7 +147,6 @@ EventScript_PickUpItem::
 	bufferitemnameplural STR_VAR_2, VAR_0x8004, VAR_0x8005
 	pyramid_getlocation
 	goto_if_eq VAR_RESULT, PYRAMID_LOCATION_FLOOR, EventScript_PutBattlePyramidItemInBag
-	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
 	return
 
 EventScript_PutBattlePyramidItemInBag::
@@ -178,9 +204,7 @@ EventScript_PutHiddenItemInPocket::
 	waitfanfare
 	bufferitemnameplural STR_VAR_2, VAR_0x8004, 1
 	copyvar VAR_0x8004, VAR_0x8008
-	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
 	special TryPutTreasureInvestigatorsOnAir
-	special SetHiddenItemFlag
 	releaseall
 	end
 

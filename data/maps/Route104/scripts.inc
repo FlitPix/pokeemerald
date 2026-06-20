@@ -334,7 +334,14 @@ Route104_EventScript_Boy2::
 	end
 
 Route104_EventScript_ReceivedBulletSeed::
+	specialvar VAR_RESULT, ArchipelagoSpecial_CheckReusableTms
+	goto_if_eq VAR_RESULT, TRUE, Route104_EventScript_ReceivedBulletSeedReusableTms
 	msgbox Route104_Text_TMsAreOneTimeUse, MSGBOX_DEFAULT
+	release
+	end
+
+Route104_EventScript_ReceivedBulletSeedReusableTms::
+	msgbox Route104_Text_TMsAreInfiniteUse, MSGBOX_DEFAULT
 	release
 	end
 
@@ -1037,6 +1044,11 @@ Route104_Text_TMsAreOneTimeUse:
 	.string "for one-time use.\p"
 	.string "Once you use it, it's gone.\n"
 	.string "Think twice before using it!$"
+
+Route104_Text_TMsAreInfiniteUse:
+	.string "A word of advice!\p"
+	.string "A TM, TECHNICAL MACHINE, can be used\n"
+	.string "as many times as you want!$"
 
 Route104_Text_DontNeedThisTakeIt:
 	.string "This FLOWER SHOP started selling\n"

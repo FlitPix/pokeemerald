@@ -1,5 +1,6 @@
 #include "global.h"
 #include "item_menu.h"
+#include "archipelago.h"
 #include "battle.h"
 #include "battle_controllers.h"
 #include "battle_pyramid.h"
@@ -975,7 +976,8 @@ static void BagMenu_ItemPrintCallback(u8 windowId, u32 itemIndex, u8 y)
             offset = GetStringRightAlignXOffset(FONT_NARROW, gStringVar4, 119);
             BagMenu_Print(windowId, FONT_NARROW, gStringVar4, offset, y, 0, 0, TEXT_SKIP_DRAW, COLORID_NORMAL);
         }
-        else if (gBagPosition.pocket != KEYITEMS_POCKET && GetItemImportance(itemId) == FALSE)
+        else if ((gBagPosition.pocket != KEYITEMS_POCKET && GetItemImportance(itemId) == FALSE) &&
+                 (gArchipelagoOptions.reusableTms && gBagPosition.pocket != TMHM_POCKET))
         {
             // Print item quantity
             ConvertIntToDecimalStringN(gStringVar1, itemQuantity, STR_CONV_MODE_RIGHT_ALIGN, BAG_ITEM_CAPACITY_DIGITS);
@@ -1925,7 +1927,12 @@ static void ItemMenu_Give(u8 taskId)
     {
         DisplayItemMessage(taskId, FONT_NORMAL, gText_CantWriteMail, HandleErrorMessage);
     }
-    else if (!GetItemImportance(gSpecialVar_ItemId))
+    else if (GetItemImportance(gSpecialVar_ItemId) ||
+             (gArchipelagoOptions.reusableTms && GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM))
+    {
+        PrintItemCantBeHeld(taskId);
+    }
+    else
     {
         if (CalculatePlayerPartyCount() == 0)
         {
@@ -1936,10 +1943,6 @@ static void ItemMenu_Give(u8 taskId)
             gBagMenu->newScreenCallback = CB2_ChooseMonToGiveItem;
             Task_FadeAndCloseBagMenu(taskId);
         }
-    }
-    else
-    {
-        PrintItemCantBeHeld(taskId);
     }
 }
 
@@ -2067,7 +2070,8 @@ static void Task_ItemContext_Sell(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
 
-    if (GetItemPrice(gSpecialVar_ItemId) == 0)
+    if (GetItemPrice(gSpecialVar_ItemId) == 0 ||
+        (GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM && gArchipelagoOptions.reusableTms))
     {
         CopyItemName(gSpecialVar_ItemId, gStringVar2);
         StringExpandPlaceholders(gStringVar4, gText_CantBuyKeyItem);
@@ -2237,7 +2241,8 @@ static void TryDepositItem(u8 taskId)
     s16 *data = gTasks[taskId].data;
 
     FillWindowPixelBuffer(WIN_DESCRIPTION, PIXEL_FILL(0));
-    if (GetItemImportance(gSpecialVar_ItemId))
+    if (GetItemImportance(gSpecialVar_ItemId) ||
+        (gArchipelagoOptions.reusableTms && GetPocketByItemId(gSpecialVar_ItemId) == POCKET_TM_HM))
     {
         // Can't deposit important items
         BagMenu_Print(WIN_DESCRIPTION, FONT_NORMAL, gText_CantStoreImportantItems, 3, 1, 0, 0, 0, COLORID_NORMAL);

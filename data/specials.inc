@@ -535,3 +535,14 @@ gSpecials::
 	def_special RemoveRecordsWindow
 	def_special CloseDeptStoreElevatorWindow
 	def_special TrySetBattleTowerLinkType
+
+	def_special ArchipelagoSpecial_ShouldHandle
+	def_special ArchipelagoSpecial_GetObjectScriptFlag
+	def_special ArchipelagoSpecial_IsItemSpecial
+	def_special ArchipelagoSpecial_HandleProgressivePokedex
+	def_special ArchipelagoSpecial_PopReward
+	def_special ArchipelagoSpecial_ConsumeReceivedItem
+	def_special ArchipelagoSpecial_CanChallengeNorman
+	def_special ArchipelagoSpecial_CanChallengeEliteFour
+	def_special ArchipelagoSpecial_CheckReusableTms
+	def_special ArchipelagoSpecial_CanUseHmOutsideBattle

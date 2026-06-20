@@ -17,6 +17,7 @@
 
 static bool8 CheckPyramidBagHasItem(u16 itemId, u16 count);
 static bool8 CheckPyramidBagHasSpace(u16 itemId, u16 count);
+void GetItemHoldEffectParam_Script();
 
 EWRAM_DATA struct BagPocket gBagPockets[POCKETS_COUNT] = {0};
 
@@ -291,6 +292,7 @@ bool8 AddBagItem(u16 itemId, u16 count)
                         count -= slotCapacity - ownedCount;
                         SetBagItemQuantity(&newItems[i].quantity, slotCapacity);
                         // don't create another instance of the item if it's at max slot capacity and count is equal to 0
+                        // AP TODO: try to send item to the PC first
                         if (count == 0)
                         {
                             break;
@@ -905,6 +907,11 @@ const u8 *GetItemDescription(u16 itemId)
 u8 GetItemImportance(u16 itemId)
 {
     return gItems[SanitizeItemId(itemId)].importance;
+}
+
+void GetItemHoldEffectParam_Script()
+{
+    VarSet(VAR_RESULT, GetItemHoldEffectParam(VarGet(VAR_0x8004)));
 }
 
 // Unused

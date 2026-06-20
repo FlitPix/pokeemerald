@@ -4,6 +4,7 @@
 #include "battle_anim.h"
 #include "battle_ai_script_commands.h"
 #include "battle_scripts.h"
+#include "archipelago.h"
 #include "item.h"
 #include "util.h"
 #include "pokemon.h"
@@ -10038,6 +10039,9 @@ static void Cmd_handleballthrow(void)
                     gBattleResults.catchAttempts[gLastUsedItem - ITEM_ULTRA_BALL]++;
             }
         }
+
+        if (!gArchipelagoOptions.isChallengeMode && gSaveBlock2Ptr->optionsGuaranteedCatch)
+            odds = 255;
 
         if (odds > 254) // mon caught
         {

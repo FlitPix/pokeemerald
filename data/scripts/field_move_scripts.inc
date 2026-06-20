@@ -1,7 +1,9 @@
 @ Interact with cuttable tree
 EventScript_CutTree::
 	lockall
-	goto_if_unset FLAG_BADGE01_GET, EventScript_CheckTreeCantCut
+	setvar VAR_0x8003, 0 @ FIELD_MOVE_CUT
+	specialvar VAR_RESULT, ArchipelagoSpecial_CanUseHmOutsideBattle
+	goto_if_eq VAR_RESULT, FALSE, EventScript_CheckTreeCantCut
 	checkpartymove MOVE_CUT
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CheckTreeCantCut
 	setfieldeffectargument 0, VAR_RESULT
@@ -60,7 +62,9 @@ Text_CantCut:
 @ Interact with smashable rock
 EventScript_RockSmash::
 	lockall
-	goto_if_unset FLAG_BADGE03_GET, EventScript_CantSmashRock
+	setvar VAR_0x8003, 2 @ FIELD_MOVE_ROCK_SMASH
+	specialvar VAR_RESULT, ArchipelagoSpecial_CanUseHmOutsideBattle
+	goto_if_eq VAR_RESULT, FALSE, EventScript_CantSmashRock
 	checkpartymove MOVE_ROCK_SMASH
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantSmashRock
 	setfieldeffectargument 0, VAR_RESULT
@@ -123,7 +127,9 @@ Text_CantSmash:
 
 EventScript_StrengthBoulder::
 	lockall
-	goto_if_unset FLAG_BADGE04_GET, EventScript_CantStrength
+	setvar VAR_0x8003, 3 @ FIELD_MOVE_STRENGTH
+	specialvar VAR_RESULT, ArchipelagoSpecial_CanUseHmOutsideBattle
+	goto_if_eq VAR_RESULT, FALSE, EventScript_CantStrength
 	goto_if_set FLAG_SYS_USE_STRENGTH, EventScript_CheckActivatedBoulder
 	checkpartymove MOVE_STRENGTH
 	goto_if_eq VAR_RESULT, PARTY_SIZE, EventScript_CantStrength

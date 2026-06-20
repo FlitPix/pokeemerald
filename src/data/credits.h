@@ -1,5 +1,9 @@
 enum
 {
+    PAGE_ARCHIPELAGO_LEAD,
+    PAGE_ARCHIPELAGO_SPECIAL_THANKS_1,
+    PAGE_ARCHIPELAGO_SPECIAL_THANKS_2,
+    PAGE_ARCHIPELAGO_SPECIAL_THANKS_3,
     PAGE_TITLE,
     PAGE_DIRECTOR,
     PAGE_ART_DIRECTOR,
@@ -63,6 +67,8 @@ enum
 #define ENTRIES_PER_PAGE 5
 
 static const u8 sCreditsText_EmptyString[]                    = _("");
+static const u8 sCreditsText_ArchipelagoMod[]                 = _("Archipelago Mod");
+static const u8 sCreditsText_ArchipelagoSpecialThanks[]       = _("Archipelago Special Thanks");
 static const u8 sCreditsText_PkmnEmeraldVersion[]             = _("POKéMON EMERALD VERSION");
 static const u8 sCreditsText_Credits[]                        = _("Credits");
 static const u8 sCreditsText_ExecutiveDirector[]              = _("Executive Director");
@@ -221,9 +227,34 @@ static const u8 sCreditsText_MotoyasuTojima[]                 = _("Motoyasu Toji
 static const u8 sCreditsText_NicolaPrattBarlow[]              = _("Nicola Pratt-Barlow");
 static const u8 sCreditsText_ShellieDow[]                     = _("Shellie Dow");
 static const u8 sCreditsText_ErikJohnson[]                    = _("Erik Johnson");
+static const u8 sCreditsText_Flit[]                           = _("Flit");
+static const u8 sCreditsText_Zunawe[]                         = _("Zunawe");
+static const u8 sCreditsText_alicemousie[]                    = _("alicemousie");
+static const u8 sCreditsText_gerbiljames[]                    = _("gerbiljames");
+static const u8 sCreditsText_palex00[]                        = _("palex00");
+static const u8 sCreditsText_Seto[]                           = _("Seto");
+static const u8 sCreditsText_Vyneras[]                        = _("Vyneras");
+static const u8 sCreditsText_silasary[]                       = _("silasary");
+static const u8 sCreditsText_pret[]                           = _("pret");
+static const u8 sCreditsText_Archie[]                         = _("Archie");
+static const u8 sCreditsText_Anon822[]                        = _("Anon822");
+static const u8 sCreditsText_TheXaman[]                       = _("TheXaman");
+static const u8 sCreditsText_Ketsuban[]                       = _("Ketsuban");
+static const u8 sCreditsText_Pyredrid[]                       = _("Pyredrid");
+static const u8 sCreditsText_AsparagusEduardo[]               = _("AsparagusEduardo");
+static const u8 sCreditsText_Ghoulslash[]                     = _("Ghoulslash");
+static const u8 sCreditsText_ExboSeed[]                       = _("ExboSeed");
+static const u8 sCreditsText_Sierraffinity[]                  = _("Sierraffinity");
+static const u8 sCreditsText_Jaizu[]                          = _("Jaizu");
+static const u8 sCreditsText_SonikkuADatH[]                   = _("SonikkuA-DatH");
+static const u8 sCreditsText_GitContributors[]                = _("All git Contributors");
+static const u8 sCreditsText_YouForPlaying[]                  = _("…And you, for playing!");
+static const u8 sCreditsText_FullCredits[]                    = _("For now, see full credits on GitHub");
 static const struct CreditsEntry sCreditsEntry_EmptyString                      = { 0, FALSE, sCreditsText_EmptyString};
 static const struct CreditsEntry sCreditsEntry_PkmnEmeraldVersion               = { 7,  TRUE, sCreditsText_PkmnEmeraldVersion};
 static const struct CreditsEntry sCreditsEntry_Credits                          = {11,  TRUE, sCreditsText_Credits};
+static const struct CreditsEntry sCreditsEntry_ArchipelagoMod                   = {12,  TRUE, sCreditsText_ArchipelagoMod};
+static const struct CreditsEntry sCreditsEntry_ArchipelagoSpecialThanks         = {12,  TRUE, sCreditsText_ArchipelagoSpecialThanks};
 static const struct CreditsEntry sCreditsEntry_ExecutiveDirector                = { 8,  TRUE, sCreditsText_ExecutiveDirector};
 static const struct CreditsEntry sCreditsEntry_Director                         = {12,  TRUE, sCreditsText_Director};
 static const struct CreditsEntry sCreditsEntry_ArtDirector                      = {10,  TRUE, sCreditsText_ArtDirector};
@@ -380,10 +411,61 @@ static const struct CreditsEntry sCreditsEntry_MotoyasuTojima                   
 static const struct CreditsEntry sCreditsEntry_NicolaPrattBarlow                = { 0, FALSE, sCreditsText_NicolaPrattBarlow};
 static const struct CreditsEntry sCreditsEntry_ShellieDow                       = { 0, FALSE, sCreditsText_ShellieDow};
 static const struct CreditsEntry sCreditsEntry_ErikJohnson                      = { 0, FALSE, sCreditsText_ErikJohnson};
+static const struct CreditsEntry sCreditsEntry_Flit                      = { 0, FALSE, sCreditsText_Flit};
+static const struct CreditsEntry sCreditsEntry_Zunawe                      = { 0, FALSE, sCreditsText_Zunawe};
+static const struct CreditsEntry sCreditsEntry_alicemousie                      = { 0, FALSE, sCreditsText_alicemousie};
+static const struct CreditsEntry sCreditsEntry_gerbiljames                      = { 0, FALSE, sCreditsText_gerbiljames};
+static const struct CreditsEntry sCreditsEntry_palex00                      = { 0, FALSE, sCreditsText_palex00};
+static const struct CreditsEntry sCreditsEntry_Seto                      = { 0, FALSE, sCreditsText_Seto};
+static const struct CreditsEntry sCreditsEntry_Vyneras                      = { 0, FALSE, sCreditsText_Vyneras};
+static const struct CreditsEntry sCreditsEntry_silasary                      = { 0, FALSE, sCreditsText_silasary};
+static const struct CreditsEntry sCreditsEntry_pret                      = { 0, FALSE, sCreditsText_pret};
+static const struct CreditsEntry sCreditsEntry_Archie                      = { 0, FALSE, sCreditsText_Archie};
+static const struct CreditsEntry sCreditsEntry_Anon822                      = { 0, FALSE, sCreditsText_Anon822};
+static const struct CreditsEntry sCreditsEntry_TheXaman                      = { 0, FALSE, sCreditsText_TheXaman};
+static const struct CreditsEntry sCreditsEntry_Ketsuban                      = { 0, FALSE, sCreditsText_Ketsuban};
+static const struct CreditsEntry sCreditsEntry_Pyredrid                      = { 0, FALSE, sCreditsText_Pyredrid};
+static const struct CreditsEntry sCreditsEntry_AsparagusEduardo                      = { 0, FALSE, sCreditsText_AsparagusEduardo};
+static const struct CreditsEntry sCreditsEntry_Ghoulslash                      = { 0, FALSE, sCreditsText_Ghoulslash};
+static const struct CreditsEntry sCreditsEntry_ExboSeed                      = { 0, FALSE, sCreditsText_ExboSeed};
+static const struct CreditsEntry sCreditsEntry_Sierraffinity                      = { 0, FALSE, sCreditsText_Sierraffinity};
+static const struct CreditsEntry sCreditsEntry_Jaizu                      = { 0, FALSE, sCreditsText_Jaizu};
+static const struct CreditsEntry sCreditsEntry_SonikkuADatH                      = { 0, FALSE, sCreditsText_SonikkuADatH};
+static const struct CreditsEntry sCreditsEntry_GitContributors                      = { 0, FALSE, sCreditsText_GitContributors};
+static const struct CreditsEntry sCreditsEntry_YouForPlaying                      = { 0, FALSE, sCreditsText_YouForPlaying};
+static const struct CreditsEntry sCreditsEntry_FullCredits                      = { 0, FALSE, sCreditsText_FullCredits};
 
 #define _ &sCreditsEntry_EmptyString
 static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][ENTRIES_PER_PAGE] =
 {
+    [PAGE_ARCHIPELAGO_LEAD] = {
+        _,
+        &sCreditsEntry_ArchipelagoMod,
+        &sCreditsEntry_Flit,
+        _,
+        _
+    },
+    [PAGE_ARCHIPELAGO_SPECIAL_THANKS_1] = {
+        &sCreditsEntry_ArchipelagoSpecialThanks,
+        &sCreditsEntry_Zunawe,
+        &sCreditsEntry_alicemousie,
+        &sCreditsEntry_gerbiljames,
+        &sCreditsEntry_palex00
+    },
+    [PAGE_ARCHIPELAGO_SPECIAL_THANKS_2] = {
+        &sCreditsEntry_ArchipelagoSpecialThanks,
+        &sCreditsEntry_Seto,
+        &sCreditsEntry_Vyneras,
+        &sCreditsEntry_silasary,
+        &sCreditsEntry_pret
+    },
+    [PAGE_ARCHIPELAGO_SPECIAL_THANKS_3] = {
+        _,
+        &sCreditsEntry_ArchipelagoSpecialThanks,
+        &sCreditsEntry_YouForPlaying,
+        _,
+        &sCreditsEntry_FullCredits
+    },
     [PAGE_TITLE] = {
         _,
         &sCreditsEntry_PkmnEmeraldVersion,

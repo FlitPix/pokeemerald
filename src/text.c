@@ -882,7 +882,11 @@ bool16 TextPrinterWaitWithDownArrow(struct TextPrinter *textPrinter)
     else
     {
         TextPrinterDrawDownArrow(textPrinter);
-        if (JOY_NEW(A_BUTTON | B_BUTTON))
+        if (JOY_NEW(A_BUTTON | B_BUTTON)
+            || (gSaveBlock2Ptr->optionsTurboButton == OPTIONS_TURBO_BUTTON_A && JOY_HELD_RAW(A_BUTTON))
+            || (gSaveBlock2Ptr->optionsTurboButton == OPTIONS_TURBO_BUTTON_B && JOY_HELD_RAW(B_BUTTON))
+            || (gSaveBlock2Ptr->optionsTurboButton == OPTIONS_TURBO_BUTTON_A_OR_B && (JOY_HELD_RAW(A_BUTTON) || JOY_HELD_RAW(B_BUTTON)))
+        )
         {
             result = TRUE;
             PlaySE(SE_SELECT);

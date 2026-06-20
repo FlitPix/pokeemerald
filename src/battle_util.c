@@ -1,4 +1,5 @@
 #include "global.h"
+#include "archipelago.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_arena.h"
@@ -3921,6 +3922,7 @@ u8 GetMoveTarget(u16 move, u8 setTarget)
 
 static bool32 IsBattlerModernFatefulEncounter(u8 battler)
 {
+    return TRUE; // not good for a randomizer otherwise
     if (GetBattlerSide(battler) == B_SIDE_OPPONENT)
         return TRUE;
     if (GetMonData(&gPlayerParty[gBattlerPartyIndexes[battler]], MON_DATA_SPECIES, NULL) != SPECIES_DEOXYS
@@ -3940,7 +3942,7 @@ u8 IsMonDisobedient(void)
     if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT)
         return 0;
 
-    if (IsBattlerModernFatefulEncounter(gBattlerAttacker)) // only false if illegal Mew or Deoxys
+    if (IsBattlerModernFatefulEncounter(gBattlerAttacker)) // always true
     {
         if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && GetBattlerPosition(gBattlerAttacker) == 2)
             return 0;
@@ -3948,19 +3950,27 @@ u8 IsMonDisobedient(void)
             return 0;
         if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
             return 0;
-        if (!IsOtherTrainer(gBattleMons[gBattlerAttacker].otId, gBattleMons[gBattlerAttacker].otName))
-            return 0;
-        if (FlagGet(FLAG_BADGE08_GET))
-            return 0;
 
-        obedienceLevel = 10;
+        // the commented-out reference solution below for Challenge Mode is not well-designed if fewer than eight
+        // badges/gyms are required to fight the elite four.
+        // AP TODO: implement dynamic obedience levels
+        return 0;
 
-        if (FlagGet(FLAG_BADGE02_GET))
-            obedienceLevel = 30;
-        if (FlagGet(FLAG_BADGE04_GET))
-            obedienceLevel = 50;
-        if (FlagGet(FLAG_BADGE06_GET))
-            obedienceLevel = 70;
+        // if (!gArchipelagoOptions.isChallengeMode)
+        //     return 0;
+        // else
+        // {
+        //     if (VarGet(VAR_BADGE_COUNT) == 8) return 0;
+        // 
+        //     obedienceLevel = 10;
+        // 
+        //     if (VarGet(VAR_BADGE_COUNT) == 2 || VarGet(VAR_BADGE_COUNT) == 3)
+        //         obedienceLevel = 30;
+        //     if (VarGet(VAR_BADGE_COUNT) == 4 || VarGet(VAR_BADGE_COUNT) == 5)
+        //         obedienceLevel = 50;
+        //     if (VarGet(VAR_BADGE_COUNT) == 6 || VarGet(VAR_BADGE_COUNT) == 7)
+        //         obedienceLevel = 70;
+        // }
     }
 
     if (gBattleMons[gBattlerAttacker].level <= obedienceLevel)
