@@ -7,19 +7,14 @@ MODERN      ?= 0
 KEEP_TEMPS  ?= 0
 
 # `File name`.gba ('_modern' will be appended to the modern builds)
-FILE_NAME := pokeemerald
+FILE_NAME := pokeemerald_ap_flit
 BUILD_DIR := build
 
 # Builds the ROM using a modern compiler
 MODERN      ?= 0
-# Compares the ROM to a checksum of the original - only makes sense using when non-modern
-COMPARE     ?= 0
 
 ifeq (modern,$(MAKECMDGOALS))
   MODERN := 1
-endif
-ifeq (compare,$(MAKECMDGOALS))
-  COMPARE := 1
 endif
 
 # Default make rule
@@ -147,9 +142,10 @@ RAMSCRGEN := $(TOOLS_DIR)/ramscrgen/ramscrgen$(EXE)
 FIX       := $(TOOLS_DIR)/gbafix/gbafix$(EXE)
 MAPJSON   := $(TOOLS_DIR)/mapjson/mapjson$(EXE)
 JSONPROC  := $(TOOLS_DIR)/jsonproc/jsonproc$(EXE)
+EXTRACTOR := $(TOOLS_DIR)/extractor/extractor$(EXE)
 
 PERL := perl
-SHA1 := $(shell { command -v sha1sum || command -v shasum; } 2>/dev/null) -c
+NODE := $(shell { command -v node; } 2>/dev/null)
 
 MAKEFLAGS += --no-print-directory
 
@@ -161,7 +157,7 @@ MAKEFLAGS += --no-print-directory
 .DELETE_ON_ERROR:
 
 RULES_NO_SCAN += libagbsyscall clean clean-assets tidy tidymodern tidynonmodern generated clean-generated
-.PHONY: all rom modern compare
+.PHONY: all rom modern
 .PHONY: $(RULES_NO_SCAN)
 
 infoshell = $(foreach line, $(shell $1 | sed "s/ /__SPACE__/g"), $(info $(subst __SPACE__, ,$(line))))
@@ -225,15 +221,20 @@ $(shell mkdir -p $(SUBDIRS))
 
 # Pretend rules that are actually flags defer to `make all`
 modern: all
-compare: all
 
 # Other rules
 rom: $(ROM)
-ifeq ($(COMPARE),1)
-	@$(SHA1) rom.sha1
-endif
 
 syms: $(SYM)
+
+parse-constants:
+	$(NODE) ./tools/extractor/parseConstants.js
+
+patch: $(ROM)
+	bsdiff4 pokeemerald.gba $(ROM) base_patch.bsdiff4
+
+extract: tools rom syms parse-constants patch
+	$(EXTRACTOR)
 
 clean: tidy clean-tools clean-generated clean-assets
 	@$(MAKE) clean -C libagbsyscall
