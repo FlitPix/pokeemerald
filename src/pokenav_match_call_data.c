@@ -249,7 +249,7 @@ static const struct MatchCallStructNPC sStevenMatchCallHeader =
 {
     .type = MC_TYPE_NPC,
     .mapSec = MAPSEC_NONE,
-    .flag = FLAG_REGISTERED_STEVEN_POKENAV,
+    .flag = FLAG_POKENAV_REGISTERED_STEVEN,
     .desc = gText_StevenMatchCallDesc,
     .name = gText_StevenMatchCallName,
     .textData = sStevenTextScripts
