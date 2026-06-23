@@ -9,7 +9,7 @@
 #include <regex>
 #include <sstream>
 
-#include <json.hpp>
+#include "json.hpp"
 using json = nlohmann::json;
 
 #define ROM_START 0x8000000
@@ -73,10 +73,10 @@ int main (int argc, char *argv[])
         { "gMain", symbol_map["gMain"] },
         { "gSaveBlock1Ptr", symbol_map["gSaveBlock1Ptr"] },
         { "gSaveBlock2Ptr", symbol_map["gSaveBlock2Ptr"] },
-        { "gArchipelagoDeathLinkQueued", symbol_map["gArchipelagoDeathLinkQueued"] },
+        //{ "gArchipelagoDeathLinkQueued", symbol_map["gArchipelagoDeathLinkQueued"] },
         { "gPlayerParty", symbol_map["gPlayerParty"] },
         { "gEnemyParty", symbol_map["gEnemyParty"] },
-        { "sMostRecentWildEncounter", symbol_map["sMostRecentWildEncounter"] },
+        //{ "sMostRecentWildEncounter", symbol_map["sMostRecentWildEncounter"] },
     };
 
     std::map<std::string, uint32_t> misc_rom_addresses = {
@@ -94,8 +94,8 @@ int main (int argc, char *argv[])
         { "gTrainers", symbol_map["gTrainers"] - ROM_START },
         { "sTMHMMoves", symbol_map["sTMHMMoves"] - ROM_START },
         { "gEvolutionTable", symbol_map["gEvolutionTable"] - ROM_START },
-        { "gRandomizedSoundTable", symbol_map["gRandomizedSoundTable"] - ROM_START },
-        { "gRandomizedBerryTreeItems", symbol_map["gRandomizedBerryTreeItems"] - ROM_START },
+        //{ "gRandomizedSoundTable", symbol_map["gRandomizedSoundTable"] - ROM_START },
+        //{ "gRandomizedBerryTreeItems", symbol_map["gRandomizedBerryTreeItems"] - ROM_START },
         { "gTutorMoves", symbol_map["gTutorMoves"] - ROM_START },
         { "sTutorLearnsets", symbol_map["sTutorLearnsets"] - ROM_START },
         { "sFanfares", symbol_map["sFanfares"] - ROM_START },
@@ -108,11 +108,12 @@ int main (int argc, char *argv[])
     std::ifstream rom(root_dir / "pokeemerald_ap_flit.gba", std::ios::binary);
     if (rom.fail())
     {
-        fprintf(stderr, "Could not open rom file\n");
+        fprintf(stderr, "Could not open ROM file\n");
         exit(1);
     }
 
     // NPC Gifts
+    std::cout << "... NPC Gifts ..." << std::endl;
     std::vector<std::shared_ptr<LocationInfo>> npc_gifts;
     for (auto const& [symbol, address] : symbol_map)
     {
@@ -128,6 +129,7 @@ int main (int argc, char *argv[])
 
     // Berry Trees
     /*
+    std::cout << "... Berry Trees ..." << std::endl;
     std::regex berry_regex("(ORAN|PECHA|CHERI|LEPPA|PINAP|CHESTO|KELPSY|BLUK|NANAB|WEPEAR|RAWST|RAZZ|PERSIM|SITRUS|HONDEW|POMEG|ASPEAR|GREPA|QUALOT|LIECHI)");
     std::vector<std::shared_ptr<LocationInfo>> berry_trees;
     for (json::iterator it = constants_json.begin(); it != constants_json.end(); ++it)
@@ -157,6 +159,7 @@ int main (int argc, char *argv[])
 
     // Pokedex Entries
     /*
+    std::cout << "... Pokedex Entries ..." << std::endl;
     std::vector<std::shared_ptr<LocationInfo>> dex_rewards;
     for (size_t i = 0; i < 386; ++i)
     {
@@ -176,6 +179,7 @@ int main (int argc, char *argv[])
     */
 
     // Badges
+    std::cout << "... Badges ..." << std::endl;
     std::vector<std::shared_ptr<LocationInfo>> badges;
     for (auto const& [symbol, address] : symbol_map)
     {
@@ -190,7 +194,7 @@ int main (int argc, char *argv[])
     }
 
     // Trainer battle scripts
-    /*
+    std::cout << "... Trainer Scripts ..." << std::endl;
     std::map<uint16_t, uint32_t> trainer_battle_scripts;
     for (auto const& [symbol, address] : symbol_map)
     {
@@ -199,10 +203,9 @@ int main (int argc, char *argv[])
             trainer_battle_scripts[constants_json[symbol.substr(19)]] = address;
         }
     }
-    */
 
     // Reading trainers
-    /*
+    std::cout << "... Trainers ..." << std::endl;
     std::vector<std::shared_ptr<TrainerInfo>> trainers;
     for (size_t i = 0; i < constants_json["TRAINERS_COUNT"]; ++i)
     {
@@ -315,10 +318,10 @@ int main (int argc, char *argv[])
 
         trainers.push_back(trainer);
     }
-    */
 
     // Trainer Rewards
     /*
+    std::cout << "... Trainer Rewards ..." << std::endl;
     std::vector<std::shared_ptr<LocationInfo>> trainer_rewards;
     std::vector<std::string> trainer_names{
         "TRAINER_AARON",
@@ -957,7 +960,6 @@ int main (int argc, char *argv[])
     std::map<std::string, std::shared_ptr<MapInfo>> maps;
     std::vector<std::shared_ptr<WarpInfo>> warps;
 
-    /*
     for(const auto& entry: std::filesystem::directory_iterator(root_dir / "data/maps/"))
     {
         if (entry.is_directory())
@@ -1148,7 +1150,6 @@ int main (int argc, char *argv[])
             }
         }
     }
-    */
 
     // ------------------------------------------------------------------------
     // Reading encounter tables
@@ -1234,6 +1235,7 @@ int main (int argc, char *argv[])
 
     /* Static and Legendary encounters are currently unimplemented.
     // Reading static encounters
+    std::cout << "... static encounters ..." << std::endl;
     std::vector<std::shared_ptr<MiscPokemonInfo>> misc_pokemon;
     for (auto const& [symbol, address] : symbol_map)
     {
@@ -1270,6 +1272,7 @@ int main (int argc, char *argv[])
     }
 
     // Reading legendary encounters
+    std::cout << "... legendary encounters ..." << std::endl;
     std::vector<std::shared_ptr<LegendaryEncounterInfo>> legendary_encounters;
     for (auto const& [symbol, address] : symbol_map)
     {
@@ -1293,6 +1296,7 @@ int main (int argc, char *argv[])
     */
 
     // Reading species info
+    std::cout << "... species info ..." << std::endl;
     std::vector<std::shared_ptr<SpeciesInfo>> all_species;
     for (size_t i = 0; i < constants_json["NUM_SPECIES"]; ++i)
     {
@@ -1339,6 +1343,7 @@ int main (int argc, char *argv[])
     }
 
     // Reading learnsets
+    std::cout << "... learnsets ..." << std::endl;
     for (size_t i = 0; i < constants_json["NUM_SPECIES"]; ++i)
     {
         const auto &species = all_species[i];
@@ -1370,6 +1375,7 @@ int main (int argc, char *argv[])
     }
 
     // Reading TM/HM learnsets
+    std::cout << "... TM/HM learnsets ..." << std::endl;
     for (size_t i = 0; i < constants_json["NUM_SPECIES"]; ++i)
     {
         const auto &species = all_species[i];
@@ -1480,11 +1486,11 @@ int main (int argc, char *argv[])
     // Creating output
     // ------------------------------------------------------------------------
     std::cout << "Creating JSON..." << std::endl;
-    //json maps_json;
-    //for (const auto& map_tuple: maps)
-    //{
-    //    maps_json[map_tuple.first] = map_tuple.second->to_json();
-    //}
+    json maps_json;
+    for (const auto& map_tuple: maps)
+    {
+        maps_json[map_tuple.first] = map_tuple.second->to_json();
+    }
 
     //json misc_pokemon_json = json::array();
     //for (const auto& mon: misc_pokemon)
@@ -1504,11 +1510,11 @@ int main (int argc, char *argv[])
         species_json.push_back(species->to_json());
     }
 
-    //json trainers_json = json::array();
-    //for (const auto& trainer: trainers)
-    //{
-    //    trainers_json.push_back(trainer->to_json());
-    //}
+    json trainers_json = json::array();
+    for (const auto& trainer: trainers)
+    {
+        trainers_json.push_back(trainer->to_json());
+    }
 
     json locations_json;
     for (const auto& location: npc_gifts)
@@ -1568,7 +1574,7 @@ int main (int argc, char *argv[])
     json output_json = {
         { "_comment", "DO NOT MODIFY. This file was auto-generated. Your changes will likely be overwritten." },
         { "_rom_name", rom_name },
-        //{ "maps", maps_json },
+        { "maps", maps_json },
         //{ "legendary_encounters", legendary_encounters_json },
         //{ "misc_pokemon", misc_pokemon_json },
         { "misc_ram_addresses", misc_ram_addresses },

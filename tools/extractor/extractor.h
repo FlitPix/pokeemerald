@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <json.hpp>
+#include "json.hpp"
 
 #define NUM_LAND_ENCOUNTER_SLOTS 12
 #define NUM_WATER_ENCOUNTER_SLOTS 5
