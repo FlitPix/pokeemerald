@@ -128,7 +128,7 @@ int main (int argc, char *argv[])
     }
 
     // Berry Trees
-    /*
+    /* TODO: Berry tree rando
     std::cout << "... Berry Trees ..." << std::endl;
     std::regex berry_regex("(ORAN|PECHA|CHERI|LEPPA|PINAP|CHESTO|KELPSY|BLUK|NANAB|WEPEAR|RAWST|RAZZ|PERSIM|SITRUS|HONDEW|POMEG|ASPEAR|GREPA|QUALOT|LIECHI)");
     std::vector<std::shared_ptr<LocationInfo>> berry_trees;
@@ -158,7 +158,7 @@ int main (int argc, char *argv[])
     */
 
     // Pokedex Entries
-    /*
+    /* TODO: Dexsanity
     std::cout << "... Pokedex Entries ..." << std::endl;
     std::vector<std::shared_ptr<LocationInfo>> dex_rewards;
     for (size_t i = 0; i < 386; ++i)
@@ -320,7 +320,7 @@ int main (int argc, char *argv[])
     }
 
     // Trainer Rewards
-    /*
+    /* TODO: Trainersanity
     std::cout << "... Trainer Rewards ..." << std::endl;
     std::vector<std::shared_ptr<LocationInfo>> trainer_rewards;
     std::vector<std::string> trainer_names{
@@ -1154,7 +1154,6 @@ int main (int argc, char *argv[])
     // ------------------------------------------------------------------------
     // Reading encounter tables
     // ------------------------------------------------------------------------
-    /* This code segfaults, see below TODO.
     std::cout << "Reading encounter tables..." << std::endl;
     std::ifstream wild_encounters_file(root_dir / "src/data/wild_encounters.json");
     json wild_encounters_json = json::parse(wild_encounters_file);
@@ -1231,9 +1230,8 @@ int main (int argc, char *argv[])
             }
         }
     }
-    */
 
-    /* Static and Legendary encounters are currently unimplemented.
+    /* TODO: Static and legendary encounter shuffle
     // Reading static encounters
     std::cout << "... static encounters ..." << std::endl;
     std::vector<std::shared_ptr<MiscPokemonInfo>> misc_pokemon;
@@ -1296,7 +1294,7 @@ int main (int argc, char *argv[])
     */
 
     // Reading species info
-    std::cout << "... species info ..." << std::endl;
+    std::cout << "Reading Pokemon species info..." << std::endl;
     std::vector<std::shared_ptr<SpeciesInfo>> all_species;
     for (size_t i = 0; i < constants_json["NUM_SPECIES"]; ++i)
     {
@@ -1385,6 +1383,7 @@ int main (int argc, char *argv[])
     }
 
     // Reading evolutions
+    std::cout << "... evolutions ..." << std::endl;
     for (size_t i = 0; i < constants_json["NUM_SPECIES"]; ++i)
     {
         const size_t NUM_EVOS_PER_MON = 5;
@@ -1456,6 +1455,7 @@ int main (int argc, char *argv[])
     }
 
     // Reading TM moves
+    std::cout << "Reading TM moves..." << std::endl;
     uint16_t tmhm_moves[58];
     for (size_t i = 0; i < 58; ++i)
     {
@@ -1464,6 +1464,7 @@ int main (int argc, char *argv[])
     }
 
     // Reading default items
+    std::cout << "Reading default items..." << std::endl;
     for (const auto& item: ball_items)
     {
         rom.seekg(item->address, rom.beg);
