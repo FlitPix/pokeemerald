@@ -8,6 +8,7 @@ GraniteCave_StevensRoom_EventScript_Steven::
 	checkitem ITEM_LETTER
 	goto_if_eq VAR_RESULT, FALSE, GraniteCave_StevensRoom_EventScript_NoLetter
 	msgbox GraniteCave_StevensRoom_Text_LetterForMe, MSGBOX_DEFAULT
+	setvar VAR_0x8004, ITEM_LETTER
 	call Common_EventScript_PlayerHandedOverTheItem
 	setflag FLAG_DELIVERED_STEVEN_LETTER
 	msgbox GraniteCave_StevensRoom_Text_ThankYouTakeThis, MSGBOX_DEFAULT
