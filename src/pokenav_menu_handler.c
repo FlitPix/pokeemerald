@@ -92,7 +92,7 @@ static const u8 sMenuItems[][MAX_POKENAV_MENUITEMS] =
 
 static u8 GetPokenavMainMenuType(void)
 {
-    u8 menuType = POKENAV_MENU_TYPE_UNLOCK_RIBBONS;
+    u8 menuType = POKENAV_MENU_TYPE_DEFAULT;
 
     if (FlagGet(FLAG_ADDED_MATCH_CALL_TO_POKENAV))
     {
