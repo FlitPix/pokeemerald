@@ -165,7 +165,7 @@
 #define FLAG_RETURNED_DEVON_GOODS            0x90
 #define FLAG_CAUGHT_LUGIA                    0x91
 #define FLAG_CAUGHT_HO_OH                    0x92
-#define FLAG_MR_BRINEY_SAILING_INTRO         0x93
+#define FLAG_MR_BRINEY_SAILING_INTRO         0x93 // Unused Flag
 #define FLAG_DOCK_REJECTED_DEVON_GOODS       0x94
 #define FLAG_DELIVERED_DEVON_GOODS           0x95
 #define FLAG_RECEIVED_5_POKE_BALLS           0x96 // formerly FLAG_RECEIVED_CONTEST_PASS
