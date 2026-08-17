@@ -238,6 +238,7 @@ void NewGameInitData(void)
 
 static void SetNewGameFlagsVars(void)
 {
+    // see also new_game.inc
     if (!gArchipelagoOptions.shuffleBag) FlagSet(FLAG_SYS_BAG_GET);
     if (gArchipelagoOptions.shufflePokedex == 0) FlagSet(FLAG_SYS_POKEDEX_GET);
     if (gArchipelagoOptions.shufflePokedex == 0) EnableNationalPokedex();
@@ -253,7 +254,6 @@ static void SetNewGameFlagsVars(void)
     FlagSet(FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM);
     VarSet(VAR_BIRCH_LAB_STATE, 5);
     VarSet(VAR_ROUTE101_STATE, 3);
-    FlagSet(FLAG_ADVENTURE_STARTED);
     FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH);
     FlagClear(FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_UNKNOWN_0x380);
     VarSet(VAR_PETALBURG_CITY_STATE, 3);
@@ -262,6 +262,7 @@ static void SetNewGameFlagsVars(void)
     FlagSet(FLAG_ADDED_MATCH_CALL_TO_POKENAV);
     FlagSet(FLAG_ENABLE_MOM_MATCH_CALL);
     FlagSet(FLAG_ENABLE_PROF_BIRCH_MATCH_CALL);
+    FlagSet(FLAG_ENABLE_NORMAN_MATCH_CALL);
     VarSet(VAR_CABLE_CLUB_TUTORIAL_STATE, 2);
     if (gSaveBlock2Ptr->playerGender == MALE)
     {
