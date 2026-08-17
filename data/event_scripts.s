@@ -84,7 +84,7 @@ gSpecialVars::
 	.4byte gSpecialVar_ContestCategory
 	.4byte gSpecialVar_MonBoxId
 	.4byte gSpecialVar_MonBoxPos
-	.4byte gSpecialVar_Unused_0x8014
+	.4byte gSpecialVar_ArchipelagoItemFound
 	.4byte gTrainerBattleOpponent_A
 
 	.include "data/specials.inc"
@@ -102,6 +102,7 @@ gStdScripts::
 	.4byte Std_MsgboxGetPoints         @ MSGBOX_GETPOINTS
 	.4byte Std_MsgboxPokenav           @ MSGBOX_POKENAV
 gStdScripts_End::
+	.include "data/scripts/archipelago.inc"
 
 	.include "data/maps/PetalburgCity/scripts.inc"
 	.include "data/maps/SlateportCity/scripts.inc"
@@ -630,8 +631,6 @@ EverGrandeCity_HallOfFame_EventScript_ResetEliteFour::
 	return
 
 Common_EventScript_UpdateBrineyLocation::
-	goto_if_unset FLAG_RECEIVED_POKENAV, Common_EventScript_NopReturn
-	goto_if_set FLAG_DEFEATED_PETALBURG_GYM, Common_EventScript_NopReturn
 	goto_if_unset FLAG_HIDE_ROUTE_104_MR_BRINEY_BOAT, EventScript_SetBrineyLocation_House
 	goto_if_unset FLAG_HIDE_MR_BRINEY_DEWFORD_TOWN, EventScript_SetBrineyLocation_Dewford
 	goto_if_unset FLAG_HIDE_ROUTE_109_MR_BRINEY, EventScript_SetBrineyLocation_Route109
@@ -670,6 +669,7 @@ Common_ShowEasyChatScreen::
 	return
 
 Common_EventScript_ReadyPetalburgGymForBattle::
+	setvar VAR_PETALBURG_GYM_STATE, 6
 	clearflag FLAG_HIDE_PETALBURG_GYM_GREETER
 	setflag FLAG_PETALBURG_MART_EXPANDED_ITEMS
 	return
@@ -713,7 +713,6 @@ Common_EventScript_SetAbnormalWeather::
 
 Common_EventScript_PlayGymBadgeFanfare::
 	playfanfare MUS_OBTAIN_BADGE
-	waitfanfare
 	return
 
 Common_EventScript_OutOfCenterPartyHeal::

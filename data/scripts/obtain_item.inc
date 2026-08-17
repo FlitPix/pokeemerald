@@ -4,21 +4,12 @@
 .set LOCATION_ID, VAR_0x8003
 
 Std_ObtainItem::
-	call_if_ne LOCATION_ID, 0, EventScript_TrySetGiveItemFlag
 	copyvar ITEMID2, ITEMID
 	specialvar VAR_RESULT, ArchipelagoSpecial_ShouldHandle
 	goto_if_eq VAR_RESULT, TRUE, ArchipelagoScript_ObtainItem
 	additem ITEMID, AMOUNT
 	copyvar VAR_0x8007, VAR_RESULT
 	call EventScript_ObtainItemMessage
-	return
-
-EventScript_TrySetGiveItemFlag::
-	call_if_lt LOCATION_ID, 10000, EventScript_SetGiveItemFlag
-	return
-
-EventScript_SetGiveItemFlag::
-	setflagvar LOCATION_ID
 	return
 
 EventScript_ObtainItemMessage::
@@ -65,12 +56,21 @@ EventScript_BufferBerriesPocket::
 	return
 
 EventScript_ObtainedItem::
+	call_if_ne LOCATION_ID, 0, EventScript_TrySetGiveItemFlag
 	copyvar VAR_0x8004, ITEMID
 	specialvar VAR_RESULT, BufferTMHMMoveName
 	goto_if_eq VAR_RESULT, TRUE, EventScript_ObtainedTmHm
 	msgbox gText_ObtainedTheItem, MSGBOX_DEFAULT
 	waitfanfare
 	setvar VAR_RESULT, TRUE
+	return
+
+EventScript_TrySetGiveItemFlag::
+	call_if_lt LOCATION_ID, 10000, EventScript_SetGiveItemFlag
+	return
+
+EventScript_SetGiveItemFlag::
+	setflagvar LOCATION_ID
 	return
 
 EventScript_ObtainedTmHm::
@@ -164,7 +164,7 @@ EventScript_FoundItem::
 
 EventScript_NoRoomToPickUpItem::
 	msgbox gText_ObtainedTheItem, MSGBOX_DEFAULT
-	msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
+	call Common_EventScript_BagIsFull
 	setvar VAR_RESULT, FALSE
 	return
 
