@@ -15,10 +15,12 @@ JaggedPass_EventScript_CheckHasMagmaEmblem::
 	return
 
 JaggedPass_EventScript_SetReadyToOpenHideout::
+	setflag FLAG_HIDE_JAGGED_PASS_MAGMA_GUARD
 	setvar VAR_JAGGED_PASS_STATE, 1
 	return
 
 JaggedPass_OnTransition:
+	call JaggedPass_EventScript_CheckHasMagmaEmblem
 	call_if_eq VAR_JAGGED_PASS_ASH_WEATHER, 1, JaggedPass_EventScript_SetWeatherAsh
 	end
 

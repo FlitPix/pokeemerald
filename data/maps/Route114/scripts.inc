@@ -23,14 +23,11 @@ Route114_EventScript_Man::
 	lock
 	faceplayer
 	dotimebasedevents
-	goto_if_set FLAG_DAILY_ROUTE_114_RECEIVED_BERRY, Route114_EventScript_ReceivedBerry
+	goto_if_set FLAG_ROUTE_114_RECEIVED_BERRY, Route114_EventScript_ReceivedBerry
 	msgbox Route114_Text_LoveUsingBerryCrushShareBerry, MSGBOX_DEFAULT
-	random NUM_ROUTE_114_MAN_BERRIES
-	addvar VAR_RESULT, NUM_ROUTE_114_MAN_BERRIES_SKIPPED
-	addvar VAR_RESULT, FIRST_BERRY_INDEX
-	giveitem VAR_RESULT
+Archipelago_Target_NPC_Gift_FLAG_ROUTE_114_RECEIVED_BERRY::
+	giveitem ITEM_PINAP_BERRY, 1, FLAG_ROUTE_114_RECEIVED_BERRY
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_DAILY_ROUTE_114_RECEIVED_BERRY
 	msgbox Route114_Text_TryBerryCrushWithFriends, MSGBOX_DEFAULT
 	release
 	end
@@ -45,9 +42,9 @@ Route114_EventScript_RoarGentleman::
 	faceplayer
 	goto_if_set FLAG_RECEIVED_TM_ROAR, Route114_EventScript_ReceivedRoar
 	msgbox Route114_Text_AllMyMonDoesIsRoarTakeThis, MSGBOX_DEFAULT
-	giveitem ITEM_TM_ROAR
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_ROAR::
+	giveitem ITEM_TM_ROAR, 1, FLAG_RECEIVED_TM_ROAR
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_TM_ROAR
 	msgbox Route114_Text_ExplainRoar, MSGBOX_DEFAULT
 	release
 	end

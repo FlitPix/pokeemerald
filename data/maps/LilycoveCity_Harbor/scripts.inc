@@ -9,26 +9,31 @@ LilycoveCity_Harbor_OnTransition:
 LilycoveCity_Harbor_EventScript_FerryAttendant::
 	lock
 	faceplayer
-	goto_if_unset FLAG_SYS_GAME_CLEAR, LilycoveCity_Harbor_EventScript_FerryUnavailable
 	call LilycoveCity_Harbor_EventScript_GetEonTicketState
 	call LilycoveCity_Harbor_EventScript_GetAuroraTicketState
 	call LilycoveCity_Harbor_EventScript_GetOldSeaMapState
 	call LilycoveCity_Harbor_EventScript_GetMysticTicketState
 	call LilycoveCity_Harbor_EventScript_GetFirstTimeShowingTicket
 	call LilycoveCity_Harbor_EventScript_GetHasTicketsState
-	goto_if_eq VAR_TEMP_C, 2, LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime
-	goto_if_eq VAR_TEMP_B, 1, LilycoveCity_Harbor_EventScript_EonTicketFirstTime
-	goto_if_eq VAR_TEMP_B, 2, LilycoveCity_Harbor_EventScript_AuroraTicketFirstTime
-	goto_if_eq VAR_TEMP_B, 4, LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime
-	goto_if_eq VAR_TEMP_B, 8, LilycoveCity_Harbor_EventScript_MysticTicketFirstTime
-	goto_if_ne VAR_TEMP_B, 0, LilycoveCity_Harbor_EventScript_MultipleEventTicketsFirstTime
 	goto LilycoveCity_Harbor_EventScript_NoFirstTimeEventTickets
 	end
 
-@ First goto_if_eq is unnecessary; identical scripts
 LilycoveCity_Harbor_EventScript_NoFirstTimeEventTickets::
-	goto_if_eq VAR_TEMP_A, 0, LilycoveCity_Harbor_EventScript_NoEventTickets
 	msgbox LilycoveCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT
+	checkitem ITEM_SS_TICKET
+	goto_if_eq VAR_RESULT, TRUE, LilycoveCity_Harbor_EventScript_FlashTicket
+	checkitem ITEM_EON_TICKET
+	goto_if_eq VAR_RESULT, TRUE, LilycoveCity_Harbor_EventScript_FlashTicket
+	checkitem ITEM_AURORA_TICKET
+	goto_if_eq VAR_RESULT, TRUE, LilycoveCity_Harbor_EventScript_FlashTicket
+	checkitem ITEM_OLD_SEA_MAP
+	goto_if_eq VAR_RESULT, TRUE, LilycoveCity_Harbor_EventScript_FlashTicket
+	checkitem ITEM_MYSTIC_TICKET
+	goto_if_eq VAR_RESULT, TRUE, LilycoveCity_Harbor_EventScript_FlashTicket
+	goto LilycoveCity_Harbor_EventScript_NoTicket
+	end
+
+LilycoveCity_Harbor_EventScript_FlashTicket::
 	message LilycoveCity_Harbor_Text_FlashTicketWhereTo
 	waitmessage
 	goto LilycoveCity_Harbor_EventScript_FerryRegularLocationSelect
@@ -345,12 +350,13 @@ LilycoveCity_Harbor_EventScript_FerryUnavailable::
 
 LilycoveCity_Harbor_EventScript_NoEventTickets::
 	msgbox LilycoveCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT
+	checkitem ITEM_SS_TICKET
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_Harbor_EventScript_NoTicket
 	message LilycoveCity_Harbor_Text_FlashTicketWhereTo
 	waitmessage
 	goto LilycoveCity_Harbor_EventScript_FerryRegularLocationSelect
 	end
 
-@ Unused
 LilycoveCity_Harbor_EventScript_NoTicket::
 	msgbox LilycoveCity_Harbor_Text_NoTicket, MSGBOX_DEFAULT
 	release

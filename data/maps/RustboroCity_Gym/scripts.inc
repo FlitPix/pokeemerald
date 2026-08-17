@@ -11,24 +11,20 @@ RustboroCity_Gym_EventScript_Roxanne::
 	end
 
 RustboroCity_Gym_EventScript_RoxanneDefeated::
-	message RustboroCity_Gym_Text_ReceivedStoneBadge
-	waitmessage
-	call Common_EventScript_PlayGymBadgeFanfare
+Archipelago_Target_Badge_1::
+	giveitem ITEM_BADGE_1, 1, FLAG_RECEIVED_BADGE_1
 	msgbox RustboroCity_Gym_Text_StoneBadgeInfoTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_RUSTBORO_GYM
-	setflag FLAG_BADGE01_GET
 	setvar VAR_RUSTBORO_CITY_STATE, 1
-	addvar VAR_PETALBURG_GYM_STATE, 1
 	setvar VAR_0x8008, 1
 	call Common_EventScript_SetGymTrainers
-	call_if_eq VAR_PETALBURG_GYM_STATE, 6, Common_EventScript_ReadyPetalburgGymForBattle
 	goto RustboroCity_Gym_EventScript_GiveRockTomb
 	end
 
 RustboroCity_Gym_EventScript_GiveRockTomb::
-	giveitem ITEM_TM_ROCK_TOMB
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_ROCK_TOMB::
+	giveitem ITEM_TM_ROCK_TOMB, 1, FLAG_RECEIVED_TM_ROCK_TOMB
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_TM_ROCK_TOMB
 	specialvar VAR_RESULT, ArchipelagoSpecial_CheckReusableTms
 	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_ExplainRockTombReusableTms
 	msgbox RustboroCity_Gym_Text_ExplainRockTomb, MSGBOX_DEFAULT

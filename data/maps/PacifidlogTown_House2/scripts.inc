@@ -6,15 +6,11 @@ PacifidlogTown_House2_EventScript_FanClubYoungerBrother::
 	faceplayer
 	dotimebasedevents
 	call PacifidlogTown_House2_EventScript_UpdateFanClubTMFlag
-	goto_if_set FLAG_RECEIVED_FANCLUB_TM_THIS_WEEK, PacifidlogTown_House2_EventScript_ComeBackInXDays
 	call_if_set FLAG_MET_FANCLUB_YOUNGER_BROTHER, PacifidlogTown_House2_EventScript_MonAssessment
 	call_if_unset FLAG_MET_FANCLUB_YOUNGER_BROTHER, PacifidlogTown_House2_EventScript_FirstMonAssessment
 	setflag FLAG_MET_FANCLUB_YOUNGER_BROTHER
-	specialvar VAR_RESULT, GetLeadMonFriendshipScore
-	goto_if_ge VAR_RESULT, FRIENDSHIP_150_TO_199, PacifidlogTown_House2_EventScript_GiveReturn
-	specialvar VAR_RESULT, GetLeadMonFriendshipScore
-	goto_if_ge VAR_RESULT, FRIENDSHIP_50_TO_99, PacifidlogTown_House2_EventScript_PutInEffort
-	goto PacifidlogTown_House2_EventScript_GiveFrustration
+	call_if_unset FLAG_RECEIVED_TM_RETURN_2, PacifidlogTown_House2_EventScript_GiveReturn
+	call_if_unset FLAG_RECEIVED_TM_FRUSTRATION, PacifidlogTown_House2_EventScript_GiveFrustration
 	end
 
 PacifidlogTown_House2_EventScript_UpdateFanClubTMFlag::
@@ -38,13 +34,11 @@ PacifidlogTown_House2_EventScript_ClearReceivedFanClubTM::
 
 PacifidlogTown_House2_EventScript_GiveReturn::
 	msgbox PacifidlogTown_House2_Text_AdoringPokemonTakeThis, MSGBOX_DEFAULT
-	giveitem ITEM_TM_RETURN
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_RETURN_2::
+	giveitem ITEM_TM_RETURN, 1, FLAG_RECEIVED_TM_RETURN_2
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_FANCLUB_TM_THIS_WEEK
-	special SetPacifidlogTMReceivedDay
 	msgbox PacifidlogTown_House2_Text_ExplainReturnFrustration, MSGBOX_DEFAULT
-	release
-	end
+	return
 
 PacifidlogTown_House2_EventScript_PutInEffort::
 	msgbox PacifidlogTown_House2_Text_PutInSomeMoreEffort, MSGBOX_DEFAULT
@@ -53,13 +47,11 @@ PacifidlogTown_House2_EventScript_PutInEffort::
 
 PacifidlogTown_House2_EventScript_GiveFrustration::
 	msgbox PacifidlogTown_House2_Text_ViciousPokemonTakeThis, MSGBOX_DEFAULT
-	giveitem ITEM_TM_FRUSTRATION
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_FRUSTRATION::
+	giveitem ITEM_TM_FRUSTRATION, 1, FLAG_RECEIVED_TM_FRUSTRATION
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_FANCLUB_TM_THIS_WEEK
-	special SetPacifidlogTMReceivedDay
 	msgbox PacifidlogTown_House2_Text_ExplainReturnFrustration, MSGBOX_DEFAULT
-	release
-	end
+	return
 
 PacifidlogTown_House2_EventScript_ComeBackInXDays::
 	specialvar VAR_RESULT, GetDaysUntilPacifidlogTMAvailable

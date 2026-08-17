@@ -152,7 +152,7 @@ RustboroCity_EventScript_Man1HaveBadge::
 RustboroCity_EventScript_Boy2::
 	lock
 	faceplayer
-	goto_if_set FLAG_RECEIVED_POKENAV, RustboroCity_EventScript_Boy2BrineyLeftTunnel
+	goto_if_set FLAG_SYS_POKENAV_GET, RustboroCity_EventScript_Boy2BrineyLeftTunnel
 	msgbox RustboroCity_Text_MrBrineyWalksInTheTunnel, MSGBOX_DEFAULT
 	release
 	end
@@ -576,7 +576,8 @@ RustboroCity_EventScript_ReturnGoods::
 	call_if_eq VAR_TEMP_1, 3, RustboroCity_EventScript_EmployeeApproachPlayerDown2
 	call_if_eq VAR_TEMP_1, 4, RustboroCity_EventScript_EmployeeFacePlayerRight
 	msgbox RustboroCity_Text_YouGotItThankYou, MSGBOX_DEFAULT
-	giveitem ITEM_GREAT_BALL
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_GREAT_BALL_RUSTBORO_CITY::
+	giveitem ITEM_GREAT_BALL, 1, FLAG_RECEIVED_GREAT_BALL_RUSTBORO_CITY
 	call_if_eq VAR_RESULT, FALSE, RustboroCity_EventScript_BagFull
 	msgbox RustboroCity_Text_PleaseComeWithMe, MSGBOX_DEFAULT
 	closemessage

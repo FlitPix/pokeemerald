@@ -59,8 +59,10 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle1::
 	msgbox Route110_TrickHouseEnd_Text_AllNightToPlantTrees, MSGBOX_DEFAULT
 	msgbox Route110_TrickHouseEnd_Text_YouHaveEarnedThisReward, MSGBOX_DEFAULT
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
-	giveitem ITEM_RARE_CANDY
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TRICK_HOUSE_REWARD_1::
+	giveitem ITEM_RARE_CANDY, 1, FLAG_RECEIVED_TRICK_HOUSE_REWARD_1
 	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_BagFull
+	call_if_unset FLAG_ITEM_TRICK_HOUSE_PUZZLE_1_ORANGE_MAIL, Route110_TrickHouseEnd_EventScript_MissedItem1
 	msgbox Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou, MSGBOX_DEFAULT
 	closemessage
 	call Route110_TrickHouseEnd_EventScript_TrickMasterExit
@@ -71,8 +73,11 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle2::
 	msgbox Route110_TrickHouseEnd_Text_AllNightToMakeMaze, MSGBOX_DEFAULT
 	msgbox Route110_TrickHouseEnd_Text_YouHaveEarnedThisReward, MSGBOX_DEFAULT
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
-	giveitem ITEM_TIMER_BALL
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TRICK_HOUSE_REWARD_2::
+	giveitem ITEM_TIMER_BALL, 1, FLAG_RECEIVED_TRICK_HOUSE_REWARD_2
 	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_BagFull
+	call_if_unset FLAG_ITEM_TRICK_HOUSE_PUZZLE_2_HARBOR_MAIL, Route110_TrickHouseEnd_EventScript_MissedItem2
+	call_if_unset FLAG_ITEM_TRICK_HOUSE_PUZZLE_2_WAVE_MAIL, Route110_TrickHouseEnd_EventScript_MissedItem3
 	msgbox Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou, MSGBOX_DEFAULT
 	closemessage
 	call Route110_TrickHouseEnd_EventScript_TrickMasterExit
@@ -83,8 +88,11 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle3::
 	msgbox Route110_TrickHouseEnd_Text_AllNightToPreparePanels, MSGBOX_DEFAULT
 	msgbox Route110_TrickHouseEnd_Text_YouHaveEarnedThisReward, MSGBOX_DEFAULT
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
-	giveitem ITEM_HARD_STONE
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TRICK_HOUSE_REWARD_3::
+	giveitem ITEM_HARD_STONE, 1, FLAG_RECEIVED_TRICK_HOUSE_REWARD_3
 	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_BagFull
+	call_if_unset FLAG_ITEM_TRICK_HOUSE_PUZZLE_3_SHADOW_MAIL, Route110_TrickHouseEnd_EventScript_MissedItem4
+	call_if_unset FLAG_ITEM_TRICK_HOUSE_PUZZLE_3_WOOD_MAIL, Route110_TrickHouseEnd_EventScript_MissedItem5
 	msgbox Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou, MSGBOX_DEFAULT
 	closemessage
 	call Route110_TrickHouseEnd_EventScript_TrickMasterExit
@@ -95,8 +103,10 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle4::
 	msgbox Route110_TrickHouseEnd_Text_AllNightToShoveBoulders, MSGBOX_DEFAULT
 	msgbox Route110_TrickHouseEnd_Text_YouHaveEarnedThisReward, MSGBOX_DEFAULT
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
-	giveitem ITEM_SMOKE_BALL
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TRICK_HOUSE_REWARD_4::
+	giveitem ITEM_SMOKE_BALL, 1, FLAG_RECEIVED_TRICK_HOUSE_REWARD_4
 	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_BagFull
+	call_if_unset FLAG_ITEM_TRICK_HOUSE_PUZZLE_4_MECH_MAIL, Route110_TrickHouseEnd_EventScript_MissedItem6
 	msgbox Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou, MSGBOX_DEFAULT
 	closemessage
 	call Route110_TrickHouseEnd_EventScript_TrickMasterExit
@@ -107,7 +117,8 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle5::
 	msgbox Route110_TrickHouseEnd_Text_AllNightToMakeMechadolls, MSGBOX_DEFAULT
 	msgbox Route110_TrickHouseEnd_Text_YouHaveEarnedThisReward, MSGBOX_DEFAULT
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
-	giveitem ITEM_TM_TAUNT
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TRICK_HOUSE_REWARD_5::
+	giveitem ITEM_TM_TAUNT, 1, FLAG_RECEIVED_TRICK_HOUSE_REWARD_5
 	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_BagFull
 	msgbox Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou, MSGBOX_DEFAULT
 	closemessage
@@ -119,8 +130,10 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle6::
 	msgbox Route110_TrickHouseEnd_Text_AllNightToInstallDoors, MSGBOX_DEFAULT
 	msgbox Route110_TrickHouseEnd_Text_YouHaveEarnedThisReward, MSGBOX_DEFAULT
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
-	giveitem ITEM_MAGNET
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TRICK_HOUSE_REWARD_6::
+	giveitem ITEM_MAGNET, 1, FLAG_RECEIVED_TRICK_HOUSE_REWARD_6
 	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_BagFull
+	call_if_unset FLAG_ITEM_TRICK_HOUSE_PUZZLE_6_GLITTER_MAIL, Route110_TrickHouseEnd_EventScript_MissedItem7
 	msgbox Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou, MSGBOX_DEFAULT
 	closemessage
 	call Route110_TrickHouseEnd_EventScript_TrickMasterExit
@@ -131,8 +144,10 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle7::
 	msgbox Route110_TrickHouseEnd_Text_AllNightSettingUpArrows, MSGBOX_DEFAULT
 	msgbox Route110_TrickHouseEnd_Text_YouHaveEarnedThisReward, MSGBOX_DEFAULT
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
-	giveitem ITEM_PP_MAX
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TRICK_HOUSE_REWARD_7::
+	giveitem ITEM_PP_MAX, 1, FLAG_RECEIVED_TRICK_HOUSE_REWARD_7
 	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_BagFull
+	call_if_unset FLAG_ITEM_TRICK_HOUSE_PUZZLE_7_TROPIC_MAIL, Route110_TrickHouseEnd_EventScript_MissedItem8
 	msgbox Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou, MSGBOX_DEFAULT
 	closemessage
 	call Route110_TrickHouseEnd_EventScript_TrickMasterExit
@@ -156,6 +171,7 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle8::
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
 	call Route110_TrickHouseEnd_EventScript_ChooseTent
 	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_NoRoomForTent
+	call_if_unset FLAG_ITEM_TRICK_HOUSE_PUZZLE_8_BEAD_MAIL, Route110_TrickHouseEnd_EventScript_MissedItem9
 	msgbox Route110_TrickHouseEnd_Text_LeavingOnJourney, MSGBOX_DEFAULT
 	call Route110_TrickHouseEnd_EventScript_TrickMasterExit
 	special ResetTrickHouseNuggetFlag
@@ -174,6 +190,60 @@ Route110_TrickHouseEnd_EventScript_GiveRedTent::
 
 Route110_TrickHouseEnd_EventScript_GiveBlueTent::
 	givedecoration DECOR_BLUE_TENT
+	return
+
+Route110_TrickHouseEnd_EventScript_MissedItem1::
+	msgbox Route110_TrickHouseEnd_Text_ItemYouMissed, MSGBOX_DEFAULT
+Archipelago_Target_Missed_Item_Trick_House_1::
+	giveitem ITEM_ORANGE_MAIL, 1, FLAG_ITEM_TRICK_HOUSE_PUZZLE_1_ORANGE_MAIL
+	return
+
+Route110_TrickHouseEnd_EventScript_MissedItem2::
+	msgbox Route110_TrickHouseEnd_Text_ItemYouMissed, MSGBOX_DEFAULT
+Archipelago_Target_Missed_Item_Trick_House_2::
+	giveitem ITEM_HARBOR_MAIL, 1, FLAG_ITEM_TRICK_HOUSE_PUZZLE_2_HARBOR_MAIL
+	return
+
+Route110_TrickHouseEnd_EventScript_MissedItem3::
+	msgbox Route110_TrickHouseEnd_Text_ItemYouMissed, MSGBOX_DEFAULT
+Archipelago_Target_Missed_Item_Trick_House_3::
+	giveitem ITEM_WAVE_MAIL, 1, FLAG_ITEM_TRICK_HOUSE_PUZZLE_2_WAVE_MAIL
+	return
+
+Route110_TrickHouseEnd_EventScript_MissedItem4::
+	msgbox Route110_TrickHouseEnd_Text_ItemYouMissed, MSGBOX_DEFAULT
+Archipelago_Target_Missed_Item_Trick_House_4::
+	giveitem ITEM_SHADOW_MAIL, 1, FLAG_ITEM_TRICK_HOUSE_PUZZLE_3_SHADOW_MAIL
+	return
+
+Route110_TrickHouseEnd_EventScript_MissedItem5::
+	msgbox Route110_TrickHouseEnd_Text_ItemYouMissed, MSGBOX_DEFAULT
+Archipelago_Target_Missed_Item_Trick_House_5::
+	giveitem ITEM_WOOD_MAIL, 1, FLAG_ITEM_TRICK_HOUSE_PUZZLE_3_WOOD_MAIL
+	return
+
+Route110_TrickHouseEnd_EventScript_MissedItem6::
+	msgbox Route110_TrickHouseEnd_Text_ItemYouMissed, MSGBOX_DEFAULT
+Archipelago_Target_Missed_Item_Trick_House_6::
+	giveitem ITEM_MECH_MAIL, 1, FLAG_ITEM_TRICK_HOUSE_PUZZLE_4_MECH_MAIL
+	return
+
+Route110_TrickHouseEnd_EventScript_MissedItem7::
+	msgbox Route110_TrickHouseEnd_Text_ItemYouMissed, MSGBOX_DEFAULT
+Archipelago_Target_Missed_Item_Trick_House_7::
+	giveitem ITEM_GLITTER_MAIL, 1, FLAG_ITEM_TRICK_HOUSE_PUZZLE_6_GLITTER_MAIL
+	return
+
+Route110_TrickHouseEnd_EventScript_MissedItem8::
+	msgbox Route110_TrickHouseEnd_Text_ItemYouMissed, MSGBOX_DEFAULT
+Archipelago_Target_Missed_Item_Trick_House_8::
+	giveitem ITEM_TROPIC_MAIL, 1, FLAG_ITEM_TRICK_HOUSE_PUZZLE_7_TROPIC_MAIL
+	return
+
+Route110_TrickHouseEnd_EventScript_MissedItem9::
+	msgbox Route110_TrickHouseEnd_Text_ItemYouMissed, MSGBOX_DEFAULT
+Archipelago_Target_Missed_Item_Trick_House_9::
+	giveitem ITEM_BEAD_MAIL, 1, FLAG_ITEM_TRICK_HOUSE_PUZZLE_8_BEAD_MAIL
 	return
 
 Route110_TrickHouseEnd_EventScript_TrickMasterExit::
@@ -341,6 +411,12 @@ Route110_TrickHouseEnd_Text_NoRoomForThis:
 	.string "What manner of items do you carry?\p"
 	.string "But fine, since you've reached me,\n"
 	.string "your reward will be with me till later.$"
+
+Route110_TrickHouseEnd_Text_ItemYouMissed:
+	.string "… … Hah! I hid something special in the\n"
+	.string "puzzle for you to find, but you\l"
+	.string "missed it.\p"
+	.string "Oh, well! You may have it anyway.$"
 
 Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou:
 	.string "Scrub that smug smirk from your face!\n"

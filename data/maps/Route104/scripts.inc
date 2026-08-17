@@ -258,9 +258,9 @@ Route104_EventScript_ExpertF::
 	faceplayer
 	goto_if_set FLAG_RECEIVED_CHESTO_BERRY_ROUTE_104, Route104_EventScript_ReceivedBerry
 	msgbox Route104_Text_PlantBerriesInSoilTakeThis, MSGBOX_DEFAULT
-	giveitem ITEM_CHESTO_BERRY
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_CHESTO_BERRY_ROUTE_104::
+	giveitem ITEM_CHESTO_BERRY, 1, FLAG_RECEIVED_CHESTO_BERRY_ROUTE_104
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_CHESTO_BERRY_ROUTE_104
 	msgbox Route104_Text_TrainersOftenMakeMonHoldBerries, MSGBOX_DEFAULT
 	release
 	end
@@ -275,9 +275,9 @@ Route104_EventScript_WhiteHerbFlorist::
 	faceplayer
 	goto_if_set FLAG_RECEIVED_WHITE_HERB, Route104_EventScript_ReceivedWhiteHerb
 	msgbox Route104_Text_DontNeedThisTakeIt, MSGBOX_DEFAULT
-	giveitem ITEM_WHITE_HERB
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_WHITE_HERB::
+	giveitem ITEM_WHITE_HERB, 1, FLAG_RECEIVED_WHITE_HERB
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_WHITE_HERB
 	release
 	end
 
@@ -327,9 +327,9 @@ Route104_EventScript_Boy2::
 	faceplayer
 	goto_if_set FLAG_RECEIVED_TM_BULLET_SEED, Route104_EventScript_ReceivedBulletSeed
 	msgbox Route104_Text_LikeFillingMouthWithSeedsTakeThis, MSGBOX_DEFAULT
-	giveitem ITEM_TM_BULLET_SEED
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_BULLET_SEED::
+	giveitem ITEM_TM_BULLET_SEED, 1, FLAG_RECEIVED_TM_BULLET_SEED
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_TM_BULLET_SEED
 	release
 	end
 
@@ -359,8 +359,7 @@ Route104_EventScript_SailToDewford::
 	waitmovement 0
 	hideobjectat LOCALID_PLAYER, MAP_ROUTE104
 	call Common_EventScript_PlayBrineysBoatMusic
-	goto_if_set FLAG_ENABLE_NORMAN_MATCH_CALL, Route104_EventScript_SailToDewfordNoCall
-	goto_if_unset FLAG_ENABLE_NORMAN_MATCH_CALL, Route104_EventScript_SailToDewfordDadCalls
+	goto Route104_EventScript_SailToDewfordNoCall
 	end
 
 Route104_EventScript_SailToDewfordNoCall::

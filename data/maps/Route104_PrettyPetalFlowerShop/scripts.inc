@@ -69,9 +69,9 @@ Route104_PrettyPetalFlowerShop_EventScript_WailmerPailGirl::
 
 Route104_PrettyPetalFlowerShop_EventScript_GiveWailmerPail::
 	msgbox Route104_PrettyPetalFlowerShop_Text_YouCanHaveThis, MSGBOX_DEFAULT
-	giveitem ITEM_WAILMER_PAIL
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_WAILMER_PAIL::
+	giveitem ITEM_WAILMER_PAIL, 1, FLAG_RECEIVED_WAILMER_PAIL
 	msgbox Route104_PrettyPetalFlowerShop_Text_WailmerPailExplanation, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_WAILMER_PAIL
 	release
 	end
 
@@ -79,13 +79,11 @@ Route104_PrettyPetalFlowerShop_EventScript_RandomBerryGirl::
 	lock
 	faceplayer
 	dotimebasedevents
-	goto_if_set FLAG_DAILY_FLOWER_SHOP_RECEIVED_BERRY, Route104_PrettyPetalFlowerShop_EventScript_AlreadyReceivedBerry
+	goto_if_set FLAG_FLOWER_SHOP_RECEIVED_BERRY, Route104_PrettyPetalFlowerShop_EventScript_AlreadyReceivedBerry
 	msgbox Route104_PrettyPetalFlowerShop_Text_ImGrowingFlowers, MSGBOX_DEFAULT
-	random 8
-	addvar VAR_RESULT, FIRST_BERRY_INDEX
-	giveitem VAR_RESULT
+Archipelago_Target_NPC_Gift_FLAG_FLOWER_SHOP_RECEIVED_BERRY::
+	giveitem ITEM_CHERI_BERRY, 1, FLAG_FLOWER_SHOP_RECEIVED_BERRY
 	goto_if_eq VAR_RESULT, 0, Common_EventScript_ShowBagIsFull
-	setflag FLAG_DAILY_FLOWER_SHOP_RECEIVED_BERRY
 	msgbox Route104_PrettyPetalFlowerShop_Text_MachineMixesBerries, MSGBOX_DEFAULT
 	release
 	end

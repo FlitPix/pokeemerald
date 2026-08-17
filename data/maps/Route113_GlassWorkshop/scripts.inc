@@ -23,18 +23,30 @@ Route113_GlassWorkshop_EventScript_ReenterWorkshopAfterSootSack::
 Route113_GlassWorkshop_EventScript_GlassWorker::
 	lock
 	faceplayer
-	goto_if_ge VAR_GLASS_WORKSHOP_STATE, 10, Route113_GlassWorkshop_EventScript_GiveItemAfterNoRoom
-	goto_if_eq VAR_GLASS_WORKSHOP_STATE, 2, Route113_GlassWorkshop_EventScript_CheckCollectedAsh
-	goto_if_eq VAR_GLASS_WORKSHOP_STATE, 1, Route113_GlassWorkshop_EventScript_ExplainSootSack
+	goto_if_set FLAG_RECEIVED_SOOT_SACK, Route113_GlassWorkshop_EventScript_CheckSootSackState
 	msgbox Route113_GlassWorkshop_Text_GoCollectAshWithThis, MSGBOX_DEFAULT
-	giveitem ITEM_SOOT_SACK
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_SOOT_SACK::
+	giveitem ITEM_SOOT_SACK, 1, FLAG_RECEIVED_SOOT_SACK
 	setvar VAR_GLASS_WORKSHOP_STATE, 1
 	msgbox Route113_GlassWorkshop_Text_ExplainSootSack, MSGBOX_DEFAULT
 	release
 	end
 
+Route113_GlassWorkshop_EventScript_CheckSootSackState::
+	goto_if_ge VAR_GLASS_WORKSHOP_STATE, 10, Route113_GlassWorkshop_EventScript_GiveItemAfterNoRoom
+	goto_if_eq VAR_GLASS_WORKSHOP_STATE, 2, Route113_GlassWorkshop_EventScript_CheckCollectedAsh
+	goto_if_eq VAR_GLASS_WORKSHOP_STATE, 1, Route113_GlassWorkshop_EventScript_ExplainSootSack
+	end
+
 Route113_GlassWorkshop_EventScript_ExplainSootSack::
+	checkitem ITEM_SOOT_SACK
+	goto_if_eq VAR_RESULT, FALSE, Route113_GlassWorkshop_EventScript_SootSackDisappeared
 	msgbox Route113_GlassWorkshop_Text_ExplainSootSack, MSGBOX_DEFAULT
+	release
+	end
+
+Route113_GlassWorkshop_EventScript_SootSackDisappeared::
+	msgbox Route113_GlassWorkshop_Text_SootSackDisappeared, MSGBOX_DEFAULT
 	release
 	end
 
@@ -306,6 +318,12 @@ Route113_GlassWorkshop_Text_ExplainSootSack:
 	.string "huff-puff.\p"
 	.string "Once you think you've collected a good\n"
 	.string "amount, come see me, huff-puff.$"
+
+Route113_GlassWorkshop_Text_SootSackDisappeared:
+	.string "…Hmm? Wait a moment, huff-puff…\p"
+	.string "Didn't I just give you a\n"
+	.string "SOOT SACK, huff-puff?\p"
+	.string "Where has it gone, huff-puff…?$"
 
 Route113_GlassWorkshop_Text_LetsSeeCollectedAshes:
 	.string "Have you collected ashes, huff-puff?\n"

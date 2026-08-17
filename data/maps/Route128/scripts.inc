@@ -75,8 +75,19 @@ Route128_EventScript_KyogreAwakenedScene::
 	waitfieldeffect FLDEFF_NPCFLY_OUT
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	setvar VAR_ROUTE128_STATE, 2
+	call Route128_EventScript_SkipWakingRayquaza
 	releaseall
 	end
+
+Route128_EventScript_SkipWakingRayquaza::
+	setflag FLAG_STEVEN_GUIDES_TO_CAVE_OF_ORIGIN
+	setflag FLAG_WALLACE_GOES_TO_SKY_PILLAR
+	setflag FLAG_HIDE_CAVE_OF_ORIGIN_B1F_WALLACE
+	clearflag FLAG_HIDE_SOOTOPOLIS_CITY_WALLACE
+	setvar VAR_SOOTOPOLIS_CITY_STATE, 5
+	setvar VAR_SKY_PILLAR_STATE, 1
+	setvar VAR_SKY_PILLAR_RAYQUAZA_CRY_DONE, 1
+	return
 
 Route128_Movement_Unused1:
 	walk_fast_left

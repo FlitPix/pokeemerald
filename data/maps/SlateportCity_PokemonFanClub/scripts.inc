@@ -191,8 +191,7 @@ SlateportCity_PokemonFanClub_EventScript_SootheBellWoman::
 	faceplayer
 	goto_if_set FLAG_RECEIVED_SOOTHE_BELL, SlateportCity_PokemonFanClub_EventScript_ReceivedSootheBell
 	msgbox SlateportCity_PokemonFanClub_Text_ShowMePokemonThatLoveYou, MSGBOX_DEFAULT
-	specialvar VAR_RESULT, GetLeadMonFriendshipScore
-	goto_if_ge VAR_RESULT, FRIENDSHIP_150_TO_199, SlateportCity_PokemonFanClub_EventScript_GiveSootheBell
+	goto SlateportCity_PokemonFanClub_EventScript_GiveSootheBell
 	release
 	end
 
@@ -203,9 +202,9 @@ SlateportCity_PokemonFanClub_EventScript_GiveSootheBell::
 	applymovement VAR_LAST_TALKED, Common_Movement_Delay48
 	waitmovement 0
 	msgbox SlateportCity_PokemonFanClub_Text_PokemonAdoresYou, MSGBOX_DEFAULT
-	giveitem ITEM_SOOTHE_BELL
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_SOOTHE_BELL::
+	giveitem ITEM_SOOTHE_BELL, 1, FLAG_RECEIVED_SOOTHE_BELL
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_SOOTHE_BELL
 	release
 	end
 

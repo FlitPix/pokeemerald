@@ -22,6 +22,7 @@ SkyPillar_Top_OnTransition:
 SkyPillar_Top_EventScript_SetCleanLayout::
 	setmaplayoutindex LAYOUT_SKY_PILLAR_TOP_CLEAN
 	setobjectmovementtype LOCALID_RAYQUAZA_SLEEPING, MOVEMENT_TYPE_FACE_DOWN
+	clearflag FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA
 	return
 
 SkyPillar_Top_EventScript_TryShowRayquaza::
@@ -29,6 +30,7 @@ SkyPillar_Top_EventScript_TryShowRayquaza::
 	return
 
 SkyPillar_Top_EventScript_ShowRayquaza::
+	setflag FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA
 	clearflag FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA_STILL
 	return
 

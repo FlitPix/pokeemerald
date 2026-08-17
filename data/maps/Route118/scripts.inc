@@ -31,8 +31,8 @@ Route118_EventScript_GoodRodFisherman::
 
 Route118_EventScript_ReceiveGoodRod::
 	msgbox Route118_Text_IdenticalMindsTakeThis, MSGBOX_DEFAULT
-	giveitem ITEM_GOOD_ROD
-	setflag FLAG_RECEIVED_GOOD_ROD
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_GOOD_ROD::
+	giveitem ITEM_GOOD_ROD, 1, FLAG_RECEIVED_GOOD_ROD
 	msgbox Route118_Text_TryYourLuckFishing, MSGBOX_DEFAULT
 	release
 	end
@@ -57,6 +57,23 @@ Route118_EventScript_RouteSignMauville::
 
 Route118_EventScript_RouteSign119::
 	msgbox Route118_Text_RouteSign119, MSGBOX_SIGN
+	end
+
+Route118_EventScript_Steven::
+	lock
+	faceplayer
+	playse SE_PIN
+	applymovement LOCALID_ROUTE118_STEVEN, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_ROUTE118_STEVEN, Common_Movement_Delay48
+	waitmovement 0
+	applymovement LOCALID_ROUTE118_STEVEN, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	applymovement LOCALID_ROUTE118_STEVEN, Common_Movement_Delay48
+	waitmovement 0
+	faceplayer
+	msgbox Route118_Text_StevenConfused, MSGBOX_DEFAULT
+	release
 	end
 
 Route118_EventScript_StevenTrigger0::
@@ -241,6 +258,10 @@ Route118_EventScript_Deandre::
 	trainerbattle_single TRAINER_DEANDRE, Route118_Text_DeandreIntro, Route118_Text_DeandreDefeat
 	msgbox Route118_Text_DeandrePostBattle, MSGBOX_AUTOCLOSE
 	end
+
+Route118_Text_StevenConfused:
+	.string "…The script says you're supposed\n"
+	.string "to enter from the south.$"
 
 Route118_Text_StevenQuestions:
 	.string "STEVEN: Hi, {PLAYER}{KUN}!\p"

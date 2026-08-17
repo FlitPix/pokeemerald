@@ -120,6 +120,7 @@ SSTidalCorridor_EventScript_ExitSailor::
 
 SSTidalCorridor_EventScript_ExitLilycove::
 	setrespawn HEAL_LOCATION_LILYCOVE_CITY
+	call Common_EventScript_UpdateBrineyLocation
 	msgbox SSTidalCorridor_Text_WeveArrived, MSGBOX_DEFAULT
 	call_if_set FLAG_RECEIVED_TM_SNATCH, SSTidalCorridor_EventScript_HideSnatchGiver
 	warp MAP_LILYCOVE_CITY_HARBOR, 8, 11
@@ -129,6 +130,7 @@ SSTidalCorridor_EventScript_ExitLilycove::
 
 SSTidalCorridor_EventScript_ExitSlateport::
 	setrespawn HEAL_LOCATION_SLATEPORT_CITY
+	call Common_EventScript_UpdateBrineyLocation
 	msgbox SSTidalCorridor_Text_WeveArrived, MSGBOX_DEFAULT
 	call_if_set FLAG_RECEIVED_TM_SNATCH, SSTidalCorridor_EventScript_HideSnatchGiver
 	warp MAP_SLATEPORT_CITY_HARBOR, 8, 11

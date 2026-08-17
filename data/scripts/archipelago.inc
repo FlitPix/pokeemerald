@@ -99,6 +99,7 @@ ArchipelagoScript_ReceivePokenav::
 	msgbox RustboroCity_DevonCorp_3F_Text_ReceivedPokenav, MSGBOX_DEFAULT
 	waitfanfare
 	setflag FLAG_SYS_POKENAV_GET
+	@ TODO: shuffle match call for rematchsanity?
 	setflag FLAG_HAS_MATCH_CALL
 	setflag FLAG_ADDED_MATCH_CALL_TO_POKENAV
 	release

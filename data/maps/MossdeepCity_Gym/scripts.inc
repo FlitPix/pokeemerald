@@ -52,21 +52,17 @@ MossdeepCity_Gym_EventScript_TateAndLiza::
 	trainerbattle_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaIntro, MossdeepCity_Gym_Text_TateAndLizaDefeat, MossdeepCity_Gym_Text_TateAndLizaNeedTwoMons, MossdeepCity_Gym_EventScript_TateAndLizaDefeated, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, MossdeepCity_Gym_EventScript_TateAndLizaRematch
-	goto_if_unset FLAG_RECEIVED_TM_CALM_MIND, MossdeepCity_Gym_EventScript_GiveCalmMind2
+	goto_if_unset FLAG_RECEIVED_TM_CALM_MIND, MossdeepCity_Gym_EventScript_GiveCalmMind
 	msgbox MossdeepCity_Gym_Text_TateAndLizaPostBattle, MSGBOX_DEFAULT
 	release
 	end
 
 MossdeepCity_Gym_EventScript_TateAndLizaDefeated::
-	message MossdeepCity_Gym_Text_ReceivedMindBadge
-	waitmessage
-	call Common_EventScript_PlayGymBadgeFanfare
+Archipelago_Target_Badge_7::
+	giveitem ITEM_BADGE_7, 1, FLAG_RECEIVED_BADGE_7
 	msgbox MossdeepCity_Gym_Text_ExplainMindBadgeTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_MOSSDEEP_GYM
-	setflag FLAG_BADGE07_GET
-	setflag FLAG_HIDE_AQUA_HIDEOUT_GRUNTS
 	clearflag FLAG_HIDE_SLATEPORT_CITY_STERNS_SHIPYARD_MR_BRINEY
-	clearflag FLAG_UNKNOWN_0x393
 	setvar VAR_0x8008, 7
 	call Common_EventScript_SetGymTrainers
 	clearflag FLAG_HIDE_SLATEPORT_CITY_HARBOR_PATRONS
@@ -89,20 +85,13 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated::
 	release
 	end
 
-MossdeepCity_Gym_EventScript_GiveCalmMind2::
-	giveitem ITEM_TM_CALM_MIND
+MossdeepCity_Gym_EventScript_GiveCalmMind::
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_CALM_MIND::
+	giveitem ITEM_TM_CALM_MIND, 1, FLAG_RECEIVED_TM_CALM_MIND
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	msgbox MossdeepCity_Gym_Text_ExplainCalmMind, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_TM_CALM_MIND
 	release
 	end
-
-MossdeepCity_Gym_EventScript_GiveCalmMind::
-	giveitem ITEM_TM_CALM_MIND
-	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
-	msgbox MossdeepCity_Gym_Text_ExplainCalmMind, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_TM_CALM_MIND
-	return
 
 MossdeepCity_Gym_EventScript_TateAndLizaRematch::
 	trainerbattle_rematch_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaPreRematch, MossdeepCity_Gym_Text_TateAndLizaRematchDefeat, MossdeepCity_Gym_Text_TateAndLizaRematchNeedTwoMons

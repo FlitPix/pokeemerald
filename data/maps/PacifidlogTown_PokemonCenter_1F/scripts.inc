@@ -5,6 +5,7 @@ PacifidlogTown_PokemonCenter_1F_MapScripts::
 
 PacifidlogTown_PokemonCenter_1F_OnTransition:
 	setrespawn HEAL_LOCATION_PACIFIDLOG_TOWN
+	call Common_EventScript_UpdateBrineyLocation
 	end
 
 PacifidlogTown_PokemonCenter_1F_EventScript_Nurse::

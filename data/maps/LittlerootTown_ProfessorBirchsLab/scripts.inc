@@ -185,12 +185,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_OkayAllDone, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
-	message LittlerootTown_ProfessorBirchsLab_Text_PokedexUpgradedToNational
-	waitmessage
-	waitfanfare
-	setflag FLAG_SYS_NATIONAL_DEX
-	special EnableNationalPokedex
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_NATIONAL_POKEDEX::
+	giveitem ITEM_NATIONAL_POKEDEX, 1, FLAG_RECEIVED_NATIONAL_POKEDEX
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_GrassyPatchWaiting2, MSGBOX_DEFAULT
 	closemessage
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCH
@@ -520,18 +516,21 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedex::
 
 LittlerootTown_ProfessorBirchsLab_EventScript_MayGivePokeBalls::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_MayGotPokedexTooTakeThese, MSGBOX_DEFAULT
-	giveitem ITEM_POKE_BALL, 5
+	call LittlerootTown_ProfessorBirchsLab_EventScript_GivePokeBalls
 	call_if_eq VAR_RESULT, FALSE, LittlerootTown_ProfessorBirchsLab_EventScript_MayNoRoomForPokeBalls
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_CatchCutePokemonWithPokeBalls, MSGBOX_DEFAULT
-	setvar VAR_RESULT, 0
 	return
 
 LittlerootTown_ProfessorBirchsLab_EventScript_BrendanGivePokeBalls::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BrendanGotPokedexTooTakeThese, MSGBOX_DEFAULT
-	giveitem ITEM_POKE_BALL, 5
+	call LittlerootTown_ProfessorBirchsLab_EventScript_GivePokeBalls
 	call_if_eq VAR_RESULT, FALSE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanNoRoomForPokeBalls
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_CatchCoolPokemonWithPokeBalls, MSGBOX_DEFAULT
-	setvar VAR_RESULT, 1
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GivePokeBalls::
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_5_POKE_BALLS::
+	giveitem ITEM_POKE_BALL, 1, FLAG_RECEIVED_5_POKE_BALLS
 	return
 
 LittlerootTown_ProfessorBirchsLab_EventScript_ReceivePokedex::
@@ -577,10 +576,12 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Rival::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_MayWhereShouldIGoNext::
+	goto_if_unset FLAG_RECEIVED_5_POKE_BALLS, LittlerootTown_ProfessorBirchsLab_EventScript_MayGivePokeBalls
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_MayWhereShouldIGoNext, MSGBOX_DEFAULT
 	return
 
 LittlerootTown_ProfessorBirchsLab_EventScript_BrendanWhereShouldIGoNext::
+	goto_if_unset FLAG_RECEIVED_5_POKE_BALLS, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanGivePokeBalls
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BrendanWhereShouldIGoNext, MSGBOX_DEFAULT
 	return
 

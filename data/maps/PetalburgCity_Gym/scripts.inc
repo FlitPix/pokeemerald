@@ -37,9 +37,14 @@ PetalburgCity_Gym_EventScript_UnlockAllDoors::
 
 PetalburgCity_Gym_OnTransition:
 	call_if_eq VAR_PETALBURG_GYM_STATE, 1, PetalburgCity_Gym_EventScript_MoveWallyToEntrance
+	call_if_lt VAR_PETALBURG_GYM_STATE, 6, PetalburgCity_Gym_EventScript_CheckCanChallengeNorman
 	call_if_lt VAR_PETALBURG_GYM_STATE, 6, PetalburgCity_Gym_EventScript_MoveNormanToEntrance
 	call_if_set FLAG_SYS_GAME_CLEAR, PetalburgCity_Gym_EventScript_CheckNormanForRematch
 	end
+
+PetalburgCity_Gym_EventScript_CheckCanChallengeNorman::
+	specialvar VAR_RESULT, ArchipelagoSpecial_CanChallengeNorman
+	call_if_eq VAR_RESULT, TRUE, Common_EventScript_ReadyPetalburgGymForBattle
 
 PetalburgCity_Gym_EventScript_MoveWallyToEntrance::
 	setobjectxyperm LOCALID_PETALBURG_GYM_WALLY, 5, 108
@@ -370,16 +375,11 @@ PetalburgCity_Gym_EventScript_GiveEnigmaBerry::
 PetalburgCity_Gym_EventScript_NormanBattle::
 	msgbox PetalburgCity_Gym_Text_NormanIntro, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanDefeat
-	message PetalburgCity_Gym_Text_ReceivedBalanceBadge
-	waitmessage
-	call Common_EventScript_PlayGymBadgeFanfare
+Archipelago_Target_Badge_5::
+	giveitem ITEM_BADGE_5, 1, FLAG_RECEIVED_BADGE_5
 	msgbox PetalburgCity_Gym_Text_ExplainBalanceBadgeTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_PETALBURG_GYM
 	setvar VAR_PETALBURG_GYM_STATE, 7
-	setflag FLAG_BADGE05_GET
-	special ResetHealLocationFromDewford
-	call EventScript_HideMrBriney
-	setflag FLAG_HIDE_MAUVILLE_GYM_WATTSON
 	clearflag FLAG_HIDE_MAUVILLE_CITY_WATTSON
 	setvar VAR_0x8008, 5
 	call Common_EventScript_SetGymTrainers
@@ -401,9 +401,9 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	end
 
 PetalburgCity_Gym_EventScript_GiveFacade::
-	giveitem ITEM_TM_FACADE
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_FACADE::
+	giveitem ITEM_TM_FACADE, 1, FLAG_RECEIVED_TM_FACADE
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
-	setflag FLAG_RECEIVED_TM_FACADE
 	msgbox PetalburgCity_Gym_Text_ExplainFacade, MSGBOX_DEFAULT
 	return
 

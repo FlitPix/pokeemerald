@@ -11,9 +11,9 @@ Route114_FossilManiacsHouse_EventScript_FossilManiacsBrother::
 	faceplayer
 	goto_if_set FLAG_RECEIVED_TM_DIG, Route114_FossilManiacsHouse_EventScript_ReceivedDig
 	msgbox Route114_FossilManiacsHouse_Text_HaveThisToDigLikeMyBrother, MSGBOX_DEFAULT
-	giveitem ITEM_TM_DIG
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_DIG::
+	giveitem ITEM_TM_DIG, 1, FLAG_RECEIVED_TM_DIG
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_TM_DIG
 	release
 	end
 

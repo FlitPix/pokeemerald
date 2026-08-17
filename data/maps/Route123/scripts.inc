@@ -14,9 +14,9 @@ Route123_EventScript_GigaDrainGirl::
 	special IsGrassTypeInParty
 	goto_if_eq VAR_RESULT, FALSE, Route123_EventScript_NoGrassMons
 	msgbox Route123_Text_YouLikeGrassMonsTooHaveThis, MSGBOX_DEFAULT
-	giveitem ITEM_TM_GIGA_DRAIN
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_GIGA_DRAIN::
+	giveitem ITEM_TM_GIGA_DRAIN, 1, FLAG_RECEIVED_TM_GIGA_DRAIN
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_TM_GIGA_DRAIN
 	msgbox Route123_Text_CheckTreesWithMyGrassMon, MSGBOX_DEFAULT
 	release
 	end

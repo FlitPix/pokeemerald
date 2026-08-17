@@ -5,6 +5,7 @@ LilycoveCity_PokemonCenter_1F_MapScripts::
 
 LilycoveCity_PokemonCenter_1F_OnTransition:
 	setrespawn HEAL_LOCATION_LILYCOVE_CITY
+	call Common_EventScript_UpdateBrineyLocation
 	goto LilycoveCity_PokemonCenter_1F_EventScript_SetLilycoveLadyGfx
 	end
 

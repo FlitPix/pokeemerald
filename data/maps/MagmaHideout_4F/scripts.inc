@@ -64,14 +64,18 @@ MagmaHideout_4F_EventScript_Maxie::
 	setvar VAR_SLATEPORT_HARBOR_STATE, 1
 	fadescreen FADE_TO_BLACK
 	removeobject LOCALID_MAGMA_HIDEOUT_4F_MAXIE
+	setflag FLAG_HIDE_MAGMA_HIDEOUT_MAXIE
+	fadescreen FADE_FROM_BLACK
+	releaseall
+	end
+
+MagmaHideout_4F_EventScript_TryHideMagmaHideoutGrunts::
+	setflag FLAG_HIDE_MAGMA_HIDEOUT_GRUNTS
 	removeobject LOCALID_MAGMA_HIDEOUT_4F_GRUNT_1
 	removeobject LOCALID_MAGMA_HIDEOUT_4F_GRUNT_2
 	removeobject LOCALID_MAGMA_HIDEOUT_4F_GRUNT_3
 	removeobject LOCALID_MAGMA_HIDEOUT_4F_TABITHA
-	setflag FLAG_HIDE_MAGMA_HIDEOUT_GRUNTS
-	fadescreen FADE_FROM_BLACK
-	releaseall
-	end
+	return
 
 MagmaHideout_4F_Movement_GroudonApproach:
 	delay_16

@@ -46,7 +46,7 @@ SootopolisCity_OnTransition:
 	call_if_eq VAR_SOOTOPOLIS_CITY_STATE, 3, SootopolisCity_EventScript_CheckSetEnterCaveOfOriginObjPos
 	call_if_eq VAR_SOOTOPOLIS_CITY_STATE, 4, SootopolisCity_EventScript_SetExitCaveOfOriginObjPos
 	call_if_eq VAR_SOOTOPOLIS_CITY_STATE, 5, SootopolisCity_EventScript_SetOutsideGymObjPos
-	call_if_eq VAR_SOOTOPOLIS_CITY_STATE, 6, SootopolisCity_EventScript_SetExpertBlockCaveEntrance
+	call_if_ge VAR_SOOTOPOLIS_CITY_STATE, 5, SootopolisCity_EventScript_SetExpertUnblockCaveEntrance
 	end
 
 SootopolisCity_EventScript_HideMapNamePopup::
@@ -136,8 +136,8 @@ SootopolisCity_EventScript_SetWallaceLeft::
 	setobjectmovementtype LOCALID_SOOTOPOLIS_WALLACE, MOVEMENT_TYPE_FACE_DOWN
 	return
 
-SootopolisCity_EventScript_SetExpertBlockCaveEntrance::
-	setobjectxyperm LOCALID_SOOTOPOLIS_EXPERT, 31, 18
+SootopolisCity_EventScript_SetExpertUnblockCaveEntrance::
+	setobjectxyperm LOCALID_SOOTOPOLIS_EXPERT, 30, 18
 	return
 
 SootopolisCity_OnWarp:
@@ -510,6 +510,7 @@ SootopolisCity_EventScript_RayquazaSceneFromPokeCenter::
 	waitstate
 	clearflag FLAG_SYS_WEATHER_CTRL
 	setvar VAR_SKY_PILLAR_STATE, 3
+	setflag FLAG_RAYQUAZA_STOPPED_FIGHT
 	clearflag FLAG_LEGENDARIES_IN_SOOTOPOLIS
 	fadenewbgm MUS_SOOTOPOLIS
 	delay 120
@@ -563,6 +564,7 @@ SootopolisCity_EventScript_RayquazaSceneFromDive::
 	waitstate
 	clearflag FLAG_SYS_WEATHER_CTRL
 	setvar VAR_SKY_PILLAR_STATE, 2
+	setflag FLAG_RAYQUAZA_STOPPED_FIGHT
 	clearflag FLAG_LEGENDARIES_IN_SOOTOPOLIS
 	fadenewbgm MUS_SURF
 	delay 120
@@ -711,22 +713,18 @@ SootopolisCity_EventScript_KiriRayquaza::
 SootopolisCity_EventScript_KiriGiveBerry::
 	dotimebasedevents
 	special GetPlayerBigGuyGirlString
-	goto_if_set FLAG_DAILY_SOOTOPOLIS_RECEIVED_BERRY, SootopolisCity_EventScript_KiriReceivedBerry
+	goto_if_set FLAG_SOOTOPOLIS_RECEIVED_BERRY_1, SootopolisCity_EventScript_KiriReceivedBerry
 	msgbox SootopolisCity_Text_NameIsKiriHaveOneOfThese, MSGBOX_DEFAULT
-	random NUM_KIRI_BERRIES
-	addvar VAR_RESULT, NUM_KIRI_BERRIES_SKIPPED
-	addvar VAR_RESULT, FIRST_BERRY_INDEX
-	giveitem VAR_RESULT
+Archipelago_Target_NPC_Gift_FLAG_SOOTOPOLIS_RECEIVED_BERRY_1::
+	giveitem ITEM_POMEG_BERRY, 1, FLAG_SOOTOPOLIS_RECEIVED_BERRY_1
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_DAILY_SOOTOPOLIS_RECEIVED_BERRY
 	msgbox SootopolisCity_Text_GiveYouThisBerryToo, MSGBOX_DEFAULT
-	random 2
-	goto_if_eq VAR_RESULT, 0, SootopolisCity_EventScript_GiveFigyBerry
-	goto_if_eq VAR_RESULT, 1, SootopolisCity_EventScript_GiveIapapaBerry
+	goto SootopolisCity_EventScript_GiveFigyBerry
 	end
 
 SootopolisCity_EventScript_GiveFigyBerry::
-	giveitem ITEM_FIGY_BERRY
+Archipelago_Target_NPC_Gift_FLAG_SOOTOPOLIS_RECEIVED_BERRY_2::
+	giveitem ITEM_FIGY_BERRY, 1, FLAG_SOOTOPOLIS_RECEIVED_BERRY_2
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	msgbox SootopolisCity_Text_WhatKindOfWishInYourName, MSGBOX_DEFAULT
 	release
@@ -1290,8 +1288,8 @@ SootopolisCity_EventScript_Wallace::
 
 SootopolisCity_EventScript_GiveWaterfall::
 	msgbox SootopolisCity_Text_ThankYouForHelpAcceptThis, MSGBOX_DEFAULT
-	giveitem ITEM_HM_WATERFALL
-	setflag FLAG_RECEIVED_HM_WATERFALL
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_HM_WATERFALL::
+	giveitem ITEM_HM_WATERFALL, 1, FLAG_RECEIVED_HM_WATERFALL
 	msgbox SootopolisCity_Text_ExplainWaterfallGoToGym, MSGBOX_DEFAULT
 	closemessage
 	call_if_eq VAR_FACING, DIR_NORTH, SootopolisCity_EventScript_WallaceMoveFromGym
@@ -1370,7 +1368,6 @@ SootopolisCity_EventScript_MaxieArchieLeave::
 	setflag FLAG_SOOTOPOLIS_ARCHIE_MAXIE_LEAVE
 	clearflag FLAG_HIDE_MT_PYRE_SUMMIT_MAXIE
 	clearflag FLAG_HIDE_MT_PYRE_SUMMIT_ARCHIE
-	setvar VAR_MT_PYRE_STATE, 2
 	warpsilent MAP_SOOTOPOLIS_CITY, 31, 34
 	waitstate
 	releaseall

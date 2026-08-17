@@ -5,11 +5,12 @@ SlateportCity_Harbor_MapScripts::
 SlateportCity_Harbor_OnTransition:
 	setescapewarp MAP_SLATEPORT_CITY, 28, 13
 	setvar VAR_TEMP_1, 0
+	call SlateportCity_Harbor_EventScript_ShowSSTidal
 	call_if_eq VAR_SLATEPORT_HARBOR_STATE, 1, SlateportCity_Harbor_EventScript_ReadyAquaEscapeScene
-	call_if_set FLAG_SYS_GAME_CLEAR, SlateportCity_Harbor_EventScript_ShowSSTidal
 	end
 
 SlateportCity_Harbor_EventScript_ShowSSTidal::
+	clearflag FLAG_HIDE_SLATEPORT_CITY_HARBOR_PATRONS
 	clearflag FLAG_HIDE_SLATEPORT_CITY_HARBOR_SS_TIDAL
 	return
 
@@ -18,6 +19,7 @@ SlateportCity_Harbor_EventScript_ReadyAquaEscapeScene::
 	setobjectxyperm LOCALID_SLATEPORT_HARBOR_CAPT_STERN, 12, 13
 	setobjectmovementtype LOCALID_SLATEPORT_HARBOR_CAPT_STERN, MOVEMENT_TYPE_FACE_LEFT
 	setflag FLAG_HIDE_SLATEPORT_CITY_HARBOR_PATRONS
+	setflag FLAG_HIDE_SLATEPORT_CITY_HARBOR_SS_TIDAL
 	return
 
 SlateportCity_Harbor_EventScript_AquaEscapeTrigger0::
@@ -70,8 +72,8 @@ SlateportCity_Harbor_EventScript_AquaEscapeScene::
 	call_if_eq VAR_0x8008, 3, SlateportCity_Harbor_EventScript_SternApproachPlayer
 	msgbox SlateportCity_Harbor_Text_CaptSternWhyStealMySubmarine, MSGBOX_DEFAULT
 	closemessage
-	setflag FLAG_HIDE_AQUA_HIDEOUT_1F_GRUNT_1_BLOCKING_ENTRANCE
-	setflag FLAG_HIDE_AQUA_HIDEOUT_1F_GRUNT_2_BLOCKING_ENTRANCE
+	setflag FLAG_HIDE_AQUA_HIDEOUT_1F_GRUNTS_BLOCKING_ENTRANCE
+	setflag FLAG_HIDE_AQUA_HIDEOUT_1F_GRUNTS_BLOCKING_ENTRANCE
 	copyobjectxytoperm LOCALID_SLATEPORT_HARBOR_CAPT_STERN
 	setobjectmovementtype LOCALID_SLATEPORT_HARBOR_CAPT_STERN, MOVEMENT_TYPE_FACE_RIGHT
 	releaseall
@@ -157,13 +159,15 @@ SlateportCity_Harbor_Movement_PlayerWalkUp:
 SlateportCity_Harbor_EventScript_FerryAttendant::
 	lock
 	faceplayer
-	goto_if_set FLAG_SYS_GAME_CLEAR, SlateportCity_Harbor_EventScript_AskForTicket
+	goto SlateportCity_Harbor_EventScript_AskForTicket
 	msgbox SlateportCity_Harbor_Text_FerryServiceUnavailable, MSGBOX_DEFAULT
 	release
 	end
 
 SlateportCity_Harbor_EventScript_AskForTicket::
 	msgbox SlateportCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT
+	checkitem ITEM_SS_TICKET
+	goto_if_eq VAR_RESULT, FALSE, SlateportCity_Harbor_EventScript_NoTicket
 	message SlateportCity_Harbor_Text_FlashedTicketWhereTo
 	waitmessage
 	goto SlateportCity_Harbor_EventScript_ChooseDestination
@@ -187,7 +191,6 @@ SlateportCity_Harbor_EventScript_ChooseDestinationWithBattleFrontier::
 	case MULTI_B_PRESSED, SlateportCity_Harbor_EventScript_CancelDestinationSelect
 	end
 
-@ Unused. Should be impossible for player to reach Ferry without having received SS Tidal ticket
 SlateportCity_Harbor_EventScript_NoTicket::
 	msgbox SlateportCity_Harbor_Text_YouMustHaveTicket, MSGBOX_DEFAULT
 	release
@@ -327,9 +330,9 @@ SlateportCity_Harbor_EventScript_FerryFinished::
 	end
 
 SlateportCity_Harbor_EventScript_AskToTradeScanner::
-	message SlateportCity_Harbor_Text_WouldYouTradeScanner
-	waitmessage
-	goto SlateportCity_Harbor_EventScript_ChooseScannerTrade
+	msgbox SlateportCity_Harbor_Text_WouldYouTradeScanner, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, SlateportCity_Harbor_EventScript_AcceptTrade
+	goto_if_eq VAR_RESULT, NO, SlateportCity_Harbor_EventScript_DeclineTrade
 	end
 
 SlateportCity_Harbor_EventScript_ChooseScannerTrade::
@@ -357,6 +360,17 @@ SlateportCity_Harbor_EventScript_DeepSeaScale::
 	goto_if_eq VAR_RESULT, NO, SlateportCity_Harbor_EventScript_ChooseDifferentTrade
 	giveitem ITEM_DEEP_SEA_SCALE
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	removeitem ITEM_SCANNER
+	msgbox SlateportCity_Harbor_Text_HandedScannerToStern, MSGBOX_DEFAULT
+	setflag FLAG_EXCHANGED_SCANNER
+	goto SlateportCity_Harbor_EventScript_TradedScanner
+	end
+
+SlateportCity_Harbor_EventScript_AcceptTrade::
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_DEEP_SEA_TOOTH::
+	giveitem ITEM_DEEP_SEA_TOOTH, 1, FLAG_RECEIVED_DEEP_SEA_TOOTH
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_DEEP_SEA_SCALE::
+	giveitem ITEM_DEEP_SEA_SCALE, 1, FLAG_RECEIVED_DEEP_SEA_SCALE
 	removeitem ITEM_SCANNER
 	msgbox SlateportCity_Harbor_Text_HandedScannerToStern, MSGBOX_DEFAULT
 	setflag FLAG_EXCHANGED_SCANNER
@@ -511,8 +525,8 @@ SlateportCity_Harbor_Text_WouldYouTradeScanner:
 	.string "help us on our explorations.\p"
 	.string "{PLAYER}{KUN}, would you trade your\n"
 	.string "SCANNER for something?\p"
-	.string "Like, say, a DEEPSEATOOTH or\n"
-	.string "a DEEPSEASCALE that I have?$"
+	.string "Like, say, the DEEPSEATOOTH and\n"
+	.string "DEEPSEASCALE that I have?$"
 
 SlateportCity_Harbor_Text_IfYouWantToTradeLetMeKnow:
 	.string "CAPT. STERN: Are you certain?\n"

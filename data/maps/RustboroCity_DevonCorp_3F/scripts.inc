@@ -47,13 +47,11 @@ RustboroCity_DevonCorp_3F_EventScript_MeetPresident::
 	applymovement LOCALID_PLAYER, RustboroCity_DevonCorp_3F_Movement_PlayerApproachDesk
 	waitmovement 0
 	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneIHaveFavor, MSGBOX_DEFAULT
-	giveitem ITEM_LETTER
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_LETTER::
+	giveitem ITEM_LETTER, 1, FLAG_RECEIVED_LETTER
 	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneWantYouToHaveThis, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
-	message RustboroCity_DevonCorp_3F_Text_ReceivedPokenav
-	waitfanfare
-	setflag FLAG_SYS_POKENAV_GET
-	setflag FLAG_RECEIVED_POKENAV
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_POKENAV::
+	giveitem ITEM_POKENAV, 1, FLAG_RECEIVED_POKENAV
 	setflag FLAG_HIDE_RUSTBORO_CITY_POKEMON_SCHOOL_SCOTT
 	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneExplainPokenavRestUp, MSGBOX_DEFAULT
 	closemessage
@@ -67,7 +65,10 @@ RustboroCity_DevonCorp_3F_EventScript_MeetPresident::
 	setvar VAR_BRINEY_LOCATION, 1
 	clearflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
 	setvar VAR_DEVON_CORP_3F_STATE, 1
-	setvar VAR_RUSTBORO_CITY_STATE, 6
+	@ the triggers for the match call tutorial are removed. do remaining required setup
+	setvar VAR_RUSTBORO_CITY_STATE, 7
+	setvar VAR_ROUTE104_STATE, 1
+	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
 	releaseall
 	end
 
@@ -160,9 +161,9 @@ RustboroCity_DevonCorp_3F_EventScript_MrStone::
 
 RustboroCity_DevonCorp_3F_EventScript_GiveExpShare::
 	msgbox RustboroCity_DevonCorp_3F_Text_ThankYouForDeliveringLetter, MSGBOX_DEFAULT
-	giveitem ITEM_EXP_SHARE
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_EXP_SHARE::
+	giveitem ITEM_EXP_SHARE, 1, FLAG_RECEIVED_EXP_SHARE
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
-	setflag FLAG_RECEIVED_EXP_SHARE
 	msgbox RustboroCity_DevonCorp_3F_Text_ExplainExpShare, MSGBOX_DEFAULT
 	closemessage
 	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection

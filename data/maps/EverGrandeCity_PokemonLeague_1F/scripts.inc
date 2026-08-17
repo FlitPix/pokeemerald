@@ -5,6 +5,7 @@ EverGrandeCity_PokemonLeague_1F_MapScripts::
 
 EverGrandeCity_PokemonLeague_1F_OnTransition:
 	setrespawn HEAL_LOCATION_EVER_GRANDE_CITY_POKEMON_LEAGUE
+	call Common_EventScript_UpdateBrineyLocation
 	setflag FLAG_LANDMARK_POKEMON_LEAGUE
 	call_if_unset FLAG_ENTERED_ELITE_FOUR, EverGrandeCity_PokemonLeague_1F_EventScript_GuardsBlockDoor
 	end
@@ -54,7 +55,8 @@ EverGrandeCity_PokemonLeague_1F_EventScript_DoorGuard::
 	message EverGrandeCity_PokemonLeague_1F_Text_MustHaveAllGymBadges
 	waitmessage
 	delay 120
-	goto_if_unset FLAG_BADGE06_GET, EverGrandeCity_PokemonLeague_1F_EventScript_NotAllBadges
+	specialvar VAR_RESULT, ArchipelagoSpecial_CanChallengeEliteFour
+	goto_if_eq VAR_RESULT, FALSE, EverGrandeCity_PokemonLeague_1F_EventScript_NotAllBadges
 	closemessage
 	applymovement LOCALID_LEAGUE_GUARD_1, EverGrandeCity_PokemonLeague_1F_Movement_LeftGuardOutOfWay
 	applymovement LOCALID_LEAGUE_GUARD_2, EverGrandeCity_PokemonLeague_1F_Movement_RightGuardOutOfWay

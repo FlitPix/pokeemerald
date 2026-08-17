@@ -25,8 +25,8 @@ MauvilleCity_House2_EventScript_AskToTradeForHarborMail::
 MauvilleCity_House2_EventScript_AcceptTrade::
 	msgbox MauvilleCity_House2_Text_IllTradeYouCoinCase, MSGBOX_DEFAULT
 	removeitem ITEM_HARBOR_MAIL
-	giveitem ITEM_COIN_CASE
-	setflag FLAG_RECEIVED_COIN_CASE
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_COIN_CASE::
+	giveitem ITEM_COIN_CASE, 1, FLAG_RECEIVED_COIN_CASE
 	goto MauvilleCity_House2_EventScript_ReceivedCoinCase
 	end
 

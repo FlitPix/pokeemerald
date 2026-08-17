@@ -87,22 +87,14 @@ Route120_EventScript_BerryBeauty::
 	lock
 	faceplayer
 	dotimebasedevents
-	goto_if_set FLAG_DAILY_ROUTE_120_RECEIVED_BERRY, Route120_EventScript_ReceivedBerry
+	goto_if_set FLAG_ROUTE_120_RECEIVED_BERRY, Route120_EventScript_ReceivedBerry
 	msgbox Route120_Text_BerriesExpressionOfLoveIsntIt, MSGBOX_YESNO
 	call_if_eq VAR_RESULT, YES, Route120_EventScript_BerryLove
 	call_if_eq VAR_RESULT, NO, Route120_EventScript_BerryNotLove
 	specialvar VAR_RESULT, GetPlayerTrainerIdOnesDigit
-	switch VAR_RESULT
-	case 0, Route120_EventScript_GiveFigyBerry
-	case 5, Route120_EventScript_GiveFigyBerry
-	case 1, Route120_EventScript_GiveWikiBerry
-	case 6, Route120_EventScript_GiveWikiBerry
-	case 2, Route120_EventScript_GiveMagoBerry
-	case 7, Route120_EventScript_GiveMagoBerry
-	case 3, Route120_EventScript_GiveAguavBerry
-	case 8, Route120_EventScript_GiveAguavBerry
-	case 4, Route120_EventScript_GiveIapapaBerry
-	case 9, Route120_EventScript_GiveIapapaBerry
+Archipelago_Target_NPC_Gift_FLAG_ROUTE_120_RECEIVED_BERRY::
+	giveitem ITEM_IAPAPA_BERRY, 1, FLAG_ROUTE_120_RECEIVED_BERRY
+	release
 	end
 
 Route120_EventScript_GiveFigyBerry::
@@ -211,12 +203,11 @@ Route120_EventScript_RemoveBridgeKecleonPostBattle::
 	end
 
 Route120_EventScript_StevenGiveDeconScope::
-	applymovement LOCALID_ROUTE120_STEVEN, Common_Movement_WalkInPlaceFasterDown
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
+	call_if_eq VAR_FACING, DIR_WEST, Route120_EventScript_StevenPlayerFaceEachOtherSouth
+	call_if_eq VAR_FACING, DIR_SOUTH, Route120_EventScript_StevenPlayerFaceEachOtherWest
 	msgbox Route120_Text_StevenGiveDevonScope, MSGBOX_DEFAULT
-	giveitem ITEM_DEVON_SCOPE
-	setflag FLAG_RECEIVED_DEVON_SCOPE
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_DEVON_SCOPE::
+	giveitem ITEM_DEVON_SCOPE, 1, FLAG_RECEIVED_DEVON_SCOPE
 	msgbox Route120_Text_StevenGoodbye, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_ROUTE120_STEVEN, Common_Movement_WalkInPlaceFasterDown
@@ -249,6 +240,23 @@ Route120_Movement_ApproachKecleonWest:
 	walk_down
 	walk_left
 	step_end
+
+Route120_EventScript_PlayerApproachKecleonEast::
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	return
+
+Route120_EventScript_StevenPlayerFaceEachOtherSouth::
+	applymovement LOCALID_ROUTE120_STEVEN, Common_Movement_WalkInPlaceFasterDown
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	return
+
+Route120_EventScript_StevenPlayerFaceEachOtherWest::
+	applymovement LOCALID_ROUTE120_STEVEN, Common_Movement_WalkInPlaceFasterLeft
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	return
 
 Route120_EventScript_BridgeKecleon::
 	msgbox Kecleon_Text_SomethingUnseeable, MSGBOX_NPC

@@ -541,7 +541,7 @@
       "y": 51,
       "elevation": 3,
       "var": "VAR_ROUTE104_STATE",
-      "var_value": "1",
+      "var_value": "3",
       "script": "Route104_EventScript_RivalTrigger"
     }
   ],
