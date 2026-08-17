@@ -15,8 +15,13 @@ Archipelago_Target_Badge_1::
 	giveitem ITEM_BADGE_1, 1, FLAG_RECEIVED_BADGE_1
 	msgbox RustboroCity_Gym_Text_StoneBadgeInfoTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_RUSTBORO_GYM
-	setvar VAR_RUSTBORO_CITY_STATE, 1
 	setvar VAR_0x8008, 1
+	clearflag FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1
+	setflag FLAG_DEVON_GOODS_STOLEN
+	setvar VAR_RUSTURF_TUNNEL_STATE, 2
+	clearflag FLAG_HIDE_ROUTE_116_MR_BRINEY
+	clearflag FLAG_HIDE_RUSTURF_TUNNEL_PEEKO
+	clearflag FLAG_HIDE_RUSTURF_TUNNEL_AQUA_GRUNT
 	call Common_EventScript_SetGymTrainers
 	goto RustboroCity_Gym_EventScript_GiveRockTomb
 	end

@@ -66,7 +66,6 @@ Archipelago_Target_NPC_Gift_FLAG_RECEIVED_POKENAV::
 	clearflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
 	setvar VAR_DEVON_CORP_3F_STATE, 1
 	@ the triggers for the match call tutorial are removed. do remaining required setup
-	setvar VAR_RUSTBORO_CITY_STATE, 7
 	setvar VAR_ROUTE104_STATE, 1
 	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
 	releaseall

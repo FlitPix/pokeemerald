@@ -79,7 +79,6 @@ RustboroCity_EventScript_MatchCallTutorial::
 	playse SE_EXIT
 	removeobject LOCALID_RUSTBORO_SCIENTIST
 	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
-	setvar VAR_RUSTBORO_CITY_STATE, 7
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	releaseall
 	end
@@ -224,46 +223,6 @@ RustboroCity_EventScript_Man2::
 	release
 	end
 
-RustboroCity_EventScript_StolenGoodsTrigger0::
-	lockall
-	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
-	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
-	setvar VAR_0x8004, 0
-	goto RustboroCity_EventScript_StolenGoodsScene
-	end
-
-RustboroCity_EventScript_StolenGoodsTrigger1::
-	lockall
-	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
-	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
-	setvar VAR_0x8004, 1
-	goto RustboroCity_EventScript_StolenGoodsScene
-	end
-
-RustboroCity_EventScript_StolenGoodsTrigger2::
-	lockall
-	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
-	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
-	setvar VAR_0x8004, 2
-	goto RustboroCity_EventScript_StolenGoodsScene
-	end
-
-RustboroCity_EventScript_StolenGoodsTrigger3::
-	lockall
-	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
-	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
-	setvar VAR_0x8004, 3
-	goto RustboroCity_EventScript_StolenGoodsScene
-	end
-
-RustboroCity_EventScript_StolenGoodsTrigger4::
-	lockall
-	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 14, 21
-	setobjectmovementtype LOCALID_RUSTBORO_DEVON_EMPLOYEE, MOVEMENT_TYPE_FACE_RIGHT
-	setvar VAR_0x8004, 4
-	goto RustboroCity_EventScript_StolenGoodsScene
-	end
-
 RustboroCity_EventScript_StolenGoodsScene::
 	msgbox RustboroCity_Text_OutOfTheWay, MSGBOX_DEFAULT
 	closemessage
@@ -282,16 +241,6 @@ RustboroCity_EventScript_StolenGoodsScene::
 	fadedefaultbgm
 	removeobject LOCALID_RUSTBORO_DEVON_EMPLOYEE
 	setobjectxyperm LOCALID_RUSTBORO_DEVON_EMPLOYEE, 30, 10
-	clearflag FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1
-	setflag FLAG_DEVON_GOODS_STOLEN
-	setvar VAR_RUSTBORO_CITY_STATE, 2
-	setvar VAR_RUSTURF_TUNNEL_STATE, 2
-	setvar VAR_ROUTE116_STATE, 1
-	clearflag FLAG_HIDE_ROUTE_116_MR_BRINEY
-	clearflag FLAG_HIDE_RUSTURF_TUNNEL_PEEKO
-	clearflag FLAG_HIDE_RUSTURF_TUNNEL_AQUA_GRUNT
-	setflag FLAG_HIDE_BRINEYS_HOUSE_MR_BRINEY
-	setflag FLAG_HIDE_BRINEYS_HOUSE_PEEKO
 	releaseall
 	end
 
@@ -443,7 +392,9 @@ RustboroCity_Movement_EmployeeApproachPlayerFar:
 RustboroCity_EventScript_DevonEmployee1::
 	lock
 	faceplayer
-	goto_if_set FLAG_RECOVERED_DEVON_GOODS, RustboroCity_EventScript_ReturnGoodsSpokeToEmployee
+	checkitem ITEM_DEVON_GOODS
+	goto_if_eq VAR_RESULT, TRUE, RustboroCity_EventScript_ReturnGoods
+	goto_if_unset FLAG_INTERACTED_WITH_DEVON_EMPLOYEE_GOODS_STOLEN, RustboroCity_EventScript_EmployeeAskToGetGoods
 	msgbox RustboroCity_Text_ShadyCharacterTookOffTowardsTunnel, MSGBOX_DEFAULT
 	release
 	end
@@ -479,13 +430,17 @@ RustboroCity_EventScript_HelpGetGoodsTrigger3::
 	end
 
 RustboroCity_EventScript_EmployeeAskToGetGoods::
-	call_if_eq VAR_TEMP_1, 0, RustboroCity_EventScript_EmployeeFacePlayerUp1
-	call_if_eq VAR_TEMP_1, 1, RustboroCity_EventScript_EmployeeFacePlayerLeft1
-	call_if_eq VAR_TEMP_1, 2, RustboroCity_EventScript_EmployeeFacePlayerDown1
-	call_if_eq VAR_TEMP_1, 3, RustboroCity_EventScript_EmployeeApproachPlayerDown1
+	@ call_if_eq VAR_TEMP_1, 0, RustboroCity_EventScript_EmployeeFacePlayerUp1
+	@ call_if_eq VAR_TEMP_1, 1, RustboroCity_EventScript_EmployeeFacePlayerLeft1
+	@ call_if_eq VAR_TEMP_1, 2, RustboroCity_EventScript_EmployeeFacePlayerDown1
+	@ call_if_eq VAR_TEMP_1, 3, RustboroCity_EventScript_EmployeeApproachPlayerDown1
 	setflag FLAG_INTERACTED_WITH_DEVON_EMPLOYEE_GOODS_STOLEN
-	setvar VAR_RUSTBORO_CITY_STATE, 3
-	copyobjectxytoperm LOCALID_RUSTBORO_DEVON_EMPLOYEE
+	waitse
+	playse SE_PIN
+	applymovement LOCALID_RUSTBORO_DEVON_EMPLOYEE, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_RUSTBORO_DEVON_EMPLOYEE, Common_Movement_Delay48
+	waitmovement 0
 	msgbox RustboroCity_Text_HelpMeIWasRobbed, MSGBOX_DEFAULT
 	releaseall
 	end
@@ -570,11 +525,11 @@ RustboroCity_EventScript_ReturnGoodsTrigger3::
 	end
 
 RustboroCity_EventScript_ReturnGoods::
-	call_if_eq VAR_TEMP_1, 0, RustboroCity_EventScript_EmployeeFacePlayerUp2
-	call_if_eq VAR_TEMP_1, 1, RustboroCity_EventScript_EmployeeFacePlayerLeft2
-	call_if_eq VAR_TEMP_1, 2, RustboroCity_EventScript_EmployeeFacePlayerDown2
-	call_if_eq VAR_TEMP_1, 3, RustboroCity_EventScript_EmployeeApproachPlayerDown2
-	call_if_eq VAR_TEMP_1, 4, RustboroCity_EventScript_EmployeeFacePlayerRight
+	@ call_if_eq VAR_TEMP_1, 0, RustboroCity_EventScript_EmployeeFacePlayerUp2
+	@ call_if_eq VAR_TEMP_1, 1, RustboroCity_EventScript_EmployeeFacePlayerLeft2
+	@ call_if_eq VAR_TEMP_1, 2, RustboroCity_EventScript_EmployeeFacePlayerDown2
+	@ call_if_eq VAR_TEMP_1, 3, RustboroCity_EventScript_EmployeeApproachPlayerDown2
+	@ call_if_eq VAR_TEMP_1, 4, RustboroCity_EventScript_EmployeeFacePlayerRight
 	msgbox RustboroCity_Text_YouGotItThankYou, MSGBOX_DEFAULT
 Archipelago_Target_NPC_Gift_FLAG_RECEIVED_GREAT_BALL_RUSTBORO_CITY::
 	giveitem ITEM_GREAT_BALL, 1, FLAG_RECEIVED_GREAT_BALL_RUSTBORO_CITY
@@ -583,7 +538,6 @@ Archipelago_Target_NPC_Gift_FLAG_RECEIVED_GREAT_BALL_RUSTBORO_CITY::
 	closemessage
 	setflag FLAG_RETURNED_DEVON_GOODS
 	setflag FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1
-	setvar VAR_RUSTBORO_CITY_STATE, 5
 	delay 30
 	warp MAP_RUSTBORO_CITY_DEVON_CORP_3F, 2, 2
 	waitstate
@@ -822,8 +776,6 @@ RustboroCity_EventScript_MayEncounter::
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
-	setvar VAR_RUSTBORO_CITY_STATE, 8
-	setvar VAR_ROUTE104_STATE, 2
 	setvar VAR_0x8008, 0
 	msgbox RustboroCity_Text_MayPassedBrineyWantToBattle, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, RustboroCity_EventScript_BattleMay
@@ -890,8 +842,6 @@ RustboroCity_EventScript_BrendanEncounter::
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
-	setvar VAR_RUSTBORO_CITY_STATE, 8
-	setvar VAR_ROUTE104_STATE, 2
 	msgbox RustboroCity_Text_BrendanPassedBrineyWantToBattle, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, RustboroCity_EventScript_BattleBrendan
 	msgbox RustboroCity_Text_BrendanNoConfidenceInPokemon, MSGBOX_DEFAULT

@@ -143,9 +143,9 @@ DewfordTown_Gym_EventScript_Brawly::
 
 DewfordTown_Gym_EventScript_BrawlyDefeated::
 	call DewfordTown_Gym_EventScript_AnimateFlashFullBrightness
-	msgbox DewfordTown_Gym_Text_KnuckleBadgeInfoTakeThis, MSGBOX_DEFAULT
 Archipelago_Target_Badge_2::
 	giveitem ITEM_BADGE_2, 1, FLAG_RECEIVED_BADGE_2
+	msgbox DewfordTown_Gym_Text_KnuckleBadgeInfoTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_DEWFORD_GYM
 	setvar VAR_0x8008, 2
 	call Common_EventScript_SetGymTrainers
