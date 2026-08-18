@@ -2,7 +2,6 @@ name: Bug Report - Emerald
 description: File a bug report for Pokemon Emerald Version AP (Flit's ver.).
 title: "[EMERALD] "
 labels: ["is: bug", "waiting on: triage", "game: emerald"]
-type: bug
 body:
   - type: markdown
     attributes:
