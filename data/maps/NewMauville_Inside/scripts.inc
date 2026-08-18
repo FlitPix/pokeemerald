@@ -145,6 +145,7 @@ NewMauville_Inside_EventScript_RedButton::
 	msgbox NewMauville_Inside_Text_SteppedOnSwitchGeneratorStopped, MSGBOX_DEFAULT
 	call NewMauville_Inside_EventScript_SetGeneratorOffMetatiles
 	setvar VAR_NEW_MAUVILLE_STATE, 2
+	setflag FLAG_SHUT_DOWN_GENERATOR
 	releaseall
 	end
 
