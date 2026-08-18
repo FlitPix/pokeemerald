@@ -82,7 +82,7 @@ struct ArchipelagoOptions
     /* 0x2D */ bool8 wonderTradeAllowed;
     /* 0x2E */ bool8 remoteItems;
     /* 0x2F */ bool8 isChallengeMode;
-} __attribute__((packed));
+};
 
 struct ArchipelagoReceivedItem // for items received from the multiworld
 {
