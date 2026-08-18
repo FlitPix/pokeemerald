@@ -1,0 +1,16 @@
+name: Enhancement - Emerald
+description: Suggest a new feature for Pokemon Emerald Version (Flit's ver.).
+labels: ["is: enhancement", "game: emerald"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature or improvement for **Pokemon Emerald Version (Flit's ver.)**!
+
+        Please note that this issue tracker is for *in-game suggestions*. Suggestions relating to world logic or other Archipelago-related things should instead be reported on the APWorld repo.
+  - type: textarea
+    id: description
+    attributes:
+      label: What would you like to see added?
+    validations:
+      required: true

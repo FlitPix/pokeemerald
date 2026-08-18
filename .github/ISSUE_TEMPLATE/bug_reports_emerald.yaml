@@ -1,0 +1,37 @@
+name: Bug Report - Emerald
+description: File a bug report for Pokemon Emerald Version AP (Flit's ver.).
+title: "[EMERALD] "
+labels: ["is: bug", "waiting on: triage", "game: emerald"]
+type: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug for **Pokemon Emerald Version (Flit's ver.)**!
+
+        Please note that this issue tracker is for *in-game issues*. Bugs relating to world logic or other Archipelago-related things should instead be reported on the APWorld repo.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Please describe what happened and include as many details as possible, even if they seem unrelated.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How did you get it to happen?
+      description: Please provide detailed reproduction steps.
+      value: |
+        1. 
+        2. 
+        3. 
+        ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen instead?
+    validations:
+      required: false
