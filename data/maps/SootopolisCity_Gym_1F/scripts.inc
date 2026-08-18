@@ -118,8 +118,7 @@ Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_WATER_PULSE::
 	giveitem ITEM_TM_WATER_PULSE, 1, FLAG_RECEIVED_TM_WATER_PULSE
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	msgbox SootopolisCity_Gym_1F_Text_ExplainWaterPulse, MSGBOX_DEFAULT
-	release
-	end
+	return
 
 SootopolisCity_Gym_1F_EventScript_GoGetFortreeBadge::
 	msgbox SootopolisCity_Gym_1F_Text_GoGetFortreeBadge, MSGBOX_DEFAULT

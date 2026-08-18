@@ -51,8 +51,7 @@ Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_AERIAL_ACE::
 	giveitem ITEM_TM_AERIAL_ACE, 1, FLAG_RECEIVED_TM_AERIAL_ACE
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	msgbox FortreeCity_Gym_Text_ExplainAerialAce, MSGBOX_DEFAULT
-	release
-	end
+	return
 
 FortreeCity_Gym_EventScript_WinonaRematch::
 	trainerbattle_rematch_double TRAINER_WINONA_1, FortreeCity_Gym_Text_WinonaPreRematch, FortreeCity_Gym_Text_WinonaRematchDefeat, FortreeCity_Gym_Text_WinonaRematchNeedTwoMons

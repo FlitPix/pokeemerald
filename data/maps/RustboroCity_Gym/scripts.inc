@@ -33,8 +33,7 @@ Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_ROCK_TOMB::
 	specialvar VAR_RESULT, ArchipelagoSpecial_CheckReusableTms
 	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_ExplainRockTombReusableTms
 	msgbox RustboroCity_Gym_Text_ExplainRockTomb, MSGBOX_DEFAULT
-	release
-	end
+	return
 
 RustboroCity_Gym_EventScript_ExplainRockTombReusableTms::
 	msgbox RustboroCity_Gym_Text_ExplainRockTombReusableTms, MSGBOX_DEFAULT
