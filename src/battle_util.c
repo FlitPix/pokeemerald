@@ -470,6 +470,10 @@ bool8 TryRunFromBattle(u8 battler)
                 if (speedVar > (Random() & 0xFF))
                     effect++;
             }
+            else if (gSaveBlock2Ptr->optionsGuaranteedRun)
+            {
+                effect++;
+            }
             else if (gBattleMons[battler].speed < gBattleMons[BATTLE_OPPOSITE(battler)].speed)
             {
                 speedVar = (gBattleMons[battler].speed * 128) / (gBattleMons[BATTLE_OPPOSITE(battler)].speed) + (gBattleStruct->runTries * 30);
