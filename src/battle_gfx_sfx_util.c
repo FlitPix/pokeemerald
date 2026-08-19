@@ -1098,7 +1098,7 @@ void HandleLowHpMusicChange(struct Pokemon *mon, u8 battler)
 
     if (GetHPBarLevel(hp, maxHP) == HP_BAR_RED)
     {
-        if (!gBattleSpritesDataPtr->battlerData[battler].lowHpSong)
+        if (gSaveBlock2Ptr->optionsLowHpBeep && !gBattleSpritesDataPtr->battlerData[battler].lowHpSong)
         {
             if (!gBattleSpritesDataPtr->battlerData[BATTLE_PARTNER(battler)].lowHpSong)
                 PlaySE(SE_LOW_HEALTH);
