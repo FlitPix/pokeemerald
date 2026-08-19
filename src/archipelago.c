@@ -50,7 +50,7 @@ const struct ArchipelagoOptions gArchipelagoOptions = {
     .normanNeedsGyms = FALSE,
     .normanRequiredCount = 4,
 
-    .removeBadgeRequirement = 16,
+    .removeBadgeRequirement = 0,
     //.additionalDarkCaves
     .freeFlyHmLocation = 0,
     .freeFlyPokenavLocation = 0,
@@ -271,7 +271,7 @@ bool8 CanUseHmOutsideBattle(u8 fieldMove)
     if (FlagGet(FLAG_BADGE08_GET))
         ObtainedBadgeMask |= gBitTable[7];
 
-    return ((1 << fieldMove) & (ObtainedBadgeMask | gArchipelagoOptions.removeBadgeRequirement)) == (1 << fieldMove);
+    return (gBitTable[fieldMove] & (ObtainedBadgeMask | gArchipelagoOptions.removeBadgeRequirement)) == gBitTable[fieldMove];
 }
 
 bool8 ArchipelagoSpecial_CanUseHmOutsideBattle(void)
