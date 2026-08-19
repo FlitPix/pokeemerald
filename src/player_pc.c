@@ -70,7 +70,7 @@ enum {
 
 // Message IDs for Item Storage
 enum {
-    MSG_SWITCH_WHICH_ITEM = 0xFFF7,
+    MSG_SWITCH_WHICH_ITEM = 0xFFF6,
     MSG_OKAY_TO_THROW_AWAY,
     MSG_TOO_IMPORTANT,
     MSG_NO_MORE_ROOM,
