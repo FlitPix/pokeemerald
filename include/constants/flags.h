@@ -1261,7 +1261,7 @@
 #define FLAG_RECEIVED_DEEP_SEA_SCALE                                0x4B7 // formerly FLAG_UNUSED_0x4B7
 #define FLAG_SOOTOPOLIS_RECEIVED_BERRY_1                            0x4B8 // formerly FLAG_UNUSED_0x4B8
 #define FLAG_SOOTOPOLIS_RECEIVED_BERRY_2                            0x4B9 // formerly FLAG_UNUSED_0x4B9
-#define FLAG_UNUSED_0x4BA                                           0x4BA // Unused Flag
+#define FLAG_RECEIVED_EON_TICKET                                    0x4BA // formerly FLAG_UNUSED_0x4BA
 #define FLAG_UNUSED_0x4BB                                           0x4BB // Unused Flag
 #define FLAG_UNUSED_0x4BC                                           0x4BC // Unused Flag
 #define FLAG_UNUSED_0x4BD                                           0x4BD // Unused Flag
