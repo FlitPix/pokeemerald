@@ -48,6 +48,7 @@ Route123_BerryMastersHouse_EventScript_CancelPhrase::
 
 Route123_BerryMastersHouse_EventScript_GiveNormalBerry::
 	msgbox Route123_BerryMastersHouse_Text_GoodSayingTakeThis, MSGBOX_DEFAULT
+Archipelago_Target_NPC_Gift_FLAG_BERRY_MASTERS_WIFE::
 	giveitem ITEM_CHERI_BERRY, 1, FLAG_BERRY_MASTERS_WIFE
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	goto Route123_BerryMastersHouse_EventScript_GaveBerry

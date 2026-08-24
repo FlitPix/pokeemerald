@@ -108,6 +108,7 @@ Archipelago_Target_Badge_3::
 	end
 
 MauvilleCity_Gym_EventScript_GiveShockWave::
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_TM_SHOCK_WAVE::
 	giveitem ITEM_TM_SHOCK_WAVE, 1, FLAG_RECEIVED_TM_SHOCK_WAVE
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
 	msgbox MauvilleCity_Gym_Text_ExplainShockWave, MSGBOX_DEFAULT
