@@ -53,7 +53,6 @@ EverGrandeCity_HallOfFame_EventScript_GameClearMale::
 	call Common_EventScript_UpdateBrineyLocation
 	fadescreenspeed FADE_TO_BLACK, 24
 	special GameClear
-	waitstate
 	releaseall
 	end
 
@@ -62,7 +61,6 @@ EverGrandeCity_HallOfFame_EventScript_GameClearFemale::
 	call Common_EventScript_UpdateBrineyLocation
 	fadescreenspeed FADE_TO_BLACK, 24
 	special GameClear
-	waitstate
 	releaseall
 	end
 

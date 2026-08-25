@@ -1225,12 +1225,8 @@ u8 DoFieldEndTurnEffects(void)
                 }
             }
 
-            // It's stupid, but won't match without it
-            {
-                u8 *var = &gBattleStruct->turnCountersTracker;
-                (*var)++;
-                gBattleStruct->turnSideTracker = 0;
-            }
+            *(&gBattleStruct->turnCountersTracker) = gBattleStruct->turnCountersTracker + 1;
+            gBattleStruct->turnSideTracker = 0;
             // fall through
         case ENDTURN_REFLECT:
             while (gBattleStruct->turnSideTracker < 2)
@@ -1838,13 +1834,8 @@ bool8 HandleWishPerishSongOnTurnEnd(void)
                 return TRUE;
             }
         }
-        // Why do I have to keep doing this to match?
-        {
-            u8 *state = &gBattleStruct->wishPerishSongState;
-            *state = 1;
-            gBattleStruct->wishPerishSongBattlerId = 0;
-        }
-        // fall through
+        *(&gBattleStruct->wishPerishSongState) = 1;
+        gBattleStruct->wishPerishSongBattlerId = 0;
     case 1:
         while (gBattleStruct->wishPerishSongBattlerId < gBattlersCount)
         {
@@ -1873,13 +1864,8 @@ bool8 HandleWishPerishSongOnTurnEnd(void)
                 return TRUE;
             }
         }
-        // Hm...
-        {
-            u8 *state = &gBattleStruct->wishPerishSongState;
-            *state = 2;
-            gBattleStruct->wishPerishSongBattlerId = 0;
-        }
-        // fall through
+        *(&gBattleStruct->wishPerishSongState) = 2;
+        gBattleStruct->wishPerishSongBattlerId = 0;
     case 2:
         if ((gBattleTypeFlags & BATTLE_TYPE_ARENA)
          && gBattleStruct->arenaTurnCounter == 2
@@ -3942,24 +3928,24 @@ u8 IsMonDisobedient(void)
     u8 obedienceLevel = 0;
 
     if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
-        return 0;
+        return DISOBEDIENCE_OBEDIENT;
     if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT)
-        return 0;
+        return DISOBEDIENCE_OBEDIENT;
 
     if (IsBattlerModernFatefulEncounter(gBattlerAttacker)) // always true
     {
         if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && GetBattlerPosition(gBattlerAttacker) == 2)
-            return 0;
+            return DISOBEDIENCE_OBEDIENT;
         if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
-            return 0;
+            return DISOBEDIENCE_OBEDIENT;
         if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
-            return 0;
-
+            return DISOBEDIENCE_OBEDIENT;
+        
         // the commented-out reference solution below for Challenge Mode is not well-designed if fewer than eight
         // badges/gyms are required to fight the elite four.
         // AP TODO: implement dynamic obedience levels
-        return 0;
-
+        return DISOBEDIENCE_OBEDIENT;
+        
         // if (!gArchipelagoOptions.isChallengeMode)
         //     return 0;
         // else
@@ -3978,11 +3964,11 @@ u8 IsMonDisobedient(void)
     }
 
     if (gBattleMons[gBattlerAttacker].level <= obedienceLevel)
-        return 0;
+        return DISOBEDIENCE_OBEDIENT;
     rnd = (Random() & 255);
     calc = (gBattleMons[gBattlerAttacker].level + obedienceLevel) * rnd >> 8;
     if (calc < obedienceLevel)
-        return 0;
+        return DISOBEDIENCE_OBEDIENT;
 
     // is not obedient
     if (gCurrentMove == MOVE_RAGE)
@@ -3990,7 +3976,7 @@ u8 IsMonDisobedient(void)
     if (gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP && (gCurrentMove == MOVE_SNORE || gCurrentMove == MOVE_SLEEP_TALK))
     {
         gBattlescriptCurrInstr = BattleScript_IgnoresWhileAsleep;
-        return 1;
+        return DISOBEDIENCE_IGNORED;
     }
 
     rnd = (Random() & 255);
@@ -4004,7 +3990,7 @@ u8 IsMonDisobedient(void)
             // B_MSG_LOAFING, B_MSG_WONT_OBEY, B_MSG_TURNED_AWAY, or B_MSG_PRETEND_NOT_NOTICE
             gBattleCommunication[MULTISTRING_CHOOSER] = MOD(Random(), NUM_LOAF_STRINGS);
             gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
-            return 1;
+            return DISOBEDIENCE_IGNORED;
         }
         else // use a random move
         {
@@ -4017,7 +4003,7 @@ u8 IsMonDisobedient(void)
             gBattlescriptCurrInstr = BattleScript_IgnoresAndUsesRandomMove;
             gBattlerTarget = GetMoveTarget(gCalledMove, NO_TARGET_OVERRIDE);
             gHitMarker |= HITMARKER_DISOBEDIENT_MOVE;
-            return 2;
+            return DISOBEDIENCE_OTHER;
         }
     }
     else
@@ -4037,7 +4023,7 @@ u8 IsMonDisobedient(void)
             if (i == gBattlersCount)
             {
                 gBattlescriptCurrInstr = BattleScript_IgnoresAndFallsAsleep;
-                return 1;
+                return DISOBEDIENCE_IGNORED;
             }
         }
         calc -= obedienceLevel;
@@ -4047,7 +4033,7 @@ u8 IsMonDisobedient(void)
             gBattlerTarget = gBattlerAttacker;
             gBattlescriptCurrInstr = BattleScript_IgnoresAndHitsItself;
             gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-            return 2;
+            return DISOBEDIENCE_OTHER;
         }
         else
         {
@@ -4055,7 +4041,7 @@ u8 IsMonDisobedient(void)
             // B_MSG_LOAFING, B_MSG_WONT_OBEY, B_MSG_TURNED_AWAY, or B_MSG_PRETEND_NOT_NOTICE
             gBattleCommunication[MULTISTRING_CHOOSER] = MOD(Random(), NUM_LOAF_STRINGS);
             gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
-            return 1;
+            return DISOBEDIENCE_IGNORED;
         }
     }
 }
