@@ -1078,18 +1078,18 @@ struct SaveBlock1
     /*0x3360*/ struct EnigmaBerry enigmaBerry;
     /*0x3394*/ struct MysteryGiftSave mysteryGift;
     /*0x3700*/ u16 archipelagoLastReceivedItemIndex;
-    /*0x3702*/ u8 unused_3598[0x17C];
-    /*0x387E*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
-    /*0x388E*/ struct RamScript ramScript;
-    /*0x3C7A*/ struct RecordMixingGift recordMixingGift;
-    /*0x3C8A*/ u8 seen2[NUM_DEX_FLAG_BYTES];
-    /*0x3CBE*/ LilycoveLady lilycoveLady;
-    /*0x3CEE*/ struct TrainerNameRecord trainerNameRecords[20];
-    /*0x3DDE*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
-    /*0x3EB0*/ u8 unused_3D5A[10];
-    /*0x3EBA*/ struct TrainerHillSave trainerHill;
-    /*0x3ECE*/ struct WaldaPhrase waldaPhrase;
-    // sizeof: 0x3EE6 (vanilla is 0x3D88)
+    // u8 unused_3598[0x17C];
+    /*0x3702*/ u32 trainerHillTimes[NUM_TRAINER_HILL_MODES];
+    /*0x3712*/ struct RamScript ramScript;
+    /*0x3AFE*/ struct RecordMixingGift recordMixingGift;
+    /*0x3B0E*/ u8 seen2[NUM_DEX_FLAG_BYTES];
+    /*0x3B42*/ LilycoveLady lilycoveLady;
+    /*0x3B82*/ struct TrainerNameRecord trainerNameRecords[20];
+    /*0x3C72*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
+    /*0x3D44*/ u8 unused_3D5A[10];
+    /*0x3D4E*/ struct TrainerHillSave trainerHill;
+    /*0x3D62*/ struct WaldaPhrase waldaPhrase;
+    // sizeof: 0x3D7A (vanilla is 0x3D88)
 };
 
 extern struct SaveBlock1 *gSaveBlock1Ptr;
