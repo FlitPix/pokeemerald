@@ -191,6 +191,7 @@ static u8 CreateBagInputHandlerTask(u8);
 static void DrawItemListBgRow(u8);
 static void BagMenu_MoveCursorCallback(s32, bool8, struct ListMenu *);
 static void BagMenu_ItemPrintCallback(u8, u32, u8);
+static void PrintNormalItemQuantity(u8, u16, u8);
 static void ItemMenu_UseOutOfBattle(u8);
 static void ItemMenu_Toss(u8);
 static void ItemMenu_Register(u8);
@@ -976,14 +977,16 @@ static void BagMenu_ItemPrintCallback(u8 windowId, u32 itemIndex, u8 y)
             offset = GetStringRightAlignXOffset(FONT_NARROW, gStringVar4, 119);
             BagMenu_Print(windowId, FONT_NARROW, gStringVar4, offset, y, 0, 0, TEXT_SKIP_DRAW, COLORID_NORMAL);
         }
-        else if ((gBagPosition.pocket != KEYITEMS_POCKET && GetItemImportance(itemId) == FALSE) &&
-                 (gArchipelagoOptions.reusableTms && gBagPosition.pocket != TMHM_POCKET))
+        else if (gBagPosition.pocket == TMHM_POCKET)
         {
-            // Print item quantity
-            ConvertIntToDecimalStringN(gStringVar1, itemQuantity, STR_CONV_MODE_RIGHT_ALIGN, BAG_ITEM_CAPACITY_DIGITS);
-            StringExpandPlaceholders(gStringVar4, gText_xVar1);
-            offset = GetStringRightAlignXOffset(FONT_NARROW, gStringVar4, 119);
-            BagMenu_Print(windowId, FONT_NARROW, gStringVar4, offset, y, 0, 0, TEXT_SKIP_DRAW, COLORID_NORMAL);
+            if (!gArchipelagoOptions.reusableTms)
+            {
+                PrintNormalItemQuantity(windowId, itemQuantity, y);
+            }
+        }
+        else if (gBagPosition.pocket != KEYITEMS_POCKET && GetItemImportance(itemId) == FALSE)
+        {
+            PrintNormalItemQuantity(windowId, itemQuantity, y);
         }
         else
         {
@@ -992,6 +995,17 @@ static void BagMenu_ItemPrintCallback(u8 windowId, u32 itemIndex, u8 y)
                 BlitBitmapToWindow(windowId, sRegisteredSelect_Gfx, 96, y - 1, 24, 16);
         }
     }
+}
+
+static void PrintNormalItemQuantity(u8 windowId, u16 itemQuantity, u8 y)
+{
+    int offset;
+
+    // Print item quantity
+    ConvertIntToDecimalStringN(gStringVar1, itemQuantity, STR_CONV_MODE_RIGHT_ALIGN, BAG_ITEM_CAPACITY_DIGITS);
+    StringExpandPlaceholders(gStringVar4, gText_xVar1);
+    offset = GetStringRightAlignXOffset(FONT_NARROW, gStringVar4, 119);
+    BagMenu_Print(windowId, FONT_NARROW, gStringVar4, offset, y, 0, 0, TEXT_SKIP_DRAW, COLORID_NORMAL);
 }
 
 static void PrintItemDescription(int itemIndex)
