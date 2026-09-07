@@ -39,6 +39,7 @@ ArchipelagoScript_FoundPlayersItem::
 	return
 
 ArchipelagoScript_ObtainItem::
+	call_if_ne LOCATION_ID, 0, EventScript_TrySetGiveItemFlag
 	specialvar VAR_RESULT, ArchipelagoSpecial_IsItemSpecial
 	goto_if_eq VAR_RESULT, TRUE, ArchipelagoScript_HandleSpecialItem
 	call ArchipelagoScript_HandleTextBox
