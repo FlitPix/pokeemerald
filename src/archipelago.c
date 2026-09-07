@@ -75,6 +75,7 @@ const struct ArchipelagoOptions gArchipelagoOptions = {
     .shuffleRunningShoes = FALSE,
 
     .startingMoney = 3000,
+    .startingBadges = 0,
     .wonderTradeAllowed = FALSE,
     .remoteItems = FALSE,
     .isChallengeMode = FALSE,

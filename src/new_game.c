@@ -1,4 +1,5 @@
 #include "global.h"
+#include "util.h"
 #include "archipelago.h"
 #include "new_game.h"
 #include "random.h"
@@ -244,6 +245,14 @@ static void SetNewGameFlagsVars(void)
     if (gArchipelagoOptions.shufflePokedex == 0) EnableNationalPokedex();
     if (!gArchipelagoOptions.shufflePokenav) FlagSet(FLAG_SYS_POKENAV_GET);
     if (!gArchipelagoOptions.shuffleRunningShoes) FlagSet(FLAG_SYS_B_DASH);
+    if (gArchipelagoOptions.startingBadges & gBitTable[0]) FlagSet(FLAG_BADGE01_GET);
+    if (gArchipelagoOptions.startingBadges & gBitTable[1]) FlagSet(FLAG_BADGE02_GET);
+    if (gArchipelagoOptions.startingBadges & gBitTable[2]) FlagSet(FLAG_BADGE03_GET);
+    if (gArchipelagoOptions.startingBadges & gBitTable[3]) FlagSet(FLAG_BADGE04_GET);
+    if (gArchipelagoOptions.startingBadges & gBitTable[4]) FlagSet(FLAG_BADGE05_GET);
+    if (gArchipelagoOptions.startingBadges & gBitTable[5]) FlagSet(FLAG_BADGE06_GET);
+    if (gArchipelagoOptions.startingBadges & gBitTable[6]) FlagSet(FLAG_BADGE07_GET);
+    if (gArchipelagoOptions.startingBadges & gBitTable[7]) FlagSet(FLAG_BADGE08_GET);
     // TODO: instead remove events and flags
     VarSet(VAR_LITTLEROOT_TOWN_STATE, 4);
     VarSet(VAR_LITTLEROOT_INTRO_STATE, 7);

@@ -78,11 +78,12 @@ struct ArchipelagoOptions
     /* 0x27 */ bool8 shufflePokenav;
     /* 0x28 */ bool8 shuffleRunningShoes;
 
-    /* 0x29 */ u32 startingMoney;
-    /* 0x2D */ bool8 wonderTradeAllowed;
-    /* 0x2E */ bool8 remoteItems;
-    /* 0x2F */ bool8 isChallengeMode;
-};
+    /* 0x?? */ u32 startingMoney;
+    /* 0x30 */ u8 startingBadges;
+    /* 0x31 */ bool8 wonderTradeAllowed;
+    /* 0x32 */ bool8 remoteItems;
+    /* 0x33 */ bool8 isChallengeMode;
+};  // offsets may be incorrect from unlockSeenDexInfo to startingMoney. i'll worry about it as i implement those features...
 
 struct ArchipelagoReceivedItem // for items received from the multiworld
 {
