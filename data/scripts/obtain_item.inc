@@ -171,6 +171,10 @@ EventScript_NoRoomToPickUpItem::
 EventScript_HiddenItemScript::
 	lockall
 	waitse
+	copyvar LOCATION_ID, VAR_0x8004
+	copyvar ITEMID2, VAR_0x8005
+	specialvar VAR_RESULT, ArchipelagoSpecial_ShouldHandle
+	goto_if_eq VAR_RESULT, TRUE, ArchipelagoScript_FindHiddenItem
 	additem VAR_0x8005
 	copyvar VAR_0x8007, VAR_RESULT
 	bufferitemnameplural STR_VAR_2, VAR_0x8005, 1
@@ -181,6 +185,7 @@ EventScript_HiddenItemScript::
 	end
 
 EventScript_PickUpHiddenItem::
+	special SetHiddenItemFlag
 	copyvar VAR_0x8008, VAR_0x8004
 	copyvar VAR_0x8004, VAR_0x8005
 	specialvar VAR_RESULT, BufferTMHMMoveName
@@ -202,10 +207,8 @@ EventScript_FoundHiddenItem::
 EventScript_PutHiddenItemInPocket::
 	waitmessage
 	waitfanfare
-	bufferitemnameplural STR_VAR_2, VAR_0x8004, 1
 	copyvar VAR_0x8004, VAR_0x8008
 	special TryPutTreasureInvestigatorsOnAir
-	special SetHiddenItemFlag
 	releaseall
 	end
 

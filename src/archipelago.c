@@ -134,6 +134,7 @@ bool8 ArchipelagoSpecial_IsItemSpecial(void)
 
 bool8 ArchipelagoSpecial_ShouldHandle(void)
 {
+    DebugPrintf("%S", GetItemName(gSpecialVar_ArchipelagoItemFound));
     return gSpecialVar_ArchipelagoItemFound == ITEM_ARCHIPELAGO || ArchipelagoSpecial_IsItemSpecial();
 }
 

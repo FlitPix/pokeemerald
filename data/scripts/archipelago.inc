@@ -54,6 +54,14 @@ ArchipelagoScript_FindItem::
 	release
 	return
 
+ArchipelagoScript_FindHiddenItem::
+	special SetHiddenItemFlag
+	specialvar VAR_RESULT, ArchipelagoSpecial_IsItemSpecial
+	goto_if_eq VAR_RESULT, TRUE, ArchipelagoScript_HandleSpecialItem
+	call ArchipelagoScript_HandleTextBox
+	releaseall
+	end
+
 ArchipelagoScript_HandleSpecialItem::
 	switch VAR_AP_ITEM
 	case ITEM_BADGE_1, ArchipelagoScript_ReceiveStoneBadge
