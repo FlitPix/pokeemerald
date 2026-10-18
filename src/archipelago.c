@@ -134,7 +134,7 @@ bool8 ArchipelagoSpecial_IsItemSpecial(void)
 
 bool8 ArchipelagoSpecial_ShouldHandle(void)
 {
-    DebugPrintf("%S", GetItemName(gSpecialVar_ArchipelagoItemFound));
+    DebugPrintf("Found local item: %S", GetItemName(gSpecialVar_ArchipelagoItemFound));
     return gSpecialVar_ArchipelagoItemFound == ITEM_ARCHIPELAGO || ArchipelagoSpecial_IsItemSpecial();
 }
 
@@ -171,6 +171,7 @@ u16 ArchipelagoSpecial_PopReward(void)
 
 u16 ArchipelagoSpecial_ConsumeReceivedItem(void)
 {
+    DebugPrintf("Received remote item: %S", GetItemName(gArchipelagoReceivedItem.itemId));
     gSaveBlock1Ptr->archipelagoLastReceivedItemIndex = gArchipelagoReceivedItem.itemIndex;
     gArchipelagoReceivedItem.isFilled = FALSE;
     return gArchipelagoReceivedItem.itemId;
