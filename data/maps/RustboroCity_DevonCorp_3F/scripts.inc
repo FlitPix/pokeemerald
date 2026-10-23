@@ -49,11 +49,10 @@ RustboroCity_DevonCorp_3F_EventScript_MeetPresident::
 	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneIHaveFavor, MSGBOX_DEFAULT
 Archipelago_Target_NPC_Gift_FLAG_RECEIVED_LETTER::
 	giveitem ITEM_LETTER, 1, FLAG_RECEIVED_LETTER
-	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneWantYouToHaveThis, MSGBOX_DEFAULT
-Archipelago_Target_NPC_Gift_FLAG_RECEIVED_POKENAV::
-	giveitem ITEM_POKENAV, 1, FLAG_RECEIVED_POKENAV
+	specialvar VAR_RESULT, ArchipelagoSpecial_CheckShufflePokenav
+	goto_if_eq VAR_RESULT, TRUE, RustboroCity_DevonCorp_3F_EventScript_GetPokenav
 	setflag FLAG_HIDE_RUSTBORO_CITY_POKEMON_SCHOOL_SCOTT
-	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneExplainPokenavRestUp, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneRestUp, MSGBOX_DEFAULT
 	closemessage
 	call Common_EventScript_OutOfCenterPartyHeal
 	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneGoWithCautionAndCare, MSGBOX_DEFAULT
@@ -70,6 +69,13 @@ Archipelago_Target_NPC_Gift_FLAG_RECEIVED_POKENAV::
 	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
 	releaseall
 	end
+
+RustboroCity_DevonCorp_3F_EventScript_GetPokenav::
+	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneWantYouToHaveThis, MSGBOX_DEFAULT
+Archipelago_Target_NPC_Gift_FLAG_RECEIVED_POKENAV::
+	giveitem ITEM_POKENAV, 1, FLAG_RECEIVED_POKENAV
+	msgbox RustboroCity_DevonCorp_3F_Text_MrStoneExplainPokenav, MSGBOX_DEFAULT
+	return
 
 RustboroCity_DevonCorp_3F_Movement_Unused:
 	walk_up
@@ -220,7 +226,7 @@ RustboroCity_DevonCorp_3F_Text_MrStoneWantYouToHaveThis:
 RustboroCity_DevonCorp_3F_Text_ReceivedPokenav:
 	.string "{PLAYER} received a POKéNAV!$"
 
-RustboroCity_DevonCorp_3F_Text_MrStoneExplainPokenavRestUp:
+RustboroCity_DevonCorp_3F_Text_MrStoneExplainPokenav:
 	.string "MR. STONE: That device…\p"
 	.string "It's a POKéMON NAVIGATOR, or POKéNAV\n"
 	.string "for short.\p"
@@ -228,7 +234,9 @@ RustboroCity_DevonCorp_3F_Text_MrStoneExplainPokenavRestUp:
 	.string "TRAINER on an adventure.\p"
 	.string "It has a map of the HOENN region.\p"
 	.string "You can check the locations of\n"
-	.string "DEWFORD and SLATEPORT easily!\p"
+	.string "DEWFORD and SLATEPORT easily!$"
+
+RustboroCity_DevonCorp_3F_Text_MrStoneRestUp:
 	.string "By the way, I've heard that sinister\n"
 	.string "criminals--MAGMA and AQUA, I believe--\l"
 	.string "have been making trouble far and wide.\p"

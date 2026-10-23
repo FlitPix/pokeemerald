@@ -550,4 +550,5 @@ gSpecials::
 	def_special ArchipelagoSpecial_CanChallengeNorman
 	def_special ArchipelagoSpecial_CanChallengeEliteFour
 	def_special ArchipelagoSpecial_CheckReusableTms
+	def_special ArchipelagoSpecial_CheckShufflePokenav
 	def_special ArchipelagoSpecial_CanUseHmOutsideBattle

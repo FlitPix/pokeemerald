@@ -254,6 +254,11 @@ bool8 ArchipelagoSpecial_CheckReusableTms(void)
     return gArchipelagoOptions.reusableTms;
 }
 
+bool8 ArchipelagoSpecial_CheckShufflePokenav(void)
+{
+    return gArchipelagoOptions.shufflePokenav;
+}
+
 bool8 CanUseHmOutsideBattle(u8 fieldMove)
 {
     u8 ObtainedBadgeMask = 0;
