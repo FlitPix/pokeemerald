@@ -24,6 +24,7 @@ Archipelago_Target_Badge_1::
 	clearflag FLAG_HIDE_RUSTURF_TUNNEL_AQUA_GRUNT
 	call Common_EventScript_SetGymTrainers
 	goto RustboroCity_Gym_EventScript_GiveRockTomb
+	release
 	end
 
 RustboroCity_Gym_EventScript_GiveRockTomb::
