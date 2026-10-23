@@ -1,4 +1,5 @@
 #include "global.h"
+#include "archipelago.h"
 #include "battle.h"
 #include "battle_message.h"
 #include "battle_anim.h"
@@ -3315,7 +3316,9 @@ static void Cmd_getexp(void)
                     viaExpShare++;
             }
 
-            calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield * gBattleMons[gBattlerFainted].level / 7;
+            calculatedExp = gSpeciesInfo[gBattleMons[gBattlerFainted].species].expYield
+                            * gBattleMons[gBattlerFainted].level / 7
+                            * gArchipelagoOptions.expPercentMultiplier;
 
             if (viaExpShare) // at least one mon is getting exp via exp share
             {
